@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFC107</color>
+    <color name="colorPrimaryDark">#FFA000</color>
+    <color name="backgroundcolor">#fcfcfc</color>
+    <color name="white">#ededed</color>
+    <color name="deeppurple">#7c4dff</color>
+    <color name="yello">#ffb300</color>
+    <color name="green">#00bfa5</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="grey">#D3D3D3</color>
+    <color name="ic_cancel">#FF4081</color>
+    <color name="black">#C0C0C0</color>
+    <color name="bluedark">#2f333f</color>
+    <color name="bluelight">#49acd5</color>
+    <color name="orange">#eaad43</color>
+    <color name="yesil">#32CD32</color>
+    <color name="mavi">#00008B</color>
+    <color name="kırmızı">#C71000</color>
+    <color name="butonrenk">#FFEFD5</color>
+    <color name="buton_click">#FFFFE0</color>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    >
+    <item
+        android:id="@+id/settings"
+        android:orderInCategory="300"
+        android:title="Ayarlar"
+        android:icon="@drawable/settings"
+        app:showAsAction="always"
+        ></item>
+    <item
+        android:id="@+id/skor"
+        android:orderInCategory="300"
+        android:title="Skor"
+        android:icon="@drawable/timer"
+        app:showAsAction="always"
+        ></item>
+    <item
+        android:id="@+id/skors"
+        android:orderInCategory="300"
+        android:title="Skordsd"
+        android:icon="@drawable/kalp"
+        app:showAsAction="always"
+        ></item>
+
+</menu>

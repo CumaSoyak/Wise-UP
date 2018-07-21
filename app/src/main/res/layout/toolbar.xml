@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+                <LinearLayout
+                    android:id="@+id/toolbar_kirikalp"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/textView13"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/kalp1"
+                            android:layout_width="25dp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/kalp" />
+
+                        <ImageView
+                            android:id="@+id/kalp2"
+                            android:layout_width="25dp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/kalp" />
+
+                        <ImageView
+                            android:id="@+id/kalp3"
+                            android:layout_width="25dp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/kalp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text=""
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/toolbar_kirikalp"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/time"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:drawableLeft="@drawable/timer"
+                    android:gravity="center"
+                    android:text="48"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/textView13"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.Toolbar>
