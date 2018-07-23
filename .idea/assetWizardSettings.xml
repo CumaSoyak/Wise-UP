@@ -40,15 +40,25 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                      <entry key="image">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="trimmed" value="true" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
                                     </map>
                                   </option>
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="cropped" value="true" />
                                       <entry key="iconShape" value="NONE" />
-                                      <entry key="imageAsset" value="C:\Users\Cuma\Desktop\Resimler\uygulama resimler\market.png" />
-                                      <entry key="outputName" value="market" />
+                                      <entry key="imageAsset" value="C:\Users\Cuma\Desktop\Resimler\uygulama resimler\pin.png" />
+                                      <entry key="outputName" value="ibre_pin" />
                                     </map>
                                   </option>
                                 </PersistentState>

@@ -20,14 +20,17 @@ public class Utils {
 
     private  static final String TAG="Utils";
     public static List<Profile> profileList;
-    private int boyut;
 
-    public static List<Profile> loadProfiles(Context context){
-        int kategori=3;
+    public void key(int anahtar){
+
+    }
+
+    public static List<Profile> loadProfiles(Context context,int anahtar){
+        int kategori=anahtar;
         try {
             GsonBuilder gsonBuilder=new GsonBuilder();
             Gson gson=gsonBuilder.create();
-            if (kategori==0){
+            if (kategori==1){
                 JSONArray array=new JSONArray(loadJSONFromAsset(context,"tarih.json"));
                 profileList=new ArrayList<>();
 
@@ -37,7 +40,7 @@ public class Utils {
 
                 }
                 }
-           else if (kategori==1){
+           else if (kategori==2){
                 JSONArray array=new JSONArray(loadJSONFromAsset(context,"bilim.json"));
                 profileList=new ArrayList<>();
 
@@ -58,7 +61,27 @@ public class Utils {
                 }
             }
             else if (kategori==4){
-                JSONArray array=new JSONArray(loadJSONFromAsset(context,"tarih.json"));
+                JSONArray array=new JSONArray(loadJSONFromAsset(context,"cografya.json"));
+                profileList=new ArrayList<>();
+
+                for (int i = 0; i <array.length() ; i++){
+                    Profile profile=gson.fromJson(array.getString(i),Profile.class);
+                    profileList.add(profile);
+
+                }
+            }
+            else if (kategori==5){
+                JSONArray array=new JSONArray(loadJSONFromAsset(context,"sanat.json"));
+                profileList=new ArrayList<>();
+
+                for (int i = 0; i <array.length() ; i++){
+                    Profile profile=gson.fromJson(array.getString(i),Profile.class);
+                    profileList.add(profile);
+
+                }
+            }
+            else if (kategori==6){
+                JSONArray array=new JSONArray(loadJSONFromAsset(context,"spor.json"));
                 profileList=new ArrayList<>();
 
                 for (int i = 0; i <array.length() ; i++){
@@ -95,8 +118,5 @@ public class Utils {
             }
             return json;
         }
-    public int getir() {
-        boyut=profileList.size();
-        return boyut;
-    }
+
 }

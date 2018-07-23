@@ -13,7 +13,9 @@ public class KupaFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.exit, container, false);
+        View view=inflater.inflate(R.layout.fragment_kupa, container, false);
+        //
+
         return view;
     }
 }

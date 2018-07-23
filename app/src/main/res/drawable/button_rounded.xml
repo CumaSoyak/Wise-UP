@@ -3,27 +3,15 @@
     <item>
         <shape android:shape="rectangle">
             <corners
-                android:bottomLeftRadius="20dp"
-                android:topLeftRadius="20dp"
-                android:topRightRadius="20dp"
-                android:bottomRightRadius="20dp"
-                android:radius="10dp"/>
+                android:bottomLeftRadius="0dp"
+                android:topLeftRadius="1000dp"
+                android:topRightRadius="1000dp"
+                android:bottomRightRadius="0dp"
+                android:radius="100dp"/>
             <solid
-                android:color="@color/butonrenk"/>
+                android:color="#C70039"/>
         </shape>
 
     </item>
-    <item android:state_pressed="true">
-        <shape android:shape="rectangle">
-            <corners
-                android:bottomLeftRadius="20dp"
-                android:topLeftRadius="20dp"
-                android:topRightRadius="20dp"
-                android:bottomRightRadius="20dp"
-                android:radius="10dp"
-                />
-            <solid
-                android:color="@color/buton_click"/>
-        </shape>
-    </item>
+
 </selector>

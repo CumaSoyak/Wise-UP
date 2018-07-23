@@ -39,5 +39,7 @@ dependencies {
     implementation 'com.android.support:support-v4:27.1.1'
     implementation 'com.android.support:design:27.1.1'
     implementation 'github.hellocsl:CursorWheelLayout:1.1.0'
+    implementation 'ru.github.igla:ferriswheel:1.1.1'
+
 
 }

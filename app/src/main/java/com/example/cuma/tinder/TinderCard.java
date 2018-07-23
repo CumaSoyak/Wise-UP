@@ -120,6 +120,14 @@ public class TinderCard {
                 kategori_circle_image.setImageResource(R.drawable.cografya);
                 kategori_title.setText("Coğrafya");
                 break;
+            case MainActivity.sanat:
+                kategori_circle_image.setImageResource(R.drawable.sanat);
+                kategori_title.setText("Sanat");
+                break;
+            case MainActivity.spor:
+                kategori_circle_image.setImageResource(R.drawable.spor);
+                kategori_title.setText("Spor");
+                break;
         }
 
     }

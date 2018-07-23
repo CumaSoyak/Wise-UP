@@ -129,18 +129,17 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/card1"
-        android:layout_width="130dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="45dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="cardviewclick"
         app:cardCornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/card2"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/elmas">
+        app:layout_constraintTop_toTopOf="@+id/card2">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -149,6 +148,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/kategori_image_checked1"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:padding="10dp"
@@ -180,18 +180,17 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/card2"
-        android:layout_width="130dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="cardviewclick"
         app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toStartOf="@+id/card3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card1">
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/card1"
+        app:layout_constraintTop_toBottomOf="@+id/elmas">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -200,6 +199,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/kategori_image_checked2"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:padding="10dp"
@@ -232,19 +232,18 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/card3"
-        android:layout_width="130dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
 
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="45dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="cardviewclick"
         app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/card2"
-        app:layout_constraintTop_toBottomOf="@+id/card1">
+        app:layout_constraintTop_toBottomOf="@+id/para">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -253,6 +252,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/kategori_image_checked3"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:padding="10dp"
@@ -284,18 +284,17 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/card4"
-        android:layout_width="130dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="cardviewclick"
         app:cardCornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/card5"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card3">
+        app:layout_constraintTop_toBottomOf="@+id/card1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -304,6 +303,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/kategori_image_checked4"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:padding="10dp"
@@ -332,6 +332,127 @@
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card5"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="cardviewclick"
+        app:layout_constraintEnd_toStartOf="@+id/card6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/card4"
+        app:layout_constraintTop_toTopOf="@+id/card4"
+        card_view:cardCornerRadius="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/kategori_image_checked5"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:padding="10dp"
+                android:src="@drawable/sanat" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Sanat"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="1/10"
+                android:textColor="@android:color/darker_gray" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card6"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="cardviewclick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/card5"
+        app:layout_constraintTop_toBottomOf="@+id/card3"
+        card_view:cardCornerRadius="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/kategori_image_checked6"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:padding="10dp"
+                android:src="@drawable/spor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Spor"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="1/10"
+                android:textColor="@android:color/darker_gray" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <Button
+        android:id="@+id/baslat"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/ibre"
+         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/isaret_oku"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toBottomOf="@+id/card2"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:srcCompat="@drawable/ibre_cubuk" />
 
 
 </android.support.constraint.ConstraintLayout>

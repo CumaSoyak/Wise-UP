@@ -6,26 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
          >
-        <github.hellocsl.cursorwheel.CursorWheelLayout
-            android:layout_centerHorizontal="true"
-            android:id="@+id/sadas"
-            android:layout_width="280dip"
-            android:layout_height="280dip"
-            app:wheelCursorColor="#fff"
-            app:wheelCursorHeight="19dip"
-            app:wheelItemRotateMode="none"
-            app:wheelSelectedAngle="270"
-            >
-            <TextView
-                android:id="@+id/dsda"
-                android:text="asdasd"
-                android:textColor="#fff"
-                android:gravity="center"
-                style="@style/TextAppearance.AppCompat.Large.Inverse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
-
-        </github.hellocsl.cursorwheel.CursorWheelLayout>
+    <ru.github.igla.ferriswheel.FerrisWheelView
+        android:id="@+id/ferrisWheelView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        app:fwv_cabinsNumber="8"
+        app:fwv_rotateSpeed="6" />
 
 </RelativeLayout>

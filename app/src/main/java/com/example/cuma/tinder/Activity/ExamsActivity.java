@@ -35,10 +35,11 @@ import java.util.ArrayList;
 
 public class ExamsActivity extends AppCompatActivity {
 
-    //quiz keyi çekmem lazım Utils de json için
-     //custom alert dalog yapılacak
-    //üst kısmı menünün bazı menu için ayrılacak
-    //
+    //tam 0. sanıyede basarsam 3 can kaldı dıyor
+    //Eğer popupta son ana kadar beklersem puan ve can değişiyor
+    //custom alert dalog yapılacak
+
+    //home // Restart // Devam et  Decam et kısmı düzelecek fakat çıkıç yapmak isterse görünecek
 
     private SwipePlaceHolderView mSwipeView;
     private Context mContext;
@@ -96,7 +97,7 @@ public class ExamsActivity extends AppCompatActivity {
         // .setSwipeOutMsgLayoutId(R.layout.tinder_swipe_out_msg_view));       //Yana kaydırırken mesajın yanlış olduğunu yazıyoruz
 
 
-        for (Profile deger : Utils.loadProfiles(this.getApplicationContext())) {       //her bir elemanda gez degere at : nerde gezineceksin
+        for (Profile deger : Utils.loadProfiles(this.getApplicationContext(),quiz)) {       //her bir elemanda gez degere at : nerde gezineceksin
             mSwipeView.addView(new TinderCard(mContext, deger, mSwipeView, quiz));
 
             cevaplistesi.add(deger.getAnswer());
@@ -172,7 +173,7 @@ public class ExamsActivity extends AppCompatActivity {
     }
 
     public CountDownTimer getCountDownTimer() {
-        countDownTimer = new CountDownTimer(56900, 1000) { //Burdaki saniye 49 olması lazım
+        countDownTimer = new CountDownTimer(16900, 1000) { //Burdaki saniye 49 olması lazım
             @Override
             public void onTick(long millisUntilFinished) {
                 time.setText(String.valueOf(millisUntilFinished / 1000));
@@ -190,14 +191,15 @@ public class ExamsActivity extends AppCompatActivity {
     public void ShowPop() {    //Zaman bittiğinde kazanılan altın ve elmasları gösteriyoruz
 
         TextView textclose, kategori_text, popup_para, popup_can, popup_elmas;
-        Button button;
+        ImageButton home,again,devam;
         ImageView kategori_image;
-        kirik_kalp=0;
+
         dialog.setContentView(R.layout.win_popup);
         dialog.setCancelable(false);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        textclose = (TextView) dialog.findViewById(R.id.textcancel);
-        button = (Button) dialog.findViewById(R.id.popup_ok);
+        home = (ImageButton) dialog.findViewById(R.id.popup_home);
+        again=(ImageButton)dialog.findViewById(R.id.popoup_restart);
+        devam=(ImageButton)dialog.findViewById(R.id.popup_play);
         kategori_image = (ImageView) dialog.findViewById(R.id.kategori_image);
         kategori_text = (TextView) dialog.findViewById(R.id.kategori_popup);
 
@@ -211,7 +213,13 @@ public class ExamsActivity extends AppCompatActivity {
         }
         popup_para.setText(String.valueOf(puanHesapla.puanarti()));
         popup_elmas.setText(String.valueOf(puanHesapla.puanarti()));
+        Log.i("Kalpp",":"+kirik_kalp);
+        if (kirik_kalp==0){popup_can.setText("3");}
+        else if (kirik_kalp==1){popup_can.setText("2");}
+        else if (kirik_kalp==2){popup_can.setText("1");}
+        else if (kirik_kalp==3){popup_can.setText("0");}
 
+      //  kirik_kalp=0;
 
         switch (quiz) {
             case MainActivity.tarih:
@@ -230,22 +238,37 @@ public class ExamsActivity extends AppCompatActivity {
                 kategori_image.setImageResource(R.drawable.cografya);
                 kategori_text.setText("Dünya");
                 break;
+            case MainActivity.sanat:
+                kategori_image.setImageResource(R.drawable.sanat);
+                kategori_text.setText("Sanat");
+                break;
+            case MainActivity.spor:
+                kategori_image.setImageResource(R.drawable.spor);
+                kategori_text.setText("Spor");
+                break;
 
         }
-
-        textclose.setOnClickListener(new View.OnClickListener() {
+        home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
                 Intent ıntent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(ıntent);
             }
         });
-        button.setOnClickListener(new View.OnClickListener() {
+        again.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent ıntent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent ıntent=new Intent(getApplicationContext(),ExamsActivity.class);
+                ıntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                ıntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                finish();
                 startActivity(ıntent);
+            }
+        });
+        devam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss(); //Burası düzelecek
             }
         });
         if (!isFinishing()) {
@@ -270,11 +293,7 @@ public class ExamsActivity extends AppCompatActivity {
                 .show();
     }
 
-    public void gecis() {
 
-        TextView textView = (TextView) findViewById(R.id.gecis_text);
-        textView.setText("Gecis");
-    }
 
 
 

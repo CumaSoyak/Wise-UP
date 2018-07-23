@@ -58,7 +58,7 @@ public class MoneyActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager){
         MoneyAdapter adapter=new MoneyAdapter(getSupportFragmentManager());
-        adapter.addFragment(new CanFragment(),"Tab1");
+        adapter.addFragment(CanFragment.newInstance(),"Tab1");
         adapter.addFragment(new ParaFragment(),"Para");
         adapter.addFragment(new ElmasFragment(),"Elmas");
         viewPager.setAdapter(adapter);
