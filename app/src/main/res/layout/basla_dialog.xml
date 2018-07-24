@@ -9,7 +9,6 @@
     android:orientation="vertical"
     >
     <!--#80000000 bu renk hafif siyah -->
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/main_kategoriadi"
         android:layout_width="wrap_content"
@@ -17,7 +16,8 @@
         android:layout_marginTop="16dp"
         android:text="TextView"
         android:textColor="@color/backgroundcolor"
-        android:textSize="25dp"
+        android:textSize="35dp"
+        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
-        android:background="@drawable/play_and_replay_button"
+        android:background="@drawable/play_button"
         android:src="@drawable/play"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
-        android:background="@drawable/play_and_replay_button"
+        android:background="@drawable/replay_button"
         android:src="@drawable/replay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/main_basla_buton"
