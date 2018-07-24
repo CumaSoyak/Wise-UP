@@ -20,13 +20,7 @@ import com.example.cuma.tinder.Fragment.ShopFragment;
 import com.example.cuma.tinder.R;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String sorukey = "key";
-    public static final int tarih = 1;
-    public static final int bilim = 2;
-    public static final int eglence = 3;
-    public static final int cografya = 4;
-    public static final int sanat = 5;
-    public static final int spor = 6;
+
 
     private ViewPager viewPager;
     private MainAdapter mainAdapter;
@@ -89,40 +83,8 @@ public class MainActivity extends AppCompatActivity {
         Intent ıntent = new Intent(getApplicationContext(), MoneyActivity.class);
         startActivity(ıntent);
     }
+    // TODO burayı düzenle main fragmentten al
 
-    public void cardviewclick(View view) {
-        Intent ıntent = new Intent(getApplicationContext(), ExamsActivity.class);
-
-        switch (view.getId()) {
-
-            case R.id.card1:
-                ıntent.putExtra(sorukey, tarih);
-                startActivity(ıntent);
-                break;
-            case R.id.card2:
-                ıntent.putExtra(sorukey, bilim);
-                startActivity(ıntent);
-                break;
-            case R.id.card3:
-                ıntent.putExtra(sorukey, eglence);
-                startActivity(ıntent);
-                break;
-            case R.id.card4:
-                ıntent.putExtra(sorukey, cografya);
-                startActivity(ıntent);
-                break;
-            case R.id.card5:
-                ıntent.putExtra(sorukey, sanat);
-                startActivity(ıntent);
-                break;
-            case R.id.card6:
-                ıntent.putExtra(sorukey, spor);
-                startActivity(ıntent);
-                break;
-
-        }
-
-    }
 
 
 }

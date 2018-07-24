@@ -104,27 +104,27 @@ public class TinderCard {
 
 
         switch (mQuiz) {
-            case MainActivity.tarih:
+            case 1:
                 kategori_circle_image.setImageResource(R.drawable.tarihim);
                 kategori_title.setText("Tarih");
                 break;
-            case MainActivity.bilim:
+            case 2:
                 kategori_circle_image.setImageResource(R.drawable.bilim);
                 kategori_title.setText("Bilim");
                 break;
-            case MainActivity.eglence:
+            case 3:
                 kategori_circle_image.setImageResource(R.drawable.eglence);
                 kategori_title.setText("Eğlence");
                 break;
-            case MainActivity.cografya:
+            case 4:
                 kategori_circle_image.setImageResource(R.drawable.cografya);
                 kategori_title.setText("Coğrafya");
                 break;
-            case MainActivity.sanat:
+            case 5:
                 kategori_circle_image.setImageResource(R.drawable.sanat);
                 kategori_title.setText("Sanat");
                 break;
-            case MainActivity.spor:
+            case 6:
                 kategori_circle_image.setImageResource(R.drawable.spor);
                 kategori_title.setText("Spor");
                 break;

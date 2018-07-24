@@ -25,6 +25,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.example.cuma.tinder.Class.Profile;
 import com.example.cuma.tinder.Class.PuanHesapla;
+import com.example.cuma.tinder.Fragment.MainFragment;
 import com.example.cuma.tinder.R;
 import com.example.cuma.tinder.TinderCard;
 import com.example.cuma.tinder.Utils;
@@ -38,6 +39,8 @@ public class ExamsActivity extends AppCompatActivity {
     //tam 0. sanıyede basarsam 3 can kaldı dıyor
     //Eğer popupta son ana kadar beklersem puan ve can değişiyor
     //custom alert dalog yapılacak
+    //Main activiydeki cardview seçimi randoma ayarlamam lazım to do bıraktım
+    //TODO geri geldiğimde hala seçili kalıyor random kategori
 
     //home // Restart // Devam et  Decam et kısmı düzelecek fakat çıkıç yapmak isterse görünecek
 
@@ -81,7 +84,7 @@ public class ExamsActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        quiz = getIntent().getIntExtra(MainActivity.sorukey, MainActivity.tarih);
+        quiz = getIntent().getIntExtra(MainFragment.sorukey, MainFragment.tarih);
         dialog = new Dialog(this, R.style.DialogNotitle);
 
         utils = new Utils();
@@ -222,27 +225,27 @@ public class ExamsActivity extends AppCompatActivity {
       //  kirik_kalp=0;
 
         switch (quiz) {
-            case MainActivity.tarih:
+            case 1:
                 kategori_image.setImageResource(R.drawable.tarihim);
                 kategori_text.setText("Tarih");
                 break;
-            case MainActivity.bilim:
+            case 2:
                 kategori_image.setImageResource(R.drawable.bilim);
                 kategori_text.setText("Bilim");
                 break;
-            case MainActivity.eglence:
+            case 3:
                 kategori_image.setImageResource(R.drawable.eglence);
                 kategori_text.setText("Eğlence");
                 break;
-            case MainActivity.cografya:
+            case 4:
                 kategori_image.setImageResource(R.drawable.cografya);
                 kategori_text.setText("Dünya");
                 break;
-            case MainActivity.sanat:
+            case 5:
                 kategori_image.setImageResource(R.drawable.sanat);
                 kategori_text.setText("Sanat");
                 break;
-            case MainActivity.spor:
+            case 6:
                 kategori_image.setImageResource(R.drawable.spor);
                 kategori_text.setText("Spor");
                 break;
@@ -263,12 +266,14 @@ public class ExamsActivity extends AppCompatActivity {
                 ıntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 finish();
                 startActivity(ıntent);
+                //TODO eğer canı bitmişse tekrar oynayamaz canını kontrol edip 0 değilse again hakkı verilmesi lazım
             }
         });
         devam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss(); //Burası düzelecek
+                //TODO eğer canı bitmişse devam yapamaması lazım
             }
         });
         if (!isFinishing()) {

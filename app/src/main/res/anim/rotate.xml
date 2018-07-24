@@ -4,9 +4,9 @@
         android:toDegrees="360"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:duration="1000"
+        android:duration="700"
         android:repeatMode="reverse"
-        android:repeatCount="5"
+        android:repeatCount="3"
         android:interpolator="@android:anim/cycle_interpolator"/>
 
 </set>
