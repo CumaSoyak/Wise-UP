@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,13 +37,11 @@ import java.util.ArrayList;
 
 public class ExamsActivity extends AppCompatActivity {
 
-    //tam 0. sanıyede basarsam 3 can kaldı dıyor
-    //Eğer popupta son ana kadar beklersem puan ve can değişiyor
-    //custom alert dalog yapılacak
-    //Main activiydeki cardview seçimi randoma ayarlamam lazım to do bıraktım
-    //TODO geri geldiğimde hala seçili kalıyor random kategori
+     //Eğer popupta son ana kadar beklersem puan ve can değişiyor
+    //TODO dogru cevap sayısı fazladan değer geliyor
+   // TODO //home // Restart // Devam et  Decam et kısmı düzelecek fakat çıkıç yapmak isterse görünecek
+    //TODO uygulama açılacağı zaman status bar önce sarı sonra siyah oluyor
 
-    //home // Restart // Devam et  Decam et kısmı düzelecek fakat çıkıç yapmak isterse görünecek
 
     private SwipePlaceHolderView mSwipeView;
     private Context mContext;
@@ -51,14 +50,12 @@ public class ExamsActivity extends AppCompatActivity {
     public Utils utils;
     public CountDownTimer countDownTimer;
     public TextView time;
-    private ImageButton like,dislike;
+    private ImageButton like,dislike,evet_buton,hayir_buton;
     public PuanHesapla puanHesapla=new PuanHesapla(5);
     public Dialog dialog;
-    public AlertDialog alertDialog;
-    int dogrucevapsayisi;
-    int cevapsira;
-    int kirik_kalp;
+    int dogrucevapsayisi=0,cevapsira,kirik_kalp;
     ImageView kirik_kalp_image1,kirik_kalp_image2,kirik_kalp_image3;
+    private long time_hatırla=0;
     public ArrayList<String> cevaplistesi = new ArrayList<String>();
 
     private static final String TAG = "ExamsActivity";
@@ -75,10 +72,12 @@ public class ExamsActivity extends AppCompatActivity {
         time = (TextView) findViewById(R.id.time);
         like=(ImageButton)findViewById(R.id.like_img);
         dislike=(ImageButton)findViewById(R.id.dislike_img);
+        evet_buton=(ImageButton)findViewById(R.id.acceptBtn);
+        hayir_buton=(ImageButton)findViewById(R.id.rejectBtn);
         kirik_kalp_image1=(ImageView)findViewById(R.id.kalp1);
         kirik_kalp_image2=(ImageView)findViewById(R.id.kalp2);
         kirik_kalp_image3=(ImageView)findViewById(R.id.kalp3);
-        mProfile = new Profile("Bu da bir cevap");//Burda örnek var buraya listeden çekmem lazım
+    //    mProfile = new Profile("Bu da bir cevap");//Burda örnek var buraya listeden çekmem lazım
 
         getCountDownTimer();// Timer kullanımını gerçekleştirdik
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -106,8 +105,7 @@ public class ExamsActivity extends AppCompatActivity {
             cevaplistesi.add(deger.getAnswer());
         }
 
-
-        findViewById(R.id.rejectBtn).setOnClickListener(new View.OnClickListener() {
+        hayir_buton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mSwipeView.doSwipe(false);
@@ -123,9 +121,12 @@ public class ExamsActivity extends AppCompatActivity {
 
                 cevapsira++;
                 Log.i("KirikKalp",": :"+kirik_kalp);
+                cevabı_beklet();
+
+
             }
         });
-        findViewById(R.id.acceptBtn).setOnClickListener(new View.OnClickListener() {
+        evet_buton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mSwipeView.doSwipe(true);
@@ -134,17 +135,22 @@ public class ExamsActivity extends AppCompatActivity {
                     //Log.i("Evet Puan",":",puanHesapla.puanarti());
                 }
                 else{
-                       kirik_kalp++;
+                    kirik_kalp++;
                     if (kirik_kalp==1){ kirik_kalp_image1.setImageResource(R.drawable.kirikalp); }
                     if (kirik_kalp==2){ kirik_kalp_image2.setImageResource(R.drawable.kirikalp); }
                     if (kirik_kalp==3){ kirik_kalp_image3.setImageResource(R.drawable.kirikalp); }
                     if (kirik_kalp==3){ ShowPop(); }
                 }
                 cevapsira++;
-            }
+                cevabı_beklet();
 
+
+
+            }
         });
+
     }
+
     public ArrayList<String> listedondur() {
         return cevaplistesi;
 
@@ -179,7 +185,8 @@ public class ExamsActivity extends AppCompatActivity {
         countDownTimer = new CountDownTimer(16900, 1000) { //Burdaki saniye 49 olması lazım
             @Override
             public void onTick(long millisUntilFinished) {
-                time.setText(String.valueOf(millisUntilFinished / 1000));
+                time.setText( String.valueOf(millisUntilFinished / 1000).toString());
+                time_hatırla=millisUntilFinished;
             }
 
             @Override
@@ -190,6 +197,7 @@ public class ExamsActivity extends AppCompatActivity {
 
         return countDownTimer;
     }
+
 
     public void ShowPop() {    //Zaman bittiğinde kazanılan altın ve elmasları gösteriyoruz
 
@@ -261,19 +269,19 @@ public class ExamsActivity extends AppCompatActivity {
         again.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent ıntent=new Intent(getApplicationContext(),ExamsActivity.class);
-                ıntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                ıntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                dialog.dismiss();
+                Intent intent = getIntent();
                 finish();
-                startActivity(ıntent);
-                //TODO eğer canı bitmişse tekrar oynayamaz canını kontrol edip 0 değilse again hakkı verilmesi lazım
+                startActivity(intent);
+
+
             }
         });
         devam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss(); //Burası düzelecek
-                //TODO eğer canı bitmişse devam yapamaması lazım
+                //TODO devam yapamaması lazım çunku süre bitince veya yanınca popup açılıyor
             }
         });
         if (!isFinishing()) {
@@ -283,22 +291,47 @@ public class ExamsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {              //Çıkış yapmak istiyormmusun diye soruyoruz
-        new AlertDialog.Builder(this)
-                .setIcon(R.drawable.moodbad)
-                .setTitle("Dikkat")
-                .setMessage("Çıkmak istediğine eminmisin ?")
-                .setPositiveButton("Evet", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
+        //TODO süre durduktan sonra devam etmesi lazım
+         final Dialog cikis_dialog=new Dialog(this,R.style.DialogNotitle);
+         cikis_dialog.setContentView(R.layout.exit_popup);
+         cikis_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+         cikis_dialog.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
+         countDownTimer.cancel();
+         Button devam_et=(Button)cikis_dialog.findViewById(R.id.devam_et);
+         Button cikis_yap=(Button)cikis_dialog.findViewById(R.id.cikis_yap);
+         devam_et.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 cikis_dialog.dismiss();
+             }
+         });
+         cikis_yap.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 cikis_dialog.dismiss();//Anasayfaya dönmeden önce dialogu kapatmak lazım
+                finish();
+             }
+         });
+         cikis_dialog.show();
 
-                })
-                .setNegativeButton("Hayır", null)
-                .show();
     }
 
+    public void cevabı_beklet(){
+        evet_buton.setEnabled(false);
+        hayir_buton.setEnabled(false);
+        int bekletsure=400;
+        final Handler handler=new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                evet_buton.setEnabled(true);
+                hayir_buton.setEnabled(true);
 
+            }
+        },bekletsure);
+
+
+    }
 
 
 

@@ -78,12 +78,10 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
-
-    public void moneyclick(View view) {
-        Intent ıntent = new Intent(getApplicationContext(), MoneyActivity.class);
+    public void moneyclick(View view){
+        Intent ıntent=new Intent(getApplicationContext(),MoneyActivity.class);
         startActivity(ıntent);
     }
-    // TODO burayı düzenle main fragmentten al
 
 
 

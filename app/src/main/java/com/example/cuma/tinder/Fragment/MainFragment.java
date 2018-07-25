@@ -41,10 +41,13 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
     CardView cardView1, cardView2, cardView3, cardView4, cardView_trans;
     ImageView checked, checked1, checked2, checked3, checked4, checked5, checked6, isaret_oku;
     Button oyunu_baslat;
-    TextView main_kategori_adi;
+    TextView main_kategori_adi,main_motivasyon;
     ImageView main_kategori_resmi;
     ImageButton main_tekrar_buton,main_basla_buton;
     Intent key_gonder;
+
+    //TODO yukarıda kalp altın para textlerin içine yazmak lazım
+    //TODO spalash screen lazım
 
     @Nullable
     @Override
@@ -150,13 +153,14 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
         main_kategori_resmi=(ImageView)dialog.findViewById(R.id.main_kategori_resmi);
         main_basla_buton=(ImageButton)dialog.findViewById(R.id.main_basla_buton);
         main_tekrar_buton=(ImageButton)dialog.findViewById(R.id.main_tekrar_buton);
+        main_motivasyon=(TextView)dialog.findViewById(R.id.basla_motivasyon);
         switch (random_sayi){
-            case 1: main_kategori_adi.setText("Tarih"); main_kategori_resmi.setImageResource(R.drawable.tarihim); break;
-            case 2: main_kategori_adi.setText("Bilim"); main_kategori_resmi.setImageResource(R.drawable.bilim);break;
-            case 3: main_kategori_adi.setText("Eğlence");main_kategori_resmi.setImageResource(R.drawable.eglence);break;
-            case 4: main_kategori_adi.setText("Coğrafya");main_kategori_resmi.setImageResource(R.drawable.cografya);break;
-            case 5: main_kategori_adi.setText("Sanat");main_kategori_resmi.setImageResource(R.drawable.sanat);break;
-            case 6: main_kategori_adi.setText("Spor");main_kategori_resmi.setImageResource(R.drawable.spor);break;
+            case 1: main_kategori_adi.setText("Tarih"); main_motivasyon.setText("Tarihte iyimisin Dostum !"); main_kategori_resmi.setImageResource(R.drawable.tarihim); break;
+            case 2: main_kategori_adi.setText("Bilim"); main_motivasyon.setText("Seni gidi BilimAdamı"); main_kategori_resmi.setImageResource(R.drawable.bilim);break;
+            case 3: main_kategori_adi.setText("Eğlence");main_motivasyon.setText("Hadi biraz Eğlenelim");main_kategori_resmi.setImageResource(R.drawable.eglence);break;
+            case 4: main_kategori_adi.setText("Coğrafya");main_motivasyon.setText("Dünyayı turlamaya ne dersin!");main_kategori_resmi.setImageResource(R.drawable.cografya);break;
+            case 5: main_kategori_adi.setText("Sanat");main_motivasyon.setText("Sanata yeteneğin olduğunu bilmiyordum !");main_kategori_resmi.setImageResource(R.drawable.sanat);break;
+            case 6: main_kategori_adi.setText("Spor");main_motivasyon.setText("Yorucu bir kategori eminmisin Dostum");main_kategori_resmi.setImageResource(R.drawable.spor);break;
 
         }
         main_basla_buton.setOnClickListener(new View.OnClickListener() {

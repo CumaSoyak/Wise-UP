@@ -16,7 +16,8 @@
     <color name="orange">#eaad43</color>
     <color name="yesil">#32CD32</color>
     <color name="mavi">#00008B</color>
-    <color name="kırmızı">#C71000</color>
+    <color name="kırmızı">#FF0000</color>
     <color name="butonrenk">#FFEFD5</color>
+    <color name="transparan">#80000000</color>
     <color name="buton_click">#FFFFE0</color>
 </resources>

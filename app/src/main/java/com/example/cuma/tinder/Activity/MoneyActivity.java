@@ -20,7 +20,6 @@ import com.example.cuma.tinder.R;
 
 public class MoneyActivity extends AppCompatActivity {
     private ViewPager viewPager;
-
     private MoneyAdapter moneyAdapter;
     private TabLayout tablaLayout;
     private Toolbar toolbar;

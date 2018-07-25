@@ -18,6 +18,8 @@ import java.util.List;
 
 public class Utils {
 
+    //TODO Soruları json dosyasının içindende random çekmem lazım yoksa hep 1. sorudan başlar
+
     private  static final String TAG="Utils";
     public static List<Profile> profileList;
 

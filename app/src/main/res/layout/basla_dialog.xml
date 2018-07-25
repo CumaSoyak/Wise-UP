@@ -6,19 +6,22 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:background="#00000000"
-    android:orientation="vertical"
-    >
-    <!--#80000000 bu renk hafif siyah -->
+    android:orientation="vertical">
+    <!--#80000000 bu renk hafif siyah yapılabiri -->
+
     <TextView
         android:id="@+id/main_kategoriadi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
         android:textColor="@color/backgroundcolor"
         android:textSize="35dp"
         android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/main_kategori_resmi"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,14 +29,14 @@
         android:id="@+id/main_kategori_resmi"
         android:layout_width="136dp"
         android:layout_height="163dp"
-        android:layout_marginBottom="130dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:src="@drawable/bilim"
-        app:layout_constraintBottom_toTopOf="@+id/main_basla_buton"
+        app:layout_constraintBottom_toTopOf="@+id/basla_motivasyon"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_kategoriadi"
-        app:layout_constraintVertical_bias="0.493" />
+        app:layout_constraintTop_toBottomOf="@+id/main_kategoriadi" />
 
     <ImageButton
         android:id="@+id/main_basla_buton"
@@ -60,6 +63,23 @@
         app:layout_constraintEnd_toStartOf="@+id/main_basla_buton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/basla_motivasyon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="70dp"
+        android:layout_marginTop="8dp"
+        android:text="Heyy Harika Dostum"
+        android:textColor="@color/backgroundcolor"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/main_basla_buton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_kategori_resmi" />
 
 
 </android.support.constraint.ConstraintLayout>
