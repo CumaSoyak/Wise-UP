@@ -57,10 +57,10 @@ public class ShopFragment extends Fragment {
         satinalList.add(new Satinal("para 3",R.drawable.coins,"85 tl"));
 
         satinalAdapter.notifyDataSetChanged(); */
-
+/*
         moneyAdapter=new MoneyAdapter(getFragmentManager());//buraya bak
         viewPager=(ViewPager)view.findViewById(R.id.viewpager);
-
+*/
 
 
         return view;
