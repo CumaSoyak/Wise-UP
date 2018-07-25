@@ -60,6 +60,7 @@ public class ShopFragment extends Fragment {
 /*
         moneyAdapter=new MoneyAdapter(getFragmentManager());//buraya bak
         viewPager=(ViewPager)view.findViewById(R.id.viewpager);
+        //Todo burası kaldığı yerden devam edecek
 */
 
 
