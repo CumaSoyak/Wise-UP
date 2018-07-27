@@ -25,7 +25,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/grey"
+            >
 
             <ImageView
                 android:layout_width="50dp"
@@ -33,14 +35,14 @@
                 android:src="@drawable/kalp" />
 
             <View
-                android:layout_width="1dp"
+                android:layout_width="2dp"
                 android:layout_height="match_parent"
-                android:background="@color/cardview_dark_background" />
+                android:background="@color/white" />
 
             <TextView
+                 android:id="@+id/main_kalp_toplam"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
                 android:gravity="center"
                 android:text="6"
                 android:textSize="15dp"
@@ -66,24 +68,26 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/grey"
+            >
 
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/elmas" />
+                android:src="@drawable/coins" />
 
             <View
-                android:layout_width="1dp"
+                android:layout_width="2dp"
                 android:layout_height="match_parent"
-                android:background="@color/cardview_dark_background" />
+                android:background="@color/white" />
 
             <TextView
+                android:id="@+id/main_para_toplam"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
                 android:gravity="center"
-                android:text="58"
+                android:text="5646"
                 android:textSize="15dp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -105,19 +109,22 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/grey"
+            >
 
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/coins" />
+                android:src="@drawable/elmas" />
 
             <View
-                android:layout_width="1dp"
+                android:layout_width="2dp"
                 android:layout_height="match_parent"
-                android:background="@color/cardview_dark_background" />
+                android:background="@color/white" />
 
             <TextView
+                android:id="@+id/main_elmas_toplam"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"

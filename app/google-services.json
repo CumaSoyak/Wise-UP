@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "465853819989",
+    "firebase_url": "https://tindergame-ce02b.firebaseio.com",
+    "project_id": "tindergame-ce02b",
+    "storage_bucket": "tindergame-ce02b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:465853819989:android:ae96188579b8e018",
+        "android_client_info": {
+          "package_name": "com.example.cuma.tinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "465853819989-n33ems9ovd6rbgd7r9lksvoca9ujm13m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4veXQnVlheSqapr4BTT7m1adwktUYYq8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

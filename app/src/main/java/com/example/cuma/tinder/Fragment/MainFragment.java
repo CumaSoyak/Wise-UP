@@ -1,10 +1,13 @@
 package com.example.cuma.tinder.Fragment;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -24,10 +27,27 @@ import android.widget.TextView;
 
 import com.example.cuma.tinder.Activity.ExamsActivity;
 import com.example.cuma.tinder.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.net.InetAddress;
+import java.sql.Connection;
+import java.util.HashMap;
 import java.util.Random;
 
 public class MainFragment extends Fragment implements Animation.AnimationListener {
+
+    FirebaseDatabase database;
+    DatabaseReference databaseReference;
+    FirebaseUser user;
+    FirebaseAuth firebaseAuth;
+    private String user_id;
+
     public static final String sorukey = "key";
     public static final int tarih = 1;
     public static final int bilim = 2;
@@ -38,25 +58,36 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
     Random random;
     public int random_sayi;
     Animation animation;
-    CardView cardView1, cardView2, cardView3, cardView4, cardView_trans;
     ImageView checked, checked1, checked2, checked3, checked4, checked5, checked6, isaret_oku;
     Button oyunu_baslat;
     TextView main_kategori_adi,main_motivasyon;
+    TextView main_kalp_toplam,main_para_toplam,main_elmas_toplam;
     ImageView main_kategori_resmi;
     ImageButton main_tekrar_buton,main_basla_buton;
     Intent key_gonder;
-
     //TODO yukarıda kalp altın para textlerin içine yazmak lazım
-    //TODO spalash screen lazım
-
+    //TODO manin fragment deyken  geri dersem dialog açılıyor
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
+
+        firebaseAuth=FirebaseAuth.getInstance();
+        database=FirebaseDatabase.getInstance();
+        databaseReference=database.getReference();
+        user =firebaseAuth.getCurrentUser();
+        user_id=user.getUid();
+
+
         oyunu_baslat = (Button) view.findViewById(R.id.baslat);
         isaret_oku = (ImageView) view.findViewById(R.id.isaret_oku);
         animation=AnimationUtils.loadAnimation(getActivity(),R.anim.rotate);
         animation.setAnimationListener(MainFragment.this);
+
+        main_kalp_toplam=(TextView)view.findViewById(R.id.main_kalp_toplam);
+        main_para_toplam=(TextView)view.findViewById(R.id.main_para_toplam);
+        main_elmas_toplam=(TextView)view.findViewById(R.id.main_elmas_toplam);
+
 
         checked1 = (ImageView) view.findViewById(R.id.kategori_image_checked1);
         checked2 = (ImageView) view.findViewById(R.id.kategori_image_checked2);
@@ -68,7 +99,7 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
 
         //TODO silinecek experimental
         setHasOptionsMenu(true);
-
+        Firebase_get_data();
 
         oyunu_baslat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,5 +223,32 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
         isaret_oku.setRotation(0);
 
     }
+    public void Firebase_get_data(){
+         databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+/*
+                String kalp=dataSnapshot.child("Posts").child(user_id).child("para").getValue(String.class).toString();
+                main_kalp_toplam.setText(kalp);
+                Log.d("Gelenveri",":"+dataSnapshot.child("cuma").child("soyak").getValue(String.class));
+
+                String para=dataSnapshot.child("cuma").child("soyak").getValue(String.class).toString();
+                main_para_toplam.setText(para);
+
+                String elmas=dataSnapshot.child("Posts").child("elmas").getValue(String.class).toString();
+                main_elmas_toplam.setText(elmas);
+*/
+                //Database de değişiklik olursa ne yapayım
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
 
 }

@@ -30,10 +30,16 @@ import com.example.cuma.tinder.Fragment.MainFragment;
 import com.example.cuma.tinder.R;
 import com.example.cuma.tinder.TinderCard;
 import com.example.cuma.tinder.Utils;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.mindorks.placeholderview.SwipeDecor;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class ExamsActivity extends AppCompatActivity {
 
@@ -41,7 +47,11 @@ public class ExamsActivity extends AppCompatActivity {
     //TODO dogru cevap sayısı fazladan değer geliyor
    // TODO //home // Restart // Devam et  Decam et kısmı düzelecek fakat çıkıç yapmak isterse görünecek
     //TODO uygulama açılacağı zaman status bar önce sarı sonra siyah oluyor
-
+    //TODO doğru sayısımı ve yanlış sayısını farklı tutmak lazım
+    FirebaseDatabase database;
+    DatabaseReference databaseReference;
+    FirebaseUser user;
+    FirebaseAuth firebaseAuth;
 
     private SwipePlaceHolderView mSwipeView;
     private Context mContext;
@@ -51,21 +61,52 @@ public class ExamsActivity extends AppCompatActivity {
     public CountDownTimer countDownTimer;
     public TextView time;
     private ImageButton like,dislike,evet_buton,hayir_buton;
-    public PuanHesapla puanHesapla=new PuanHesapla(5);
+    public PuanHesapla puanHesapla;
     public Dialog dialog;
-    int dogrucevapsayisi=0,cevapsira,kirik_kalp;
+    public int  dogrucevapsayisi=0,yanlis_dogrucevapsayisi;
+    public int  cevapsira,kirik_kalp;
     ImageView kirik_kalp_image1,kirik_kalp_image2,kirik_kalp_image3;
     private long time_hatırla=0;
-    public ArrayList<String> cevaplistesi = new ArrayList<String>();
+    public ArrayList<String> cevaplistesi = new ArrayList<>();
 
     private static final String TAG = "ExamsActivity";
     public int  quiz;
+
+    public int getDogrucevapsayisi() {
+        return dogrucevapsayisi;
+    }
+
+    public void setDogrucevapsayisi(int dogrucevapsayisi) {
+        this.dogrucevapsayisi = dogrucevapsayisi;
+    }
+
+    public void incDogrucevapsayisi() {
+        this.dogrucevapsayisi +=1;
+    }
+
+    public void decDogrucevapsayisi() {
+        this.dogrucevapsayisi -=1;
+    }
+
+    public ArrayList<String> getCevaplistesi() {
+        return cevaplistesi;
+    }
+
+    public String getCurrentAnswer(){
+        return cevaplistesi.get(cevapsira);
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exams);
+        firebaseAuth=FirebaseAuth.getInstance();
+        database=FirebaseDatabase.getInstance();
+        databaseReference=database.getReference();
+
+        //databaseReference.setValue("Hello World");
+
 
         mSwipeView = (SwipePlaceHolderView) findViewById(R.id.swipeView);
         mContext = this;
@@ -87,7 +128,7 @@ public class ExamsActivity extends AppCompatActivity {
         dialog = new Dialog(this, R.style.DialogNotitle);
 
         utils = new Utils();
-        puanHesapla = new PuanHesapla(dogrucevapsayisi);
+        puanHesapla = new PuanHesapla();
 
         mSwipeView.getBuilder()
                 .setDisplayViewCount(3) //Burası görünümde kaç kart göstereceği pek alakası yok
@@ -110,9 +151,10 @@ public class ExamsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mSwipeView.doSwipe(false);
                 String hayir = "Hayır";
-                if (cevaplistesi.get(cevapsira).equals(hayir)) { puanHesapla.puanarti();
+                if (getCurrentAnswer().equalsIgnoreCase(hayir)) { incDogrucevapsayisi();
                 }
                 else {
+
                     kirik_kalp++;
                     if (kirik_kalp==1){ kirik_kalp_image1.setImageResource(R.drawable.kirikalp); }
                     if (kirik_kalp==2){ kirik_kalp_image2.setImageResource(R.drawable.kirikalp); }
@@ -131,10 +173,11 @@ public class ExamsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mSwipeView.doSwipe(true);
                 String evet = "Evet";
-                if (cevaplistesi.get(cevapsira).equals(evet)) { puanHesapla.puanarti();
+                if (getCurrentAnswer().equalsIgnoreCase(evet)) {   incDogrucevapsayisi();
                     //Log.i("Evet Puan",":",puanHesapla.puanarti());
                 }
                 else{
+                    decDogrucevapsayisi();
                     kirik_kalp++;
                     if (kirik_kalp==1){ kirik_kalp_image1.setImageResource(R.drawable.kirikalp); }
                     if (kirik_kalp==2){ kirik_kalp_image2.setImageResource(R.drawable.kirikalp); }
@@ -217,13 +260,13 @@ public class ExamsActivity extends AppCompatActivity {
         popup_can = (TextView) dialog.findViewById(R.id.popup_can);
         popup_para = (TextView) dialog.findViewById(R.id.pop_para);
         popup_elmas = (TextView) dialog.findViewById(R.id.pop_elmas);
-        Log.i("Dogru", ":" + String.valueOf(puanHesapla.puanarti()));
+        Log.i("Dogru", ":" + String.valueOf(getDogrucevapsayisi()));
         if (puanHesapla.puanarti() <= 0) {
-            popup_para.setText(String.valueOf(puanHesapla.puanarti()));
-            popup_elmas.setText(String.valueOf(puanHesapla.puanarti()));
+            popup_para.setText(String.valueOf(getDogrucevapsayisi()));
+            popup_elmas.setText(String.valueOf(getDogrucevapsayisi()));
         }
-        popup_para.setText(String.valueOf(puanHesapla.puanarti()));
-        popup_elmas.setText(String.valueOf(puanHesapla.puanarti()));
+        popup_para.setText(String.valueOf(getDogrucevapsayisi()));
+        popup_elmas.setText(String.valueOf(getDogrucevapsayisi()));
         Log.i("Kalpp",":"+kirik_kalp);
         if (kirik_kalp==0){popup_can.setText("3");}
         else if (kirik_kalp==1){popup_can.setText("2");}
@@ -231,6 +274,7 @@ public class ExamsActivity extends AppCompatActivity {
         else if (kirik_kalp==3){popup_can.setText("0");}
 
       //  kirik_kalp=0;
+        ekleveritabani();
 
         switch (quiz) {
             case 1:
@@ -333,6 +377,18 @@ public class ExamsActivity extends AppCompatActivity {
 
     }
 
+    public void ekleveritabani(){
 
+        user=firebaseAuth.getCurrentUser();
+        String useremail=user.getEmail().toString();
+        UUID uuıd=UUID.randomUUID();
+        String uuidString=uuıd.toString();
+        databaseReference.child("Posts").child(uuidString).child("useremail").setValue(useremail);
+        databaseReference.child("Posts").child(uuidString).child("kalp").setValue(kirik_kalp);
+        databaseReference.child("Posts").child(uuidString).child("para").setValue(getDogrucevapsayisi());
+        databaseReference.child("Posts").child(uuidString).child("elmas").setValue(getDogrucevapsayisi());
+        databaseReference.child("cuma").child("soyak").setValue(getDogrucevapsayisi());
+
+    }
 
 }

@@ -78,10 +78,10 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="assetType" value="TEXT" />
+                                      <entry key="assetType" value="IMAGE" />
                                       <entry key="iconShape" value="NONE" />
-                                      <entry key="imageAsset" value="C:\Users\Cuma\Desktop\Resimler\uygulama resimler\sad-rounded-square-emoticon.png" />
-                                      <entry key="outputName" value="Tinder Game" />
+                                      <entry key="imageAsset" value="C:\Users\Cuma\Desktop\Resimler\uygulama resimler\wifi.png" />
+                                      <entry key="outputName" value="wifi" />
                                     </map>
                                   </option>
                                 </PersistentState>

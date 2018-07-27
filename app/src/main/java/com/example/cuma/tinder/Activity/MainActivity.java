@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import com.example.cuma.tinder.Adapter.MainAdapter;
 import com.example.cuma.tinder.Fragment.KupaFragment;
 import com.example.cuma.tinder.Fragment.MainFragment;
+import com.example.cuma.tinder.Fragment.OneriFragment;
 import com.example.cuma.tinder.Fragment.ShopFragment;
 import com.example.cuma.tinder.R;
 
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private MainAdapter mainAdapter;
     private TabLayout tabLayout;
     private Toolbar toolbar;
-    private int[] tabicons = {R.drawable.home, R.drawable.market, R.drawable.kupa};
+    private int[] tabicons = {R.drawable.home, R.drawable.market, R.drawable.kupa,R.mipmap.soru};
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(tabicons[0]);
         tabLayout.getTabAt(1).setIcon(tabicons[1]);
         tabLayout.getTabAt(2).setIcon(tabicons[2]);
+        tabLayout.getTabAt(3).setIcon(tabicons[3]);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new MainFragment(), "dasd");
         adapter.addFragment(new ShopFragment(), "dasd");
         adapter.addFragment(new KupaFragment(), "dasd");
+        adapter.addFragment(new OneriFragment(),"Öneri");
         viewPager.setAdapter(adapter);
     }
 

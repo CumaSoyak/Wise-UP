@@ -21,23 +21,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShopFragment extends Fragment {
-   /* private List<Satinal> satinalList;
+    private List<Satinal> satinalList;
     private RecyclerView recyclerView;
-    private SatinalAdapter satinalAdapter; */
-    private ViewPager viewPager;
-    private MoneyAdapter moneyAdapter;
-    private TabLayout tabLayout;
-    private int[] tabicons={R.drawable.kalp,R.drawable.coins,R.drawable.elmas};
-
-    public static ShopFragment newInstance(){
-        return  new ShopFragment();
-    }
+    private SatinalAdapter satinalAdapter;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_shop, container, false);
 
-/*
+
         recyclerView=(RecyclerView)view.findViewById(R.id.recycler_view_shop);
         satinalList=new ArrayList<Satinal>();
         satinalAdapter=new SatinalAdapter(satinalList);
@@ -55,15 +47,51 @@ public class ShopFragment extends Fragment {
         satinalList.add(new Satinal("para 2",R.drawable.coins,"24 tl"));
         satinalList.add(new Satinal("para 3",R.drawable.coins,"85 tl"));
         satinalList.add(new Satinal("para 3",R.drawable.coins,"85 tl"));
-
-        satinalAdapter.notifyDataSetChanged(); */
-/*
-        moneyAdapter=new MoneyAdapter(getFragmentManager());//buraya bak
-        viewPager=(ViewPager)view.findViewById(R.id.viewpager);
-        //Todo burası kaldığı yerden devam edecek
-*/
+        satinalList.add(new Satinal("para 3",R.drawable.coins,"85 tl"));
+        satinalList.add(new Satinal("para 3",R.drawable.coins,"85 tl"));
+          satinalAdapter.notifyDataSetChanged();
 
 
         return view;
     }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+        */

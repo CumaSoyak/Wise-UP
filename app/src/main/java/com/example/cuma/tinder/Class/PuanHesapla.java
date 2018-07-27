@@ -3,16 +3,14 @@ package com.example.cuma.tinder.Class;
 import android.util.Log;
 
 public class PuanHesapla {
-      int dogrucevapsayisi;
+     private static int dogrucevapsayisi;
 
-    public  int puanarti(){
+    public PuanHesapla(){
         dogrucevapsayisi++;
-        Log.i("Puan Hesapla",": : :"+dogrucevapsayisi);
+        Log.i("Sayısı",":"+dogrucevapsayisi);
+    }
+    public static int puanarti(){
         return dogrucevapsayisi;
     }
 
-
-    public PuanHesapla(int dogrucevapsayisi) {
-        this.dogrucevapsayisi = dogrucevapsayisi;
-    }
 }

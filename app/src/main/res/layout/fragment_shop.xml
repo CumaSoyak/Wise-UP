@@ -11,5 +11,6 @@
         android:id="@+id/recycler_view_shop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
         android:scrollbars="vertical" />
 </android.support.constraint.ConstraintLayout>

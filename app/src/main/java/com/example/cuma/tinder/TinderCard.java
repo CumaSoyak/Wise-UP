@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.example.cuma.tinder.Activity.ExamsActivity;
 import com.example.cuma.tinder.Activity.MainActivity;
 import com.example.cuma.tinder.Class.Profile;
+import com.example.cuma.tinder.Class.PuanHesapla;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.Resolve;
@@ -51,10 +52,12 @@ public class TinderCard {
     private int mQuiz;
     private Context mContext;
     private SwipePlaceHolderView mSwipeView;
-
+    int say=0;
+    private ExamsActivity activity;
 
     public TinderCard(Context context, Profile profile, SwipePlaceHolderView swipeView, int quiz) {
         mContext = context;
+        activity = (ExamsActivity) context;
         mProfile = profile;
         mSwipeView = swipeView;
         mQuiz = quiz;
@@ -66,39 +69,52 @@ public class TinderCard {
         answer.setText(mProfile.getAnswer());
         selectcategory();
 
+
     }
    // ArrayList<String> gelenliste = ((ExamsActivity)mContext).listedondur();
+   @SwipeIn
+   private void onSwipeIn() {
 
+        if (activity.getCurrentAnswer().equalsIgnoreCase("Evet")){
+           activity.incDogrucevapsayisi();}
+
+
+       Log.d("EVET-IN", "onSwipedIn");
+
+   }
     @SwipeOut
     private void onSwipedOut() {
-        Log.d("Liste Dondur", "onSwipedOut"+ ((ExamsActivity)mContext).listedondur());
-        Log.d("Sıra Dondur",": :"          +((ExamsActivity)mContext).cevapsiradonder());
+       // Log.d("Liste Dondur", "onSwipedOut"+ ((ExamsActivity)mContext).listedondur());
+       // Log.d("Sıra Dondur",": :"          +((ExamsActivity)mContext).cevapsiradonder());
+        if (activity.getCurrentAnswer().equalsIgnoreCase("Hayır")){
+            activity.incDogrucevapsayisi();}
+
+
+
+
         // mSwipeView.addView(this);
+
+    }
+    @SwipeInState
+    private void onSwipeInState() {
+        Log.d("EVET-IN-STATE", "onSwipeInState");
+    }
+
+    @SwipeOutState
+    private void onSwipeOutState() {
+        Log.d("HAYIR-OUT-STATE", "onSwipeOutState");
+
 
     }
 
     @SwipeCancelState
     private void onSwipeCancelState() {
-        Log.d("EVENT", "onSwipeCancelState");
+        Log.d("HAYIR-CANCEL-STATE", "onSwipeCancelState");
     }
 
-    @SwipeIn
-    private void onSwipeIn() {
 
-        Log.d("EVENT", "onSwipedIn");
 
-    }
 
-    @SwipeInState
-    private void onSwipeInState() {
-        Log.d("EVENT", "onSwipeInState");
-    }
-
-    @SwipeOutState
-    private void onSwipeOutState() {
-        Log.d("EVENT :KART HAYIR ", "onSwipeOutState");
-
-    }
 
     public void selectcategory() {
 
