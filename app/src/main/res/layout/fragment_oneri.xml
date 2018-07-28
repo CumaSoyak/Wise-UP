@@ -8,12 +8,14 @@
 
 
     <android.support.v7.widget.CardView
-        android:layout_width="300dp"
-        android:layout_height="500dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent"
+         >
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -25,21 +27,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:text="Soru :"
-                app:layout_constraintBottom_toTopOf="@+id/editText"
+                android:text="Soru"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/oneri_soru"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/editText"
-                android:layout_width="wrap_content"
-                android:layout_height="156dp"
+                android:id="@+id/oneri_soru"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/yesil"
                 android:ems="10"
                 android:hint="Soru ........."
                 android:inputType="textPersonName"
-                android:text=" "
                 app:layout_constraintBottom_toTopOf="@+id/textView17"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -51,48 +57,58 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cevap"
-                app:layout_constraintBottom_toTopOf="@+id/radioGroup3"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/oneri_gonder"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText" />
+                app:layout_constraintTop_toBottomOf="@+id/oneri_soru" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/oneri_gonder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Button"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/button_rounded"
+                android:gravity="center"
+                android:padding="20dp"
+                android:text="Soruyu Gönder"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup3" />
+                app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
-            <RadioGroup
-                android:id="@+id/radioGroup3"
-                android:layout_width="0dp"
+
+            <RadioButton
+                android:id="@+id/evet"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toTopOf="@+id/button"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:text="Evet"
+                app:layout_constraintBottom_toTopOf="@+id/oneri_gonder"
+                app:layout_constraintEnd_toStartOf="@+id/hayir"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView17">
+                app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
-                <RadioButton
-                    android:id="@+id/radioButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Evet" />
+            <RadioButton
+                android:id="@+id/hayir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:text="Hayır"
+                app:layout_constraintBottom_toTopOf="@+id/oneri_gonder"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/evet"
+                app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
-                <RadioButton
-                    android:id="@+id/radioButton2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Hayır" />
-            </RadioGroup>
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 </android.support.constraint.ConstraintLayout>

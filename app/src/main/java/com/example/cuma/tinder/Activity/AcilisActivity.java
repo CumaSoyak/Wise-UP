@@ -42,7 +42,7 @@ public class AcilisActivity extends AppCompatActivity {
         image4.startAnimation(animation);
         image5.startAnimation(animation);
         image6.startAnimation(animation);
-        final Intent ıntent=new Intent(this,LoginActivity.class);
+        final Intent ıntent=new Intent(this,MainActivity.class);
         Thread timer=new Thread(){
             public void run(){
                 try{

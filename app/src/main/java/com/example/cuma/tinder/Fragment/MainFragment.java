@@ -42,10 +42,10 @@ import java.util.Random;
 
 public class MainFragment extends Fragment implements Animation.AnimationListener {
 
-    FirebaseDatabase database;
-    DatabaseReference databaseReference;
-    FirebaseUser user;
-    FirebaseAuth firebaseAuth;
+    private   FirebaseDatabase database;
+    private DatabaseReference databaseReference;
+    private FirebaseUser user;
+    private FirebaseAuth firebaseAuth;
     private String user_id;
 
     public static final String sorukey = "key";
@@ -227,17 +227,17 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
          databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-/*
-                String kalp=dataSnapshot.child("Posts").child(user_id).child("para").getValue(String.class).toString();
-                main_kalp_toplam.setText(kalp);
-                Log.d("Gelenveri",":"+dataSnapshot.child("cuma").child("soyak").getValue(String.class));
 
-                String para=dataSnapshot.child("cuma").child("soyak").getValue(String.class).toString();
-                main_para_toplam.setText(para);
+                 Integer kalp=dataSnapshot.child("Puanlar").child(user_id).child("kalp").getValue(Integer.class);
+                 main_kalp_toplam.setText(String.valueOf(kalp));
 
-                String elmas=dataSnapshot.child("Posts").child("elmas").getValue(String.class).toString();
-                main_elmas_toplam.setText(elmas);
-*/
+
+                 Integer para=  dataSnapshot.child("Puanlar").child(user_id).child("para").getValue(Integer.class);
+                 main_para_toplam.setText(String.valueOf(para));
+
+                Integer elmas=  dataSnapshot.child("Puanlar").child(user_id).child("elmas").getValue(Integer.class);
+                main_elmas_toplam.setText(String.valueOf(elmas));
+
                 //Database de değişiklik olursa ne yapayım
             }
 

@@ -41,12 +41,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.cuma.tinder.R;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -59,14 +67,20 @@ public class LoginActivity extends AppCompatActivity {
     private View mLoginFormView;
     Button giris_buton,kayit_buton;
     private FirebaseAuth mAuth;
-
     private ProgressBar progressBar;
+    private CallbackManager callbackManager;
+    private AccessToken facebookaccessToken;
+    private LoginButton login_facebook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+
         mAuth = FirebaseAuth.getInstance();
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        setContentView(R.layout.activity_login);
+
+
         giris_buton = (Button) findViewById(R.id.sign_in);
         kayit_buton=(Button)findViewById(R.id.register);
 
@@ -77,11 +91,24 @@ public class LoginActivity extends AppCompatActivity {
         email = (EditText)findViewById(R.id.email);
         parola = (EditText) findViewById(R.id.password);
         progressBar=(ProgressBar)findViewById(R.id.login_progress);
-
         mProgressView = findViewById(R.id.login_progress);
+        facebook_kayit();
 
 
     }
+/*
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser currentUser=mAuth.getCurrentUser();
+        if (currentUser!=null){
+            Intent ıntent=new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(ıntent);
+        }
+    }
+    */
+
     public  void  register(View view){
         //TODO burda eğer böyle bir kullanıcı yoksa kayıt yaptırılacak
         //TODO kontrol yap zaten böyle bir kullanıcı var diye uyarı çıkart
@@ -144,6 +171,37 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+    private void facebook_kayit(){
+        // Initialize Facebook Login button
+        callbackManager = CallbackManager.Factory.create();
+        login_facebook=(LoginButton)findViewById(R.id.facebook);
+        login_facebook.setReadPermissions("email", "public_profile");
+        login_facebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d("Login", "facebook:onSuccess:" + loginResult);
+                //handleFacebookAccessToken(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d("Login", "facebook:onCancel");
+                // ...
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d("Login", "facebook:onError", error);
+                // ...
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode,resultCode,data);
+    }
 
     public boolean internet_kontrol() {
         try {
@@ -164,5 +222,6 @@ public class LoginActivity extends AppCompatActivity {
         kontrol.show();
 
     }
+
 }
 

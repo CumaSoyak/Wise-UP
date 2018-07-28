@@ -10,6 +10,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,8 +34,11 @@ import com.example.cuma.tinder.Utils;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.mindorks.placeholderview.SwipeDecor;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 
@@ -52,6 +56,8 @@ public class ExamsActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     FirebaseUser user;
     FirebaseAuth firebaseAuth;
+    private String user_id;
+    Integer  para_toplam;
 
     private SwipePlaceHolderView mSwipeView;
     private Context mContext;
@@ -101,9 +107,14 @@ public class ExamsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exams);
+
         firebaseAuth=FirebaseAuth.getInstance();
         database=FirebaseDatabase.getInstance();
         databaseReference=database.getReference();
+        user=firebaseAuth.getCurrentUser();
+        user_id=user.getUid();
+
+
 
         //databaseReference.setValue("Hello World");
 
@@ -379,16 +390,34 @@ public class ExamsActivity extends AppCompatActivity {
 
     public void ekleveritabani(){
 
+        int para_topla;
         user=firebaseAuth.getCurrentUser();
         String useremail=user.getEmail().toString();
         UUID uuıd=UUID.randomUUID();
         String uuidString=uuıd.toString();
-        databaseReference.child("Posts").child(uuidString).child("useremail").setValue(useremail);
-        databaseReference.child("Posts").child(uuidString).child("kalp").setValue(kirik_kalp);
-        databaseReference.child("Posts").child(uuidString).child("para").setValue(getDogrucevapsayisi());
-        databaseReference.child("Posts").child(uuidString).child("elmas").setValue(getDogrucevapsayisi());
-        databaseReference.child("cuma").child("soyak").setValue(getDogrucevapsayisi());
+
+        //Databasedek verileri önce çekip sonra üstüne kaydetmemiz lazım
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+             Integer para= dataSnapshot.child("Puanlar").child(user_id).child("para").getValue(Integer.class);
+             //para_topla= getDogrucevapsayisi() + para;
+                Log.i("ParaDegeri",":"+para);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        databaseReference.child("Puanlar").child(user_id).child("useremail").setValue(useremail);
+        databaseReference.child("Puanlar").child(user_id).child("kalp").setValue(kirik_kalp);
+        databaseReference.child("Puanlar").child(user_id).child("para").setValue(getDogrucevapsayisi());
+        databaseReference.child("Puanlar").child(user_id).child("elmas").setValue(getDogrucevapsayisi());
 
     }
+
 
 }
