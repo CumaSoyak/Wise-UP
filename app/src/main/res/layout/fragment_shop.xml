@@ -7,10 +7,15 @@
     android:background="@color/backgroundcolor"
     >
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view_shop"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:scrollbars="vertical" />
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_shop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:scrollbars="vertical" />
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>
