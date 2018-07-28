@@ -49,6 +49,7 @@ public class ShopFragment extends Fragment {
         satinalList.add(new Satinal("para 3",R.drawable.coins,"85 tl"));
         satinalList.add(new Satinal("para 3",R.drawable.coins,"85 tl"));
         satinalList.add(new Satinal("para 3",R.drawable.coins,"85 tl"));
+        satinalList.add(new Satinal("para 3",R.drawable.coins,"85 tl"));
           satinalAdapter.notifyDataSetChanged();
 
 

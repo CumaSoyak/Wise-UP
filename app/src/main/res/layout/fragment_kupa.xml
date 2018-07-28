@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundcolor"
-    >
+    android:background="@color/backgroundcolor">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <include
+        android:id="@+id/include2"
+        layout="@layout/kupa_toolbar" />
+
+    <ScrollView
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Kupa"
-        android:textStyle="bold"
-        android:textSize="35dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/include2">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_kupa"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scrollbars="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include2">
+
+
+        </android.support.v7.widget.RecyclerView>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>
