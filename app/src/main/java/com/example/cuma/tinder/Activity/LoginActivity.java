@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText parola;
     private View mProgressView;
     private View mLoginFormView;
-    Button giris_buton,kayit_buton;
+    Button giris_buton, kayit_buton;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
     private CallbackManager callbackManager;
@@ -82,15 +82,15 @@ public class LoginActivity extends AppCompatActivity {
 
 
         giris_buton = (Button) findViewById(R.id.sign_in);
-        kayit_buton=(Button)findViewById(R.id.register);
+        kayit_buton = (Button) findViewById(R.id.register);
 
-        if (internet_kontrol()==true){//TODO burası false olacak
+        if (internet_kontrol() == true) {//TODO burası false olacak
             internet_dialog();
 
         }
-        email = (EditText)findViewById(R.id.email);
+        email = (EditText) findViewById(R.id.email);
         parola = (EditText) findViewById(R.id.password);
-        progressBar=(ProgressBar)findViewById(R.id.login_progress);
+        progressBar = (ProgressBar) findViewById(R.id.login_progress);
         mProgressView = findViewById(R.id.login_progress);
         facebook_kayit();
 
@@ -109,11 +109,10 @@ public class LoginActivity extends AppCompatActivity {
     }
     */
 
-    public  void  register(View view){
-        //TODO burda eğer böyle bir kullanıcı yoksa kayıt yaptırılacak
-        //TODO kontrol yap zaten böyle bir kullanıcı var diye uyarı çıkart
+    public void register(View view) {
+
         progressBar.setVisibility(View.VISIBLE);
-        mAuth.createUserWithEmailAndPassword(email.getText().toString(),parola.getText().toString())
+        mAuth.createUserWithEmailAndPassword(email.getText().toString(), parola.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -121,8 +120,8 @@ public class LoginActivity extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("dda", "createUserWithEmail:success");
-                            Toast.makeText(getApplicationContext(),"Başarılı",Toast.LENGTH_LONG).show();
-                            Intent ıntent=new Intent(getApplicationContext(),MainActivity.class);
+                            Toast.makeText(getApplicationContext(), "Başarılı", Toast.LENGTH_LONG).show();
+                            Intent ıntent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(ıntent);
                             // progressBar.setVisibility(View.VISIBLE);
 
@@ -133,19 +132,17 @@ public class LoginActivity extends AppCompatActivity {
                 }).addOnFailureListener(this, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(),e.getLocalizedMessage(),Toast.LENGTH_LONG).show();
-                Log.i("Hata",":"+e.getLocalizedMessage());
+                Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                Log.i("Hata", ":" + e.getLocalizedMessage());
                 progressBar.setVisibility(View.GONE);
             }
         });
 
 
     }
-    public void  signin(View view){
-        //TODO burda giriş yapmak isterse böyle bir kullanıcı varsa kontrol yapılacak doğruysa giriş yaptırılacak
-        //TODO eğer kullanıcı yoksa kayıt olmak istermisiniz diye popup açılacak
-        progressBar.setVisibility(View.VISIBLE);
 
+    public void signin(View view) {
+        progressBar.setVisibility(View.VISIBLE);
         mAuth.signInWithEmailAndPassword(email.getText().toString(), parola.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -155,7 +152,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("Login Activity", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent ıntent=new Intent(getApplicationContext(),MainActivity.class);
+                            Intent ıntent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(ıntent);
 
                         }
@@ -165,16 +162,17 @@ public class LoginActivity extends AppCompatActivity {
                 }).addOnFailureListener(this, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                   Log.d("Login","Error"+e.getLocalizedMessage());
-                    progressBar.setVisibility(View.GONE);
+                Log.d("Login", "Error" + e.getLocalizedMessage());
+                progressBar.setVisibility(View.GONE);
 
             }
         });
     }
-    private void facebook_kayit(){
+
+    private void facebook_kayit() {
         // Initialize Facebook Login button
         callbackManager = CallbackManager.Factory.create();
-        login_facebook=(LoginButton)findViewById(R.id.facebook);
+        login_facebook = (LoginButton) findViewById(R.id.facebook);
         login_facebook.setReadPermissions("email", "public_profile");
         login_facebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -200,7 +198,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode,resultCode,data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     public boolean internet_kontrol() {
@@ -213,11 +211,12 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
     }
-    public void internet_dialog(){
-        Dialog kontrol=new Dialog(this,R.style.DialogNotitle);
+
+    public void internet_dialog() {
+        Dialog kontrol = new Dialog(this, R.style.DialogNotitle);
         kontrol.setContentView(R.layout.dialog_internet);
         kontrol.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        kontrol.getWindow().getAttributes().windowAnimations=R.style.Anasayfa_dilog_animasyonu;
+        kontrol.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
         kontrol.setCancelable(false);
         kontrol.show();
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFC107</color>
-    <color name="colorPrimaryDark">#FFA000</color>
+    <color name="colorPrimary">#FFF8DC</color>
+    <color name="colorPrimaryDark">#FFEBCD</color>
     <color name="backgroundcolor">#fcfcfc</color>
     <color name="white">#ededed</color>
     <color name="deeppurple">#7c4dff</color>
@@ -20,4 +20,5 @@
     <color name="butonrenk">#FFEFD5</color>
     <color name="transparan">#80000000</color>
     <color name="buton_click">#FFFFE0</color>
+    <color name="acıksiyah">#5D6D7E</color>
 </resources>

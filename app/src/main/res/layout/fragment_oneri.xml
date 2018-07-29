@@ -4,102 +4,88 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundcolor"
     tools:context=".Fragment.OneriFragment"
     tools:layout_editor_absoluteY="25dp">
-
-            <TextView
-                android:id="@+id/textView16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:text="Soru"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/oneri_soru"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/oneri_soru"
         android:layout_width="0dp"
         android:layout_height="260dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/grey"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/soru_oneri"
         android:ems="10"
         android:gravity="center"
         android:hint="Beyin Yakan Sorunu Bekliyoruz "
         android:inputType="textPersonName"
-        android:textColorHint="@color/yesil"
-        app:layout_constraintBottom_toTopOf="@+id/textView17"
+        android:textColorHint="@color/grey"
+        app:layout_constraintBottom_toTopOf="@+id/radiogrup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textView17"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cevap"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/oneri_gonder"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/oneri_soru" />
+    <Button
+        android:id="@+id/oneri_gonder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_rounded"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="Soruyu Gönder"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radiogrup" />
 
-            <Button
-                android:id="@+id/oneri_gonder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:background="@drawable/button_rounded"
-                android:gravity="center"
-                android:padding="20dp"
-                android:text="Soruyu Gönder"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView17" />
+    <RadioGroup
+        android:id="@+id/radiogrup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/oneri_gonder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/oneri_soru">
 
+        <RadioButton
+            android:id="@+id/evet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/evet_buton"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Evet"
+            app:layout_constraintBottom_toTopOf="@+id/oneri_gonder"
+            app:layout_constraintEnd_toStartOf="@+id/hayir"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
-            <RadioButton
-                android:id="@+id/evet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_rounded"
-                android:padding="10dp"
-                android:text="Evet"
-                app:layout_constraintBottom_toTopOf="@+id/oneri_gonder"
-                app:layout_constraintEnd_toStartOf="@+id/hayir"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView17" />
-
-            <RadioButton
-                android:id="@+id/hayir"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_rounded"
-                android:padding="10dp"
-                android:text="Hayır"
-                app:layout_constraintBottom_toTopOf="@+id/oneri_gonder"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/evet"
-                app:layout_constraintTop_toBottomOf="@+id/textView17" />
+        <RadioButton
+            android:id="@+id/hayir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/hayir_buton"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Hayır"
+            app:layout_constraintBottom_toTopOf="@+id/oneri_gonder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/evet"
+            app:layout_constraintTop_toBottomOf="@+id/textView17" />
+    </RadioGroup>
 
 
 </android.support.constraint.ConstraintLayout>

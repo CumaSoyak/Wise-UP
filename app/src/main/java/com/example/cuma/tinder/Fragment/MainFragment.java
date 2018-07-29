@@ -65,7 +65,7 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
     ImageView main_kategori_resmi;
     ImageButton main_tekrar_buton,main_basla_buton;
     Intent key_gonder;
-    //TODO yukarıda kalp altın para textlerin içine yazmak lazım
+
     //TODO manin fragment deyken  geri dersem dialog açılıyorrr
     @Nullable
     @Override

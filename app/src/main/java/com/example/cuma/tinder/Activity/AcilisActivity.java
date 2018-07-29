@@ -12,6 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.example.cuma.tinder.R;
+import com.facebook.login.widget.LoginButton;
 
 
 public class AcilisActivity extends AppCompatActivity {
@@ -42,7 +43,7 @@ public class AcilisActivity extends AppCompatActivity {
         image4.startAnimation(animation);
         image5.startAnimation(animation);
         image6.startAnimation(animation);
-        final Intent ıntent=new Intent(this,MainActivity.class);
+        final Intent ıntent=new Intent(this,LoginActivity.class);
         Thread timer=new Thread(){
             public void run(){
                 try{

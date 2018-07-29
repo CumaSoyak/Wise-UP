@@ -23,47 +23,48 @@ public class MoneyActivity extends AppCompatActivity {
     private MoneyAdapter moneyAdapter;
     private TabLayout tablaLayout;
     private Toolbar toolbar;
-    private int[] tabicons={R.drawable.kalp,R.drawable.coins,R.drawable.elmas};
+    private int[] tabicons = {R.drawable.kalp, R.drawable.coins, R.drawable.elmas};
     private ImageView back;
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_money);
 
-        moneyAdapter =new MoneyAdapter(getSupportFragmentManager());
-        viewPager=(ViewPager)findViewById(R.id.viewpager);
+        moneyAdapter = new MoneyAdapter(getSupportFragmentManager());
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
-        tablaLayout=(TabLayout) findViewById(R.id.tabs);
+        tablaLayout = (TabLayout) findViewById(R.id.tabs);
         tablaLayout.setupWithViewPager(viewPager);
         setupTabıcons();
 
-        toolbar=(Toolbar)findViewById(R.id.toolbar_satinal);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_satinal);
         setSupportActionBar(toolbar);
 
-        back=(ImageView)findViewById(R.id.back);
+        back = (ImageView) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
         });
 
 
-
     }
 
-    private void setupViewPager(ViewPager viewPager){
-        MoneyAdapter adapter=new MoneyAdapter(getSupportFragmentManager());
-        adapter.addFragment(CanFragment.newInstance(),"Tab1");
-        adapter.addFragment(new ParaFragment(),"Para");
-        adapter.addFragment(new ElmasFragment(),"Elmas");
+    private void setupViewPager(ViewPager viewPager) {
+        MoneyAdapter adapter = new MoneyAdapter(getSupportFragmentManager());
+        adapter.addFragment(CanFragment.newInstance(), "Tab1");
+        adapter.addFragment(new ParaFragment(), "Para");
+        adapter.addFragment(new ElmasFragment(), "Elmas");
         viewPager.setAdapter(adapter);
 
     }
-    private void setupTabıcons(){
+
+    private void setupTabıcons() {
         tablaLayout.getTabAt(0).setIcon(tabicons[0]);
         tablaLayout.getTabAt(1).setIcon(tabicons[1]);
         tablaLayout.getTabAt(2).setIcon(tabicons[2]);
