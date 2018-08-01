@@ -2,6 +2,7 @@ package com.example.cuma.tinder.Fragment;
 
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -18,8 +19,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cuma.tinder.Activity.LoginActivity;
 import com.example.cuma.tinder.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,12 +38,13 @@ public class HesapFragment extends Fragment {
     private DatabaseReference databaseReference;
     private FirebaseUser user;
     private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener mauthStateListener;
     private String user_id;
     private TextView kullanici_adi, email, kademe, uyelik;
-    Button parola_degistir;
+    Button parola_degistir, hesap_cikis_yap;
     String gecerli_kullanici_mail;
     EditText yeni_parola_edit;
-
+    Dialog dialog;
 
 
     @Override
@@ -54,11 +58,18 @@ public class HesapFragment extends Fragment {
         user_id = user.getUid();
         gecerli_kullanici_mail = user.getEmail();
 
+        dialog = new Dialog(getActivity());
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
+
         kullanici_adi = (TextView) view.findViewById(R.id.kullanici_adi);
         email = (TextView) view.findViewById(R.id.e_mail);
         kademe = (TextView) view.findViewById(R.id.rutbe);
         uyelik = (TextView) view.findViewById(R.id.uyelik);
         parola_degistir = (Button) view.findViewById(R.id.parola_degistir);
+        hesap_cikis_yap = (Button) view.findViewById(R.id.hesap_cikis_yap);
         getir_data_firebase();
         parola_degistir.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,9 +78,17 @@ public class HesapFragment extends Fragment {
 
             }
         });
+        hesap_cikis_yap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               cikis_yap_sor();
+            }
+        });
+
 
         return view;
     }
+
 
     private void getir_data_firebase() {
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -95,33 +114,63 @@ public class HesapFragment extends Fragment {
 
     private void parola_degistir_dialog() {
         Button parola_degistir_dialog;
-        final Dialog dialog = new Dialog(getActivity());
-        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         dialog.setContentView(R.layout.dialog_parola_degistir);
-        dialog.setCancelable(false);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
-        parola_degistir_dialog = (Button) dialog.findViewById(R.id.parola_degistir_dialog);
-        yeni_parola_edit=(EditText)dialog.findViewById(R.id.yeni_parola_al);
+        parola_degistir_dialog = (Button) dialog.findViewById(R.id.dialog_cikis_evet);
+        yeni_parola_edit = (EditText) dialog.findViewById(R.id.yeni_parola_al);
         parola_degistir_dialog.setOnClickListener(new View.OnClickListener() {
             @Override   //todo yarıda kaldı parola değişikliği
             public void onClick(View v) {
                 String yeni_parola = yeni_parola_edit.getText().toString().trim();
-                user.updatePassword("derdd")
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(getActivity(), "Parola Değiştirildi", Toast.LENGTH_LONG).show();
+                if (yeni_parola.matches("")) {
+                    Toast.makeText(getActivity(), "Parola Belirleyiniz", Toast.LENGTH_LONG).show();
+                } else {
+                    user.updatePassword(yeni_parola)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(getActivity(), "Parolanız Değiştirildi", Toast.LENGTH_LONG).show();
+                                        dialog.dismiss();
+                                    }
                                 }
-                            }
-                        });
+                            }).addOnFailureListener(getActivity(), new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.i("Hesap :", ":" + e.getLocalizedMessage());
+                        }
+                    });
+                }
+
 
             }
         });
         dialog.show();
 
     }
+
+    private void cikis_yap_sor(){
+        Button dialog_cikis_hayir,dialog_cikis_evet;
+        dialog.setContentView(R.layout.dialog_cikis);
+        dialog_cikis_evet=(Button)dialog.findViewById(R.id.dialog_cikis_evet);
+        dialog_cikis_hayir=(Button)dialog.findViewById(R.id.dialog_cikis_hayir);
+        dialog_cikis_evet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                firebaseAuth.signOut();
+                Intent ıntent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(ıntent);
+            }
+        });
+        dialog_cikis_hayir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+
+
+    }
+
 
 }

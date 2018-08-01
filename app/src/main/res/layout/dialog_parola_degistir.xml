@@ -9,7 +9,7 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/parola_degistir_dialog"
+        android:id="@+id/dialog_cikis_evet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -30,12 +30,26 @@
         android:ems="10"
         android:gravity="center"
         android:hint="Yeni Parola"
+        android:textColor="@color/backgroundcolor"
         android:inputType="textPersonName"
         android:textColorHint="@color/backgroundcolor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Minimum 6 karakter giriniz"
+        android:textColor="@color/backgroundcolor"
+        app:layout_constraintBottom_toTopOf="@+id/dialog_cikis_evet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/yeni_parola_al" />
 
 
 </android.support.constraint.ConstraintLayout>

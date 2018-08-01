@@ -2,6 +2,7 @@ package com.example.cuma.tinder.Activity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -57,15 +58,24 @@ public class MainActivity extends AppCompatActivity {
         user = firebaseAuth.getCurrentUser();
         user_id = user.getUid();
 
+        final String ilkacilis="ilkdosyam";
+        SharedPreferences sharedPreferences=getSharedPreferences(ilkacilis,0);
+        if (sharedPreferences.getBoolean("ilk_acilis",true)){
+            // todo Default Değerler atadık ilk kullanıcı için burayı kontrol etmem lazım ilk defa açılıp açılmadığını
+            databaseReference.child("Yarisma").child(user_id).child("nickname").setValue("tindergame"); //default olarak değer atadık
+            databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(0); //default olarak değer atadık
+            databaseReference.child("Puanlar").child(user_id).child("kalp").setValue(5);
+            databaseReference.child("Puanlar").child(user_id).child("para").setValue(0);
+            databaseReference.child("Puanlar").child(user_id).child("elmas").setValue(0);
+            kullanici_adi_al(); //Kullanıcı adını burda alıyoruz
+
+            //
+
+            sharedPreferences.edit().putBoolean("ilk_acilis",false).commit();
+        }
 
 
-        // todo Default Değerler atadık ilk kullanıcı için burayı kontrol etmem lazım ilk defa açılıp açılmadığını
-        databaseReference.child("Yarisma").child(user_id).child("nickname").setValue("tindergame"); //default olarak değer atadık
-        databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(0); //default olarak değer atadık
-        databaseReference.child("Puanlar").child(user_id).child("kalp").setValue(5);
-        databaseReference.child("Puanlar").child(user_id).child("para").setValue(0);
-        databaseReference.child("Puanlar").child(user_id).child("elmas").setValue(0);
-        //
+
 
         mainAdapter = new MainAdapter(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.viewpager_main);
@@ -76,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         setupTabıcons();
 
-        kullanici_adi_al(); //Kullanıcı adını burda alıyoruz
 
       /*  viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -127,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
         dialog.setCancelable(false);
-        Button tamam = (Button) dialog.findViewById(R.id.parola_degistir_dialog);
+        Button tamam = (Button) dialog.findViewById(R.id.dialog_cikis_evet);
         al_kullanici_adi = (EditText) dialog.findViewById(R.id.kullanici_adi_editext);
         tamam.setOnClickListener(new View.OnClickListener() {
             @Override

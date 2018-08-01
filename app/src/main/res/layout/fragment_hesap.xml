@@ -7,13 +7,6 @@
     android:background="@color/backgroundcolor"
     tools:context=".Fragment.HesapFragment">
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-        <!-- TODO: Update blank fragment layout -->
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
 
             <ImageView
@@ -43,7 +36,7 @@
                 android:layout_height="45dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -232,25 +225,27 @@
 
             </android.support.v7.widget.CardView>
 
-            <Button
-                android:id="@+id/hesap_cikis_yap"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/logout_buton"
-                android:text="Çıkış"
-                android:textColor="@color/backgroundcolor"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView" />
-        </android.support.constraint.ConstraintLayout>
-    </ScrollView>
+    <Button
+        android:id="@+id/hesap_cikis_yap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/logout_buton"
+        android:onClick="cikis_yap_hesap"
+        android:text="Çıkış"
+        android:textColor="@color/backgroundcolor"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        tools:ignore="OnClick" />
+
 
 
 </android.support.constraint.ConstraintLayout>

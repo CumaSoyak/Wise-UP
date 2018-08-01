@@ -64,7 +64,7 @@ public class TinderCard {
     }
 
     @Resolve
-    private void onResolved() {
+    public void onResolved() {
         question.setText(mProfile.getQuestion());
         answer.setText(mProfile.getAnswer());
         selectcategory();
@@ -73,10 +73,15 @@ public class TinderCard {
     }
    // ArrayList<String> gelenliste = ((ExamsActivity)mContext).listedondur();
    @SwipeIn
-   private void onSwipeIn() {
+   public void onSwipeIn() {
 
-        if (activity.getCurrentAnswer().equalsIgnoreCase("Evet")){
-           activity.incDogrucevapsayisi();}
+        if (activity.getCurrentAnswer().equalsIgnoreCase("Evet"))
+        {
+           activity.incEvetsayisi();
+        }
+        else {
+                activity.artir_kalp_sayisi();
+        }
 
 
        Log.d("EVET-IN", "onSwipedIn");
@@ -86,8 +91,13 @@ public class TinderCard {
     private void onSwipedOut() {
        // Log.d("Liste Dondur", "onSwipedOut"+ ((ExamsActivity)mContext).listedondur());
        // Log.d("Sıra Dondur",": :"          +((ExamsActivity)mContext).cevapsiradonder());
-        if (activity.getCurrentAnswer().equalsIgnoreCase("Hayır")){
-            activity.incDogrucevapsayisi();}
+       if (activity.getCurrentAnswer().equalsIgnoreCase("Hayır"))
+        {
+            activity.incHayirsayisi();
+        }
+        else {
+            activity.artir_kalp_sayisi();
+        }
 
 
 

@@ -38,6 +38,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mindorks.placeholderview.SwipeDecor;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
+import com.mindorks.placeholderview.annotations.Layout;
+import com.mindorks.placeholderview.annotations.swipe.SwipeIn;
+import com.mindorks.placeholderview.annotations.swipe.SwipeOut;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -66,30 +69,56 @@ public class ExamsActivity extends AppCompatActivity {
     private ImageButton like, dislike, evet_buton, hayir_buton;
     public PuanHesapla puanHesapla;
     public Dialog dialog;
-    public int dogrucevapsayisi = 0, yanlis_dogrucevapsayisi;
-    public int cevapsira, kirik_kalp;
+    public int evetsayisi = 0, hayirsayisi=0;
+    public int cevapsira, kirik_kalp=0;
     ImageView kirik_kalp_image1, kirik_kalp_image2, kirik_kalp_image3;
     private long time_hatırla = 0;
     public ArrayList<String> cevaplistesi = new ArrayList<>();
-
+    int tut=0;
     private static final String TAG = "ExamsActivity";
     public int quiz;
 
-    public int getDogrucevapsayisi() {
-        return dogrucevapsayisi;
+
+    public int getEvetsayisi() {
+        return evetsayisi;
     }
 
-    public void setDogrucevapsayisi(int dogrucevapsayisi) {
-        this.dogrucevapsayisi = dogrucevapsayisi;
+    public void setEvetsayisi(int evetsayisi) {
+        this.evetsayisi = evetsayisi;
     }
 
-    public void incDogrucevapsayisi() {
-        this.dogrucevapsayisi += 1;
+    public int getHayirsayisi() {
+        return hayirsayisi;
     }
 
-    public void decDogrucevapsayisi() {
-        this.dogrucevapsayisi -= 1;
+    public void setHayirsayisi(int hayirsayisi) {
+        this.hayirsayisi = hayirsayisi;
     }
+
+    public void incEvetsayisi() {
+        this.evetsayisi += 1;
+    }
+    public void incHayirsayisi(){
+        this.hayirsayisi+=1;
+    }
+   public void descEvetsayisi() {
+        this.evetsayisi -= 1;
+    }
+    public  void descHayirsayisi(){
+        this.hayirsayisi-=1;
+    }
+//////////////
+    public int getKirik_kalp() {
+        return kirik_kalp;
+    }
+
+    public void setKirik_kalp(int kirik_kalp) {
+        this.kirik_kalp = kirik_kalp;
+    }
+    public void artir_kalp_sayisi(){
+        this.kirik_kalp+=1;
+    }
+
 
     public ArrayList<String> getCevaplistesi() {
         return cevaplistesi;
@@ -110,10 +139,6 @@ public class ExamsActivity extends AppCompatActivity {
         databaseReference = database.getReference();
         user = firebaseAuth.getCurrentUser();
         user_id = user.getUid();
-
-
-        //databaseReference.setValue("Hello World");
-
 
         mSwipeView = (SwipePlaceHolderView) findViewById(R.id.swipeView);
         mContext = this;
@@ -142,81 +167,81 @@ public class ExamsActivity extends AppCompatActivity {
                 .setSwipeDecor(new SwipeDecor()
                         .setPaddingTop(20)
                         .setRelativeScale(0.01f));
-
         // .setSwipeInMsgLayoutId(R.layout.tinder_swipe_in_msg_view)           //Yana kaydırırken mesajın doğru oldğunu
         // .setSwipeOutMsgLayoutId(R.layout.tinder_swipe_out_msg_view));       //Yana kaydırırken mesajın yanlış olduğunu yazıyoruz
-
-
         for (Profile deger : Utils.loadProfiles(this.getApplicationContext(), quiz)) {       //her bir elemanda gez degere at : nerde gezineceksin
             mSwipeView.addView(new TinderCard(mContext, deger, mSwipeView, quiz));
-
             cevaplistesi.add(deger.getAnswer());
         }
 
-        hayir_buton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSwipeView.doSwipe(false);
-                String hayir = "Hayır";
-                if (getCurrentAnswer().equalsIgnoreCase(hayir)) {
-                    incDogrucevapsayisi();
-                } else {
-
-                    kirik_kalp++;
-                    if (kirik_kalp == 1) {
-                        kirik_kalp_image1.setImageResource(R.drawable.kirikalp);
-                    }
-                    if (kirik_kalp == 2) {
-                        kirik_kalp_image2.setImageResource(R.drawable.kirikalp);
-                    }
-                    if (kirik_kalp == 3) {
-                        kirik_kalp_image3.setImageResource(R.drawable.kirikalp);
-                    }
-                    if (kirik_kalp == 3) {
-                        ShowPop();
-                    }
-                }
-
-                cevapsira++;
-                Log.i("KirikKalp", ": :" + kirik_kalp);
-                cevabı_beklet();
-
-
-            }
-        });
         evet_buton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mSwipeView.doSwipe(true);
                 String evet = "Evet";
                 if (getCurrentAnswer().equalsIgnoreCase(evet)) {
-                    incDogrucevapsayisi();
-                    //Log.i("Evet Puan",":",puanHesapla.puanarti());
+                    incEvetsayisi();
+                    descHayirsayisi();
                 } else {
-                    decDogrucevapsayisi();
-                    kirik_kalp++;
-                    if (kirik_kalp == 1) {
+                    descEvetsayisi();
+
+                    if (getKirik_kalp() == 1) {
                         kirik_kalp_image1.setImageResource(R.drawable.kirikalp);
                     }
-                    if (kirik_kalp == 2) {
+                    if (getKirik_kalp() == 2) {
                         kirik_kalp_image2.setImageResource(R.drawable.kirikalp);
                     }
-                    if (kirik_kalp == 3) {
+                    if (getKirik_kalp() == 3) {
                         kirik_kalp_image3.setImageResource(R.drawable.kirikalp);
-                    }
-                    if (kirik_kalp == 3) {
                         ShowPop();
                     }
+                    artir_kalp_sayisi();//todo sadece kalbi bir kez kırıyor
+
                 }
                 cevapsira++;
                 cevabı_beklet();
+            }
+        });
+        hayir_buton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSwipeView.doSwipe(false);
+                String hayir = "Hayır";
+                if (getCurrentAnswer().equalsIgnoreCase(hayir)) {
+                    incHayirsayisi();
+                    descEvetsayisi();
+                } else {
+                    descHayirsayisi();
+                    artir_kalp_sayisi();
+                    if (getKirik_kalp() == 1) {
+                        kirik_kalp_image1.setImageResource(R.drawable.kirikalp);
+                    }
+                    if (getKirik_kalp() == 2) {
+                        kirik_kalp_image2.setImageResource(R.drawable.kirikalp);
+                    }
+                    if (getKirik_kalp() == 3) {
+                        kirik_kalp_image3.setImageResource(R.drawable.kirikalp);
+                        ShowPop();
+                    }
 
-
+                }
+                cevapsira++;
+               // Log.i("KirikKalp", ": :" + kirik_kalp);
+                cevabı_beklet();
             }
         });
 
-    }
 
+    }
+         @SwipeOut
+        private void onSwipedOut(){
+            Log.i("Oldu_lan",":Swipeout");
+        }
+        @SwipeIn
+        private void onSwipeIn(){
+            Log.i("Oldu_lan",":Swipein");
+
+        }
     public ArrayList<String> listedondur() {
         return cevaplistesi;
 
@@ -225,32 +250,8 @@ public class ExamsActivity extends AppCompatActivity {
     public int cevapsiradonder() {
         return cevapsira;
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.manu_main, menu);
-        Log.i("Menu", "goster");
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {   // Ayarlar bölumu
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.settings:
-                // Toast.makeText(Exams.this,"Ayarlara Tıkladınız",Toast.LENGTH_LONG).show();
-                break;
-            case R.id.skor:
-                Toast.makeText(ExamsActivity.this, "Skora tıkladınız", Toast.LENGTH_LONG).show();
-                Intent ıntent = new Intent(ExamsActivity.this, SkorActivity.class);
-                startActivity(ıntent);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     public CountDownTimer getCountDownTimer() {
-        countDownTimer = new CountDownTimer(16900, 1000) { //Burdaki saniye 49 olması lazım
+        countDownTimer = new CountDownTimer(36900, 1000) { //Burdaki saniye 49 olması lazım
             @Override
             public void onTick(long millisUntilFinished) {
                 time.setText(String.valueOf(millisUntilFinished / 1000).toString());
@@ -265,14 +266,11 @@ public class ExamsActivity extends AppCompatActivity {
 
         return countDownTimer;
     }
-
-
     public void ShowPop() {    //Zaman bittiğinde kazanılan altın ve elmasları gösteriyoruz
 
         TextView textclose, kategori_text, popup_para, popup_can, popup_elmas;
         ImageButton home, again, devam;
         ImageView kategori_image;
-
         dialog.setContentView(R.layout.win_popup);
         dialog.setCancelable(false);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -285,13 +283,13 @@ public class ExamsActivity extends AppCompatActivity {
         popup_can = (TextView) dialog.findViewById(R.id.popup_can);
         popup_para = (TextView) dialog.findViewById(R.id.pop_para);
         popup_elmas = (TextView) dialog.findViewById(R.id.pop_elmas);
-        Log.i("Dogru", ":" + String.valueOf(getDogrucevapsayisi()));
+        Log.i("Dogru", ":" + String.valueOf(getEvetsayisi()));
         if (puanHesapla.puanarti() <= 0) {
-            popup_para.setText(String.valueOf(getDogrucevapsayisi()));
-            popup_elmas.setText(String.valueOf(getDogrucevapsayisi()));
+            popup_para.setText(String.valueOf(getEvetsayisi()+getHayirsayisi()));
+            popup_elmas.setText(String.valueOf(getEvetsayisi()+getHayirsayisi()));
         }
-        popup_para.setText(String.valueOf(getDogrucevapsayisi()));
-        popup_elmas.setText(String.valueOf(getDogrucevapsayisi()));
+        popup_para.setText(String.valueOf(getEvetsayisi()+getHayirsayisi()));
+        popup_elmas.setText(String.valueOf(getEvetsayisi()+getHayirsayisi()));
         Log.i("Kalpp", ":" + kirik_kalp);
         if (kirik_kalp == 0) {
             popup_can.setText("3");
@@ -302,10 +300,8 @@ public class ExamsActivity extends AppCompatActivity {
         } else if (kirik_kalp == 3) {
             popup_can.setText("0");
         }
-
         //  kirik_kalp=0;
         ekleveritabani();
-
         switch (quiz) {
             case 1:
                 kategori_image.setImageResource(R.drawable.tarihim);
@@ -362,17 +358,16 @@ public class ExamsActivity extends AppCompatActivity {
             dialog.show();
         }
     }
-
     @Override
-    public void onBackPressed() {              //Çıkış yapmak istiyormmusun diye soruyoruz
+    public void onBackPressed() {
         //TODO süre durduktan sonra devam etmesi lazım
         final Dialog cikis_dialog = new Dialog(this, R.style.DialogNotitle);
         cikis_dialog.setContentView(R.layout.exit_popup);
         cikis_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         cikis_dialog.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
-        countDownTimer.cancel();
-        Button devam_et = (Button) cikis_dialog.findViewById(R.id.parola_degistir_dialog);
-        Button cikis_yap = (Button) cikis_dialog.findViewById(R.id.cikis_yap);
+       // countDownTimer.cancel();
+        Button devam_et = (Button) cikis_dialog.findViewById(R.id.dialog_cikis_evet);
+        Button cikis_yap = (Button) cikis_dialog.findViewById(R.id.dialog_cikis_hayir);
         devam_et.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -387,9 +382,7 @@ public class ExamsActivity extends AppCompatActivity {
             }
         });
         cikis_dialog.show();
-
     }
-
     public void cevabı_beklet() {
         evet_buton.setEnabled(false);
         hayir_buton.setEnabled(false);
@@ -403,12 +396,8 @@ public class ExamsActivity extends AppCompatActivity {
 
             }
         }, bekletsure);
-
-
     }
-
     public void ekleveritabani() {
-
         int para_topla;
         user = firebaseAuth.getCurrentUser();
         String useremail = user.getEmail().toString();
@@ -440,9 +429,9 @@ public class ExamsActivity extends AppCompatActivity {
             databaseReference.child("Puanlar").child(user_id).child("kalp").setValue(0);
         }
         databaseReference.child("Puanlar").child(user_id).child("useremail").setValue(useremail);
-        databaseReference.child("Puanlar").child(user_id).child("para").setValue(getDogrucevapsayisi());
-        databaseReference.child("Puanlar").child(user_id).child("elmas").setValue(getDogrucevapsayisi());
-        databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(getDogrucevapsayisi()*10);//Todo burda sadece göstermelik için 10 ile çarptım
+        databaseReference.child("Puanlar").child(user_id).child("para").setValue(getEvetsayisi()+getHayirsayisi());
+        databaseReference.child("Puanlar").child(user_id).child("elmas").setValue(getEvetsayisi()+getHayirsayisi());
+        databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(getEvetsayisi() * 10);//Todo burda sadece göstermelik için 10 ile çarptım
 
     }
 

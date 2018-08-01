@@ -36,7 +36,7 @@ import java.util.Random;
 
 public class MainFragment extends Fragment implements Animation.AnimationListener {
 
-    private   FirebaseDatabase database;
+    private FirebaseDatabase database;
     private DatabaseReference databaseReference;
     private FirebaseUser user;
     private FirebaseAuth firebaseAuth;
@@ -54,10 +54,10 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
     Animation animation;
     ImageView checked, checked1, checked2, checked3, checked4, checked5, checked6, isaret_oku;
     Button oyunu_baslat;
-    TextView main_kategori_adi,main_motivasyon;
-    TextView main_kalp_toplam,main_para_toplam,main_elmas_toplam;
+    TextView main_kategori_adi, main_motivasyon;
+    TextView main_kalp_toplam, main_para_toplam, main_elmas_toplam;
     ImageView main_kategori_resmi;
-    ImageButton main_tekrar_buton,main_basla_buton;
+    ImageButton main_tekrar_buton, main_basla_buton;
     Intent key_gonder;
 
     //TODO manin fragment deyken  geri dersem dialog açılıyorrr
@@ -66,21 +66,21 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        firebaseAuth=FirebaseAuth.getInstance();
-        database=FirebaseDatabase.getInstance();
-        databaseReference=database.getReference();
-        user =firebaseAuth.getCurrentUser();
-        user_id=user.getUid();
+        firebaseAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        databaseReference = database.getReference();
+        user = firebaseAuth.getCurrentUser();
+        user_id = user.getUid();
 
 
         oyunu_baslat = (Button) view.findViewById(R.id.baslat);
         isaret_oku = (ImageView) view.findViewById(R.id.isaret_oku);
-        animation=AnimationUtils.loadAnimation(getActivity(),R.anim.rotate);
+        animation = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate);
         animation.setAnimationListener(MainFragment.this);
 
-        main_kalp_toplam=(TextView)view.findViewById(R.id.main_kalp_toplam);
-        main_para_toplam=(TextView)view.findViewById(R.id.main_para_toplam);
-        main_elmas_toplam=(TextView)view.findViewById(R.id.main_elmas_toplam);
+        main_kalp_toplam = (TextView) view.findViewById(R.id.main_kalp_toplam);
+        main_para_toplam = (TextView) view.findViewById(R.id.main_para_toplam);
+        main_elmas_toplam = (TextView) view.findViewById(R.id.main_elmas_toplam);
 
 
         checked1 = (ImageView) view.findViewById(R.id.kategori_image_checked1);
@@ -113,49 +113,49 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
 
     @Override
     public void onAnimationEnd(Animation animation) {
-       // Log.i("Random", ":" + random_sayi);
-          key_gonder=new Intent(getActivity(),ExamsActivity.class);
+        // Log.i("Random", ":" + random_sayi);
+        key_gonder = new Intent(getActivity(), ExamsActivity.class);
         switch (random_sayi) {
             case 1:
                 isaret_oku.setRotation(315); //Tarih
                 checked1.setImageResource(R.drawable.checked);
-                key_gonder.putExtra(sorukey,tarih);
-               // startActivity(key_gonder);
+                key_gonder.putExtra(sorukey, tarih);
+                // startActivity(key_gonder);
                 show_pup();
                 break;
             case 2:
                 isaret_oku.setRotation(0);//Bilim
                 checked2.setImageResource(R.drawable.checked);
-                key_gonder.putExtra(sorukey,bilim);
-               // startActivity(key_gonder);
+                key_gonder.putExtra(sorukey, bilim);
+                // startActivity(key_gonder);
                 show_pup();
                 break;
             case 3:
                 isaret_oku.setRotation(45);//Eğlence
                 checked3.setImageResource(R.drawable.checked);
-                key_gonder.putExtra(sorukey,eglence);
-               // startActivity(key_gonder);
+                key_gonder.putExtra(sorukey, eglence);
+                // startActivity(key_gonder);
                 show_pup();
                 break;
             case 4:
                 isaret_oku.setRotation(225);//Coğrafya
                 checked4.setImageResource(R.drawable.checked);
-                key_gonder.putExtra(sorukey,cografya);
-               // startActivity(key_gonder);
+                key_gonder.putExtra(sorukey, cografya);
+                // startActivity(key_gonder);
                 show_pup();
                 break;
             case 5:
                 isaret_oku.setRotation(180);//Sanat
                 checked5.setImageResource(R.drawable.checked);
-                key_gonder.putExtra(sorukey,sanat);
-               // startActivity(key_gonder);
+                key_gonder.putExtra(sorukey, sanat);
+                // startActivity(key_gonder);
                 show_pup();
                 break;
             case 6:
                 isaret_oku.setRotation(135);//Sporsa
                 checked6.setImageResource(R.drawable.checked);
-                key_gonder.putExtra(sorukey,spor);
-               // startActivity(key_gonder);
+                key_gonder.putExtra(sorukey, spor);
+                // startActivity(key_gonder);
                 show_pup();
                 break;
 
@@ -166,26 +166,51 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
     public void onAnimationRepeat(Animation animation) {
 
     }
+
     private void show_pup() {
-    final Dialog dialog=new Dialog(getActivity());
-    dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-    dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-    dialog.setContentView(R.layout.basla_dialog);
-    dialog.setCancelable(false);
-    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-    dialog.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
-        main_kategori_adi=(TextView)dialog.findViewById(R.id.main_kategoriadi);
-        main_kategori_resmi=(ImageView)dialog.findViewById(R.id.resim);
-        main_basla_buton=(ImageButton)dialog.findViewById(R.id.main_basla_buton);
-        main_tekrar_buton=(ImageButton)dialog.findViewById(R.id.main_tekrar_buton);
-        main_motivasyon=(TextView)dialog.findViewById(R.id.text_baslikkk);
-        switch (random_sayi){
-            case 1: main_kategori_adi.setText("Tarih"); main_motivasyon.setText("Tarihte iyimisin Dostum !"); main_kategori_resmi.setImageResource(R.drawable.tarihim); break;
-            case 2: main_kategori_adi.setText("Bilim"); main_motivasyon.setText("Seni gidi BilimAdamı"); main_kategori_resmi.setImageResource(R.drawable.bilim);break;
-            case 3: main_kategori_adi.setText("Eğlence");main_motivasyon.setText("Hadi biraz Eğlenelim");main_kategori_resmi.setImageResource(R.drawable.eglence);break;
-            case 4: main_kategori_adi.setText("Coğrafya");main_motivasyon.setText("Dünyayı turlamaya ne dersin!");main_kategori_resmi.setImageResource(R.drawable.cografya);break;
-            case 5: main_kategori_adi.setText("Sanat");main_motivasyon.setText("Sanata yeteneğin olduğunu bilmiyordum !");main_kategori_resmi.setImageResource(R.drawable.sanat);break;
-            case 6: main_kategori_adi.setText("Spor");main_motivasyon.setText("Yorucu bir kategori eminmisin Dostum");main_kategori_resmi.setImageResource(R.drawable.spor);break;
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        dialog.setContentView(R.layout.basla_dialog);
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
+        main_kategori_adi = (TextView) dialog.findViewById(R.id.main_kategoriadi);
+        main_kategori_resmi = (ImageView) dialog.findViewById(R.id.resim);
+        main_basla_buton = (ImageButton) dialog.findViewById(R.id.main_basla_buton);
+        main_tekrar_buton = (ImageButton) dialog.findViewById(R.id.main_tekrar_buton);
+        main_motivasyon = (TextView) dialog.findViewById(R.id.text_baslikkk);
+        switch (random_sayi) {
+            case 1:
+                main_kategori_adi.setText("Tarih");
+                main_motivasyon.setText("Tarihte iyimisin Dostum !");
+                main_kategori_resmi.setImageResource(R.drawable.tarihim);
+                break;
+            case 2:
+                main_kategori_adi.setText("Bilim");
+                main_motivasyon.setText("Seni gidi BilimAdamı");
+                main_kategori_resmi.setImageResource(R.drawable.bilim);
+                break;
+            case 3:
+                main_kategori_adi.setText("Eğlence");
+                main_motivasyon.setText("Hadi biraz Eğlenelim");
+                main_kategori_resmi.setImageResource(R.drawable.eglence);
+                break;
+            case 4:
+                main_kategori_adi.setText("Coğrafya");
+                main_motivasyon.setText("Dünyayı turlamaya ne dersin!");
+                main_kategori_resmi.setImageResource(R.drawable.cografya);
+                break;
+            case 5:
+                main_kategori_adi.setText("Sanat");
+                main_motivasyon.setText("Sanata yeteneğin olduğunu bilmiyordum !");
+                main_kategori_resmi.setImageResource(R.drawable.sanat);
+                break;
+            case 6:
+                main_kategori_adi.setText("Spor");
+                main_motivasyon.setText("Yorucu bir kategori eminmisin Dostum");
+                main_kategori_resmi.setImageResource(R.drawable.spor);
+                break;
 
         }
         main_basla_buton.setOnClickListener(new View.OnClickListener() {
@@ -204,10 +229,10 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
                 carki_tekrar_cevir();
             }
         });
-    dialog.show();
+        dialog.show();
     }
 
-    public void carki_tekrar_cevir(){
+    public void carki_tekrar_cevir() {
         checked1.setImageResource(R.drawable.tarihim);
         checked2.setImageResource(R.drawable.bilim);
         checked3.setImageResource(R.drawable.eglence);
@@ -217,23 +242,24 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
         isaret_oku.setRotation(0);
 
     }
-    public void Firebase_get_data(){
-         databaseReference.addValueEventListener(new ValueEventListener() {
+
+    public void Firebase_get_data() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 //Todo kalbe veriyi toplam kalp puanı felan br şey olması lazım satın aldığı kadar veya her 24 saatte 5 tane felan
-               Integer kalp=dataSnapshot.child("Puanlar").child(user_id).child("kalp").getValue(Integer.class);
-                 main_kalp_toplam.setText(String.valueOf(kalp));
-                 if (kalp==0){
-                 //    reklam_izle(); 
-                 }
+                Integer kalp = dataSnapshot.child("Puanlar").child(user_id).child("kalp").getValue(Integer.class);
+                main_kalp_toplam.setText(String.valueOf(kalp));
+                if (kalp == 0) {
+                    //    reklam_izle();
+                }
 
 
-                 Integer para=  dataSnapshot.child("Puanlar").child(user_id).child("para").getValue(Integer.class);
-                 main_para_toplam.setText(String.valueOf(para));
+                Integer para = dataSnapshot.child("Puanlar").child(user_id).child("para").getValue(Integer.class);
+                main_para_toplam.setText(String.valueOf(para));
 
-                Integer elmas=  dataSnapshot.child("Puanlar").child(user_id).child("elmas").getValue(Integer.class);
+                Integer elmas = dataSnapshot.child("Puanlar").child(user_id).child("elmas").getValue(Integer.class);
                 main_elmas_toplam.setText(String.valueOf(elmas));
 
                 //Database de değişiklik olursa ne yapayım
@@ -247,21 +273,21 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
 
     }
 
-    public void reklam_izle(){
-        Button exit_dialog,izle_button;
-        final Dialog dialog=new Dialog(getActivity());
+    public void reklam_izle() {
+        Button exit_dialog, izle_button;
+        final Dialog dialog = new Dialog(getActivity());
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         dialog.setContentView(R.layout.reklam_izle_dialog);
         dialog.setCancelable(false);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
-        izle_button=(Button)dialog.findViewById(R.id.reklam_izle);
-        exit_dialog=(Button)dialog.findViewById(R.id.exit_reklam);
+        izle_button = (Button) dialog.findViewById(R.id.reklam_izle);
+        exit_dialog = (Button) dialog.findViewById(R.id.exit_reklam);
         izle_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(),"Rekla İzleyebilirsiniz",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Rekla İzleyebilirsiniz", Toast.LENGTH_LONG).show();
             }
         });
         exit_dialog.setOnClickListener(new View.OnClickListener() {
@@ -273,7 +299,6 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
         dialog.show();
 
     }
-
 
 
 }

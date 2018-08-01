@@ -63,13 +63,8 @@ import static android.Manifest.permission.READ_CONTACTS;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private FirebaseDatabase database;
-    private DatabaseReference databaseReference;
-    private FirebaseUser user;
+
     private FirebaseAuth mAuth;
-    private String user_id;
-
-
     private EditText email;
     private EditText parola;
     private View mProgressView;
@@ -86,10 +81,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         mAuth = FirebaseAuth.getInstance();
-        database=FirebaseDatabase.getInstance();
-        databaseReference=database.getReference();
-        user=mAuth.getCurrentUser();
-        user_id=user.getUid();
+
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
@@ -180,6 +172,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.d("Login", "Error" + e.getLocalizedMessage());
+                Toast.makeText(getApplicationContext(),"E-mail veya Parola Yanlış",Toast.LENGTH_LONG).show();
                 progressBar.setVisibility(View.GONE);
 
             }
