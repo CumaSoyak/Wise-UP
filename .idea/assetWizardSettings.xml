@@ -23,7 +23,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="color" value="050502" />
+                                                <entry key="color" value="f8fefa" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -35,7 +35,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_dehaze_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/av/ic_slow_motion_video_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -79,10 +79,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="assetType" value="IMAGE" />
                                       <entry key="iconShape" value="NONE" />
                                       <entry key="imageAsset" value="C:\Users\Cuma\Desktop\Resimler\uygulama resimler\Yeni klasör\menu.png" />
-                                      <entry key="outputName" value="menu" />
+                                      <entry key="outputName" value="video" />
                                     </map>
                                   </option>
                                 </PersistentState>

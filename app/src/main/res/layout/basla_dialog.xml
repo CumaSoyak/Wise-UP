@@ -19,20 +19,20 @@
         android:textColor="@color/backgroundcolor"
         android:textSize="35dp"
         android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/main_kategori_resmi"
+        app:layout_constraintBottom_toTopOf="@+id/resim"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/main_kategori_resmi"
+        android:id="@+id/resim"
         android:layout_width="136dp"
         android:layout_height="163dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/bilim"
-        app:layout_constraintBottom_toTopOf="@+id/basla_motivasyon"
+        app:layout_constraintBottom_toTopOf="@+id/text_baslikkk"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +65,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/basla_motivasyon"
+        android:id="@+id/text_baslikkk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="70dp"
@@ -79,7 +79,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_kategori_resmi" />
+        app:layout_constraintTop_toBottomOf="@+id/resim" />
 
 
 </android.support.constraint.ConstraintLayout>

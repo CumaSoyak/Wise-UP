@@ -1,17 +1,20 @@
 package com.example.cuma.tinder.Activity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.example.cuma.tinder.Adapter.MainAdapter;
 import com.example.cuma.tinder.Fragment.HesapFragment;
@@ -20,22 +23,49 @@ import com.example.cuma.tinder.Fragment.MainFragment;
 import com.example.cuma.tinder.Fragment.OneriFragment;
 import com.example.cuma.tinder.Fragment.ShopFragment;
 import com.example.cuma.tinder.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
+    private FirebaseUser user;
+    private FirebaseAuth firebaseAuth;
+    private String user_id;
+    private String uuid_String;
 
 
     private ViewPager viewPager;
     private MainAdapter mainAdapter;
     private TabLayout tabLayout;
     private Toolbar toolbar;
-    private int[] tabicons = {R.mipmap.house, R.mipmap.alisveris, R.mipmap.kazanan, R.mipmap.soru_oneri,R.mipmap.menu};
+    private int[] tabicons = {R.mipmap.house, R.mipmap.alisveris, R.mipmap.kazanan, R.mipmap.soru_oneri, R.mipmap.menu};
 
+    EditText al_kullanici_adi;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        databaseReference = database.getReference();
+        user = firebaseAuth.getCurrentUser();
+        user_id = user.getUid();
+
+
+
+        // todo Default Değerler atadık ilk kullanıcı için burayı kontrol etmem lazım ilk defa açılıp açılmadığını
+        databaseReference.child("Yarisma").child(user_id).child("nickname").setValue("tindergame"); //default olarak değer atadık
+        databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(0); //default olarak değer atadık
+        databaseReference.child("Puanlar").child(user_id).child("kalp").setValue(5);
+        databaseReference.child("Puanlar").child(user_id).child("para").setValue(0);
+        databaseReference.child("Puanlar").child(user_id).child("elmas").setValue(0);
+        //
 
         mainAdapter = new MainAdapter(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.viewpager_main);
@@ -45,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs_main);
         tabLayout.setupWithViewPager(viewPager);
         setupTabıcons();
+
+        kullanici_adi_al(); //Kullanıcı adını burda alıyoruz
 
       /*  viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -80,13 +112,44 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new ShopFragment(), "dasd");
         adapter.addFragment(new KupaFragment(), "dasd");
         adapter.addFragment(new OneriFragment(), "Öneri");
-        adapter.addFragment(new HesapFragment(),"hesap");
+        adapter.addFragment(new HesapFragment(), "hesap");
         viewPager.setAdapter(adapter);
     }
 
     public void moneyclick(View view) {
         Intent ıntent = new Intent(getApplicationContext(), MoneyActivity.class);
         startActivity(ıntent);
+    }
+
+    public void kullanici_adi_al() {  //todo uygulamaya ilk kez giren kişiye bir defa gösterilecek
+        final Dialog dialog = new Dialog(this, R.style.DialogNotitle);
+        dialog.setContentView(R.layout.kullanici_adi_dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
+        dialog.setCancelable(false);
+        Button tamam = (Button) dialog.findViewById(R.id.parola_degistir_dialog);
+        al_kullanici_adi = (EditText) dialog.findViewById(R.id.kullanici_adi_editext);
+        tamam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (al_kullanici_adi.getText().toString().matches("")) {
+                    Toast.makeText(getApplicationContext(), "Kullanıcı Adı Giriniz !", Toast.LENGTH_LONG).show();
+                } else {
+                    ekle_Firebase_kullanici_adi();
+                    dialog.dismiss();
+
+                }
+            }
+        });
+        dialog.show();
+
+    }
+
+    private void ekle_Firebase_kullanici_adi() {
+        user = firebaseAuth.getCurrentUser();
+        String useremail = user.getEmail().toString();
+        databaseReference.child("Kullanıcı_Adı").child(user_id).child("nickname").setValue(al_kullanici_adi.getText().toString());
+        databaseReference.child("Yarisma").child(user_id).child("nickname").setValue(al_kullanici_adi.getText().toString());
     }
 
 

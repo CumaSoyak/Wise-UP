@@ -7,7 +7,6 @@
     android:background="@color/backgroundcolor"
     tools:context=".Fragment.OneriFragment"
     tools:layout_editor_absoluteY="25dp">
-
     <EditText
         android:id="@+id/oneri_soru"
         android:layout_width="0dp"
@@ -47,6 +46,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintBottom_toTopOf="@+id/oneri_gonder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

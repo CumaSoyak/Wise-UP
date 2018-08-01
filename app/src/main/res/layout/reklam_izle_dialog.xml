@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="#00000000"
+    android:orientation="vertical">
+    <!--#80000000 bu renk hafif siyah yapılabiri -->
+
+    <ImageView
+        android:id="@+id/resim"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="32dp"
+        android:src="@drawable/play_video"
+        app:layout_constraintBottom_toTopOf="@+id/reklam_izle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_alt_baslik" />
+
+    <TextView
+        android:id="@+id/text_baslikkk"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:text="İKİNCİ BİR ŞANS ELDE ETMEK İSTER MİSİN ?"
+        android:textColor="@color/backgroundcolor"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/text_alt_baslik"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exit_reklam" />
+
+
+    <TextView
+        android:id="@+id/text_alt_baslik"
+        android:layout_width="300dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Sıra kabetmeden bir video izle ve oynamya devam  et"
+        android:textColor="@color/backgroundcolor"
+        app:layout_constraintBottom_toTopOf="@+id/resim"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_baslikkk" />
+
+    <Button
+        android:id="@+id/exit_reklam"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/exit_button"
+        android:text="X"
+        android:textSize="15dp"
+        android:textColor="@color/backgroundcolor"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/reklam_izle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/replay_button"
+        android:drawableLeft="@mipmap/video"
+        android:text="Video İzle"
+        android:textColor="@color/backgroundcolor"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resim"
+        app:srcCompat="@mipmap/video" />
+
+
+</android.support.constraint.ConstraintLayout>

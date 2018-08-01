@@ -54,6 +54,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -61,12 +63,19 @@ import static android.Manifest.permission.READ_CONTACTS;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
+    private FirebaseUser user;
+    private FirebaseAuth mAuth;
+    private String user_id;
+
+
     private EditText email;
     private EditText parola;
     private View mProgressView;
     private View mLoginFormView;
     Button giris_buton, kayit_buton;
-    private FirebaseAuth mAuth;
+
     private ProgressBar progressBar;
     private CallbackManager callbackManager;
     private AccessToken facebookaccessToken;
@@ -77,6 +86,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         mAuth = FirebaseAuth.getInstance();
+        database=FirebaseDatabase.getInstance();
+        databaseReference=database.getReference();
+        user=mAuth.getCurrentUser();
+        user_id=user.getUid();
+
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
@@ -119,8 +133,11 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             progressBar.setVisibility(View.GONE);
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d("dda", "createUserWithEmail:success");
+                            Log.d("dda", "" +
+                                    ":success");
                             Toast.makeText(getApplicationContext(), "Başarılı", Toast.LENGTH_LONG).show();
+
+
                             Intent ıntent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(ıntent);
                             // progressBar.setVisibility(View.VISIBLE);
@@ -179,6 +196,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
                 Log.d("Login", "facebook:onSuccess:" + loginResult);
                 //handleFacebookAccessToken(loginResult.getAccessToken());
+                Intent ıntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(ıntent);
+
             }
 
             @Override

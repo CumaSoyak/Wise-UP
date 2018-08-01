@@ -1,29 +1,37 @@
 package com.example.cuma.tinder.Class;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
+@IgnoreExtraProperties
 public class Kupa {
-    String kupa_ad,kupa_puan;
+    String nickname;
+    double siralama;
     int kupa_image;
 
-    public Kupa(String kupa_ad, String kupa_puan, int kupa_image) {
-        this.kupa_ad = kupa_ad;
-        this.kupa_puan = kupa_puan;
+    public Kupa(String nickname, double siralama, int kupa_image) {
+        this.nickname =  nickname;
+        this.siralama =  siralama;
         this.kupa_image = kupa_image;
     }
 
-    public String getKupa_ad() {
-        return kupa_ad;
+    public Kupa() {
+
     }
 
-    public void setKupa_ad(String kupa_ad) {
-        this.kupa_ad = kupa_ad;
+    public String getNickname() {
+        return nickname;
     }
 
-    public String getKupa_puan() {
-        return kupa_puan;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    public void setKupa_puan(String kupa_puan) {
-        this.kupa_puan = kupa_puan;
+    public double getSiralama() {
+        return siralama;
+    }
+
+    public void setSiralama(double siralama) {
+        this.siralama = siralama;
     }
 
     public int getKupa_image() {
@@ -33,5 +41,4 @@ public class Kupa {
     public void setKupa_image(int kupa_image) {
         this.kupa_image = kupa_image;
     }
-
 }

@@ -33,8 +33,8 @@ public class KupaAdapter extends RecyclerView.Adapter<KupaAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         //Holder tutacak demek
-        holder.kupa_ad.setText(kupaList.get(position).getKupa_ad());
-        holder.kupa_puan.setText(kupaList.get(position).getKupa_puan());
+        holder.kupa_ad.setText(kupaList.get(position).getNickname());
+        holder.kupa_puan.setText(Integer.toString((int) kupaList.get(position).getSiralama()));
         holder.kupa_image.setImageResource(kupaList.get(position).getKupa_image());
     }
 

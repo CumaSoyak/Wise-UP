@@ -3,63 +3,69 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="250dp"
-    android:layout_height="200dp"
+    android:layout_height="210dp"
     android:layout_gravity="center"
     android:background="@drawable/popup_rounded"
-    android:orientation="vertical"
-     >
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView14"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/sad_face" />
+        app:srcCompat="@drawable/rainbow" />
 
     <TextView
         android:id="@+id/textView14"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="Çıkış yapmak istiyormusun ?"
+        android:text="Kullanıcı adın ne ?"
         android:textColor="@color/backgroundcolor"
         android:textSize="18dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/cikis_yap"
+        app:layout_constraintBottom_toTopOf="@+id/kullanici_adi_editext"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView5" />
-
-    <Button
-        android:id="@+id/cikis_yap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Çıkış"
-        android:background="@drawable/exit_button"
-        android:textColor="@color/backgroundcolor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/parola_degistir_dialog"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/parola_degistir_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Devam"
-        android:textColor="@color/backgroundcolor"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
         android:background="@drawable/devam_button"
+        android:text="Tamam"
+        android:textColor="@color/backgroundcolor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/cikis_yap" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/kullanici_adi_editext" />
+
+    <EditText
+        android:id="@+id/kullanici_adi_editext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Nickname"
+        android:inputType="textPersonName"
+        android:textColor="@color/backgroundcolor"
+        android:textColorHint="@color/backgroundcolor"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/parola_degistir_dialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -1,17 +1,13 @@
 package com.example.cuma.tinder.Fragment;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.cuma.tinder.Activity.ExamsActivity;
@@ -35,9 +32,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.net.InetAddress;
-import java.sql.Connection;
-import java.util.HashMap;
 import java.util.Random;
 
 public class MainFragment extends Fragment implements Animation.AnimationListener {
@@ -181,10 +175,10 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     dialog.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
         main_kategori_adi=(TextView)dialog.findViewById(R.id.main_kategoriadi);
-        main_kategori_resmi=(ImageView)dialog.findViewById(R.id.main_kategori_resmi);
+        main_kategori_resmi=(ImageView)dialog.findViewById(R.id.resim);
         main_basla_buton=(ImageButton)dialog.findViewById(R.id.main_basla_buton);
         main_tekrar_buton=(ImageButton)dialog.findViewById(R.id.main_tekrar_buton);
-        main_motivasyon=(TextView)dialog.findViewById(R.id.basla_motivasyon);
+        main_motivasyon=(TextView)dialog.findViewById(R.id.text_baslikkk);
         switch (random_sayi){
             case 1: main_kategori_adi.setText("Tarih"); main_motivasyon.setText("Tarihte iyimisin Dostum !"); main_kategori_resmi.setImageResource(R.drawable.tarihim); break;
             case 2: main_kategori_adi.setText("Bilim"); main_motivasyon.setText("Seni gidi BilimAdamı"); main_kategori_resmi.setImageResource(R.drawable.bilim);break;
@@ -228,8 +222,12 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                 Integer kalp=dataSnapshot.child("Puanlar").child(user_id).child("kalp").getValue(Integer.class);
+                //Todo kalbe veriyi toplam kalp puanı felan br şey olması lazım satın aldığı kadar veya her 24 saatte 5 tane felan
+               Integer kalp=dataSnapshot.child("Puanlar").child(user_id).child("kalp").getValue(Integer.class);
                  main_kalp_toplam.setText(String.valueOf(kalp));
+                 if (kalp==0){
+                 //    reklam_izle(); 
+                 }
 
 
                  Integer para=  dataSnapshot.child("Puanlar").child(user_id).child("para").getValue(Integer.class);
@@ -246,6 +244,33 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
 
             }
         });
+
+    }
+
+    public void reklam_izle(){
+        Button exit_dialog,izle_button;
+        final Dialog dialog=new Dialog(getActivity());
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        dialog.setContentView(R.layout.reklam_izle_dialog);
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
+        izle_button=(Button)dialog.findViewById(R.id.reklam_izle);
+        exit_dialog=(Button)dialog.findViewById(R.id.exit_reklam);
+        izle_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(),"Rekla İzleyebilirsiniz",Toast.LENGTH_LONG).show();
+            }
+        });
+        exit_dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
 
     }
 

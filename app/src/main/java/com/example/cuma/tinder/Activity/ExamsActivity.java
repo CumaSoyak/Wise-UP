@@ -1,9 +1,7 @@
 package com.example.cuma.tinder.Activity;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -31,7 +29,6 @@ import com.example.cuma.tinder.Fragment.MainFragment;
 import com.example.cuma.tinder.R;
 import com.example.cuma.tinder.TinderCard;
 import com.example.cuma.tinder.Utils;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -374,7 +371,7 @@ public class ExamsActivity extends AppCompatActivity {
         cikis_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         cikis_dialog.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
         countDownTimer.cancel();
-        Button devam_et = (Button) cikis_dialog.findViewById(R.id.devam_et);
+        Button devam_et = (Button) cikis_dialog.findViewById(R.id.parola_degistir_dialog);
         Button cikis_yap = (Button) cikis_dialog.findViewById(R.id.cikis_yap);
         devam_et.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -418,7 +415,7 @@ public class ExamsActivity extends AppCompatActivity {
         UUID uuıd = UUID.randomUUID();
         String uuidString = uuıd.toString();
 
-        //Databasedek verileri önce çekip sonra üstüne kaydetmemiz lazım
+        // todo Databasedek verileri önce çekip sonra üstüne kaydetmemiz lazım
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -433,11 +430,19 @@ public class ExamsActivity extends AppCompatActivity {
 
             }
         });
-
+        if (kirik_kalp == 0) {
+            databaseReference.child("Puanlar").child(user_id).child("kalp").setValue(3);
+        } else if (kirik_kalp == 1) {
+            databaseReference.child("Puanlar").child(user_id).child("kalp").setValue(2);
+        } else if (kirik_kalp == 2) {
+            databaseReference.child("Puanlar").child(user_id).child("kalp").setValue(1);
+        } else if (kirik_kalp == 3) {
+            databaseReference.child("Puanlar").child(user_id).child("kalp").setValue(0);
+        }
         databaseReference.child("Puanlar").child(user_id).child("useremail").setValue(useremail);
-        databaseReference.child("Puanlar").child(user_id).child("kalp").setValue(kirik_kalp);
         databaseReference.child("Puanlar").child(user_id).child("para").setValue(getDogrucevapsayisi());
         databaseReference.child("Puanlar").child(user_id).child("elmas").setValue(getDogrucevapsayisi());
+        databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(getDogrucevapsayisi()*10);//Todo burda sadece göstermelik için 10 ile çarptım
 
     }
 
