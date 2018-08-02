@@ -2,31 +2,63 @@
   {
 
     "question":"Eglence Sorusu?",
-    "answer":"Evet"
+    "answer":"No"
   },
   {
 
     "question":"Eglence Sorusu   1 ?",
-    "answer":"Hayır"
+    "answer":"Yes"
   },
   {
 
     "question":"Eglence Sorusu  2   ?",
-    "answer":"Evet"
+    "answer":"No"
   },
   {
 
     "question":"Eglence Sorusu   3  ?",
-    "answer":"Evet"
+    "answer":"No"
   },
   {
 
-    "question":"Eglence Sorusu   4  ?",
-    "answer":"Hayır"
+    "question":"Bilim Sorusu   4  ?",
+    "answer":"Yes"
+  },
+  {
+
+    "question":"Bilim Sorusu  2   ?",
+    "answer":"Yes"
+  },
+  {
+
+    "question":"Bilim Sorusu   3  ?",
+    "answer":"No"
+  },
+  {
+
+    "question":"Bilim Sorusu   4  ?",
+    "answer":"No"
   }
+,
+  {
 
+    "question":"Bilim Sorusu   1 ?",
+    "answer":"Yes"
+  },
+  {
 
+    "question":"Bilim Sorusu  2   ?",
+    "answer":"No"
+  },
+  {
 
+    "question":"Bilim Sorusu   3  ?",
+    "answer":"No"
+  },
+  {
 
+    "question":"Bilim Sorusu   4  ?",
+    "answer":"Yes"
+  }
 
 ]

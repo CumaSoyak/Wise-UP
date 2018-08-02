@@ -5,6 +5,10 @@ import android.content.res.AssetManager;
 import android.util.Log;
 
 import com.example.cuma.tinder.Class.Profile;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -19,6 +23,11 @@ import java.util.List;
 public class Utils {
 
     //TODO Soruları json dosyasının içindende random çekmem lazım yoksa hep 1. sorudan başlar
+
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
+    private FirebaseUser user;
+    private FirebaseAuth firebaseAuth;
 
     private  static final String TAG="Utils";
     public static List<Profile> profileList;

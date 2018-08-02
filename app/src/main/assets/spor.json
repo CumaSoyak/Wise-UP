@@ -1,47 +1,64 @@
 [
   {
 
-    "question":"Spor Sorusu ?",
-    "answer":"Evet"
+    "question":"Spor Sorusu?",
+    "answer":"No"
   },
   {
 
-    "question":"Spor Sorusu ?",
-    "answer":"Hayır"
+    "question":"Spor Sorusu   1 ?",
+    "answer":"Yes"
   },
   {
 
-    "question":"Spor Sorusu ?",
-    "answer":"Evet"
+    "question":"Spor Sorusu  2   ?",
+    "answer":"No"
   },
   {
 
-    "question":"Spor Sorusu ?",
-    "answer":"Hayır"
+    "question":"Spor Sorusu   3  ?",
+    "answer":"No"
   },
   {
 
-    "question":"Spor Sorusu ?",
-    "answer":"Hayır"
+    "question":"Spor Sorusu   4  ?",
+    "answer":"Yes"
+  },
+  {
+
+    "question":"Bilim Sorusu  2   ?",
+    "answer":"Yes"
+  },
+  {
+
+    "question":"Bilim Sorusu   3  ?",
+    "answer":"No"
+  },
+  {
+
+    "question":"Bilim Sorusu   4  ?",
+    "answer":"No"
   }
 ,
   {
 
-    "question":"Spor Sorusu ?",
-    "answer":"Evet"
+    "question":"Bilim Sorusu   1 ?",
+    "answer":"Yes"
   },
   {
 
-    "question":"Spor Sorusu ?",
-    "answer":"Hayır"
+    "question":"Bilim Sorusu  2   ?",
+    "answer":"No"
   },
   {
 
-    "question":"Spor Sorusu ?",
-    "answer":"Evet"
+    "question":"Bilim Sorusu   3  ?",
+    "answer":"No"
+  },
+  {
+
+    "question":"Bilim Sorusu   4  ?",
+    "answer":"Yes"
   }
-
-
-
 
 ]

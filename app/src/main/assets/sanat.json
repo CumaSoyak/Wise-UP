@@ -1,47 +1,64 @@
 [
   {
 
-    "question":"Sanat Sorusu ?",
-    "answer":"Evet"
+    "question":"Sanat Sorusu?",
+    "answer":"No"
   },
   {
 
-    "question":"Sanat Sorusu ?",
-    "answer":"Hayır"
+    "question":"Sanat Sorusu   1 ?",
+    "answer":"Yes"
   },
   {
 
-    "question":"Sanat Sorusu ?",
-    "answer":"Evet"
+    "question":"Sanat Sorusu  2   ?",
+    "answer":"No"
   },
   {
 
-    "question":"Sanat Sorusu ?",
-    "answer":"Hayır"
+    "question":"Sanat Sorusu   3  ?",
+    "answer":"No"
   },
   {
 
-    "question":"Sanat Sorusu ?",
-    "answer":"Hayır"
+    "question":"Bilim Sorusu   4  ?",
+    "answer":"Yes"
+  },
+  {
+
+    "question":"Bilim Sorusu  2   ?",
+    "answer":"Yes"
+  },
+  {
+
+    "question":"Bilim Sorusu   3  ?",
+    "answer":"No"
+  },
+  {
+
+    "question":"Bilim Sorusu   4  ?",
+    "answer":"No"
   }
 ,
   {
 
-    "question":"Sanat Sorusu ?",
-    "answer":"Evet"
+    "question":"Bilim Sorusu   1 ?",
+    "answer":"Yes"
   },
   {
 
-    "question":"Soyadım Candır ?",
-    "answer":"Hayır"
+    "question":"Bilim Sorusu  2   ?",
+    "answer":"No"
   },
   {
 
-    "question":"Sanat Sorusu ?",
-    "answer":"Evet"
+    "question":"Bilim Sorusu   3  ?",
+    "answer":"No"
+  },
+  {
+
+    "question":"Bilim Sorusu   4  ?",
+    "answer":"Yes"
   }
-
-
-
 
 ]

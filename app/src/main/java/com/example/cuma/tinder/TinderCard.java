@@ -7,9 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cuma.tinder.Activity.ExamsActivity;
-import com.example.cuma.tinder.Activity.MainActivity;
 import com.example.cuma.tinder.Class.Profile;
-import com.example.cuma.tinder.Class.PuanHesapla;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.Resolve;
@@ -19,8 +17,6 @@ import com.mindorks.placeholderview.annotations.swipe.SwipeIn;
 import com.mindorks.placeholderview.annotations.swipe.SwipeInState;
 import com.mindorks.placeholderview.annotations.swipe.SwipeOut;
 import com.mindorks.placeholderview.annotations.swipe.SwipeOutState;
-
-import java.util.ArrayList;
 
 @Layout(R.layout.tinder_card_view)
 public class TinderCard {
@@ -52,7 +48,7 @@ public class TinderCard {
     private int mQuiz;
     private Context mContext;
     private SwipePlaceHolderView mSwipeView;
-    int say=0;
+    int say = 0;
     private ExamsActivity activity;
 
     public TinderCard(Context context, Profile profile, SwipePlaceHolderView swipeView, int quiz) {
@@ -61,6 +57,9 @@ public class TinderCard {
         mProfile = profile;
         mSwipeView = swipeView;
         mQuiz = quiz;
+    }
+    public TinderCard(){
+
     }
 
     @Resolve
@@ -71,40 +70,40 @@ public class TinderCard {
 
 
     }
-   // ArrayList<String> gelenliste = ((ExamsActivity)mContext).listedondur();
-   @SwipeIn
-   public void onSwipeIn() {
 
-        if (activity.getCurrentAnswer().equalsIgnoreCase("Evet"))
-        {
-           activity.incEvetsayisi();
-        }
-        else {
-                activity.artir_kalp_sayisi();
-        }
+    // ArrayList<String> gelenliste = ((ExamsActivity)mContext).listedondur();
+    @SwipeIn
+    public void onSwipeIn() {
+        String evet = "Yes";
+        if (activity.getCurrentAnswer().equalsIgnoreCase(evet)) {
+            activity.incEvetsayisi();
 
-
-       Log.d("EVET-IN", "onSwipedIn");
-
-   }
-    @SwipeOut
-    private void onSwipedOut() {
-       // Log.d("Liste Dondur", "onSwipedOut"+ ((ExamsActivity)mContext).listedondur());
-       // Log.d("Sıra Dondur",": :"          +((ExamsActivity)mContext).cevapsiradonder());
-       if (activity.getCurrentAnswer().equalsIgnoreCase("Hayır"))
-        {
-            activity.incHayirsayisi();
-        }
-        else {
+        } else {
             activity.artir_kalp_sayisi();
+            activity.kalp_patlat();
         }
 
-
-
-
-        // mSwipeView.addView(this);
+        Log.d("EVET-IN", "onSwipedIn");
 
     }
+
+    @SwipeOut
+    private void onSwipedOut() {
+        // Log.d("Liste Dondur", "onSwipedOut"+ ((ExamsActivity)mContext).listedondur());
+        // Log.d("Sıra Dondur",": :"          +((ExamsActivity)mContext).cevapsiradonder());
+        String hayir = "No";
+        if (activity.getCurrentAnswer().equalsIgnoreCase(hayir)) {
+            activity.incHayirsayisi();
+
+        } else {
+            activity.artir_kalp_sayisi();
+            activity.kalp_patlat();
+        }
+        // mSwipeView.addView(this);
+        Log.d("HAYIR-OUT", "onSwipedout");
+
+    }
+
     @SwipeInState
     private void onSwipeInState() {
         Log.d("EVET-IN-STATE", "onSwipeInState");
@@ -121,9 +120,6 @@ public class TinderCard {
     private void onSwipeCancelState() {
         Log.d("HAYIR-CANCEL-STATE", "onSwipeCancelState");
     }
-
-
-
 
 
     public void selectcategory() {
@@ -157,7 +153,6 @@ public class TinderCard {
         }
 
     }
-
 
 
 }

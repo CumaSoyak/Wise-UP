@@ -1,33 +1,64 @@
-
 [
   {
 
-    "question":"Coğrafya Sorusu?",
-    "answer":"Evet"
+    "question":"Cografya Sorusu?",
+    "answer":"No"
   },
   {
 
-    "question":"Coğrafya Sorusu   1 ?",
-    "answer":"Hayır"
+    "question":"Cografya Sorusu   1 ?",
+    "answer":"Yes"
   },
   {
 
-    "question":"Coğrafya Sorusu  2   ?",
-    "answer":"Evet"
+    "question":"Bilim Sorusu  2   ?",
+    "answer":"No"
   },
   {
 
-    "question":"Coğrafya Sorusu   3  ?",
-    "answer":"Evet"
+    "question":"Bilim Sorusu   3  ?",
+    "answer":"No"
   },
   {
 
-    "question":"Coğrafya Sorusu   4  ?",
-    "answer":"Hayır"
+    "question":"Bilim Sorusu   4  ?",
+    "answer":"Yes"
+  },
+  {
+
+    "question":"Bilim Sorusu  2   ?",
+    "answer":"Yes"
+  },
+  {
+
+    "question":"Bilim Sorusu   3  ?",
+    "answer":"No"
+  },
+  {
+
+    "question":"Cografya Sorusu   4  ?",
+    "answer":"No"
   }
+,
+  {
 
+    "question":"Cografya Sorusu   1 ?",
+    "answer":"Yes"
+  },
+  {
 
+    "question":"Cografya Sorusu  2   ?",
+    "answer":"No"
+  },
+  {
 
+    "question":"Cografya Sorusu   3  ?",
+    "answer":"No"
+  },
+  {
 
+    "question":"Cografya Sorusu   4  ?",
+    "answer":"Yes"
+  }
 
 ]

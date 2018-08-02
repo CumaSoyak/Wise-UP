@@ -1,47 +1,64 @@
 [
   {
 
-    "question":"Çilek kırmızıdır ?",
-    "answer":"Evet"
+    "question":"Spor Sorusu?",
+    "answer":"No"
   },
   {
 
-    "question":"Türkiyenin başkenti Londradır?",
-    "answer":"Hayır"
+    "question":"Spor Sorusu   1 ?",
+    "answer":"Yes"
   },
   {
 
-    "question":"Süt beyaz renktedir ?",
-    "answer":"Evet"
+    "question":"Spor Sorusu  2   ?",
+    "answer":"No"
   },
   {
 
-    "question":"Dünya düzdür ?",
-    "answer":"Hayır"
+    "question":"Spor Sorusu   3  ?",
+    "answer":"No"
   },
   {
 
-    "question":"Patates bir meyvedir ?",
-    "answer":"Hayır"
+    "question":"Spor Sorusu   4  ?",
+    "answer":"Yes"
+  },
+  {
+
+    "question":"Bilim Sorusu  2   ?",
+    "answer":"Yes"
+  },
+  {
+
+    "question":"Bilim Sorusu   3  ?",
+    "answer":"No"
+  },
+  {
+
+    "question":"Bilim Sorusu   4  ?",
+    "answer":"No"
   }
 ,
   {
 
-    "question":"Adım cumadır?",
-    "answer":"Evet"
+    "question":"Bilim Sorusu   1 ?",
+    "answer":"Yes"
   },
   {
 
-    "question":"Soyadım Candır ?",
-    "answer":"Hayır"
+    "question":"Bilim Sorusu  2   ?",
+    "answer":"No"
   },
   {
 
-    "question":"Domates sebzedir  ?",
-    "answer":"Evet"
+    "question":"Bilim Sorusu   3  ?",
+    "answer":"No"
+  },
+  {
+
+    "question":"Bilim Sorusu   4  ?",
+    "answer":"Yes"
   }
-
-
-
 
 ]
