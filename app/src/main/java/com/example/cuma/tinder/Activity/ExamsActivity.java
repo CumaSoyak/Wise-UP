@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -25,6 +26,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.example.cuma.tinder.Class.Profile;
 import com.example.cuma.tinder.Class.PuanHesapla;
+import com.example.cuma.tinder.Class.Sorular;
 import com.example.cuma.tinder.Fragment.MainFragment;
 import com.example.cuma.tinder.R;
 import com.example.cuma.tinder.TinderCard;
@@ -62,6 +64,7 @@ public class ExamsActivity extends AppCompatActivity {
     private SwipePlaceHolderView mSwipeView;
     private Context mContext;
     private Profile mProfile;
+    private Sorular mSorular;
     private Toolbar toolbar;
     public Utils utils;
     public CountDownTimer countDownTimer;
@@ -74,6 +77,7 @@ public class ExamsActivity extends AppCompatActivity {
     ImageView kirik_kalp_image1, kirik_kalp_image2, kirik_kalp_image3;
     private long time_hatırla = 0;
     public ArrayList<String> cevaplistesi = new ArrayList<>();
+    public ArrayList<Sorular> sorularList = new ArrayList<>();
     int tut = 0;
     private static final String TAG = "ExamsActivity";
     public int quiz;
@@ -145,6 +149,7 @@ public class ExamsActivity extends AppCompatActivity {
         user = firebaseAuth.getCurrentUser();
         user_id = user.getUid();
 
+
         mSwipeView = (SwipePlaceHolderView) findViewById(R.id.swipeView);
         mContext = this;
         time = (TextView) findViewById(R.id.time);
@@ -164,8 +169,7 @@ public class ExamsActivity extends AppCompatActivity {
         quiz = getIntent().getIntExtra(MainFragment.sorukey, MainFragment.tarih);
         dialog = new Dialog(this, R.style.DialogNotitle);
 
-        utils = new Utils();
-        puanHesapla = new PuanHesapla();
+        //       utils = new Utils();
 
         mSwipeView.getBuilder()
                 .setDisplayViewCount(3) //Burası görünümde kaç kart göstereceği pek alakası yok
@@ -174,10 +178,11 @@ public class ExamsActivity extends AppCompatActivity {
                         .setRelativeScale(0.01f));
         // .setSwipeInMsgLayoutId(R.layout.tinder_swipe_in_msg_view)           //Yana kaydırırken mesajın doğru oldğunu
         // .setSwipeOutMsgLayoutId(R.layout.tinder_swipe_out_msg_view));       //Yana kaydırırken mesajın yanlış olduğunu yazıyoruz
-        for (Profile deger : Utils.loadProfiles(this.getApplicationContext(), quiz)) {       //her bir elemanda gez degere at : nerde gezineceksin
-            mSwipeView.addView(new TinderCard(mContext, deger, mSwipeView, quiz));
+    /*   for (Profile deger : Utils.loadProfiles(this.getApplicationContext(), quiz)) {       //her bir elemanda gez degere at : nerde gezineceksin
+            mSwipeView.addView(new TinderCard(mContext, deger, mSwipeView, quiz));  //swipe içini dolduruyor
             cevaplistesi.add(deger.getAnswer());
-        }
+        }*/
+        soru_ve_cevapları_getir();
         evet_buton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -214,6 +219,33 @@ public class ExamsActivity extends AppCompatActivity {
                 cevapsira++;
                 Log.i("KirikKalp", ": :" + kirik_kalp);
                 cevabı_beklet();
+            }
+        });
+
+
+    }
+
+
+    public void soru_ve_cevapları_getir() {
+        databaseReference.child("Sorular").child(String.valueOf(quiz)).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    mSorular = ds.getValue(Sorular.class);
+                     sorularList.add(mSorular);
+                     mSwipeView.addView(new TinderCard(mContext, mSorular, mSwipeView, quiz));
+
+
+                }
+            //    Log.i("Liste_Cek", ":" +sorularList.get(2).toString());
+
+
+                //todo cevaplar ve sorular gelecek gelen değerlere göre doğru yanlış hesaplanacak
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
 

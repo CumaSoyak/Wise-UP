@@ -78,6 +78,7 @@ public class OneriFragment extends Fragment {
                     return true;
                 }
             }
+
             @Override
             public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
@@ -119,16 +120,16 @@ public class OneriFragment extends Fragment {
             return;
         }
         if (evet.isChecked()) {
-            databaseReference.child("Sorular").child(uuid_String).child("soru").setValue(oneri_soru.getText().toString());
-            databaseReference.child("Sorular").child(uuid_String).child("cevap").setValue("Yes");
+            databaseReference.child("Sorular").child(String.valueOf(deger)).child(uuid_String).child("soru").setValue(oneri_soru.getText().toString());
+            databaseReference.child("Sorular").child(String.valueOf(deger)).child(uuid_String).child("cevap").setValue("Yes");
         } else if (hayir.isChecked()) {
-            databaseReference.child("Sorular").child(uuid_String).child("soru").setValue(oneri_soru.getText().toString());
-            databaseReference.child("Sorular").child(uuid_String).child("cevap").setValue("No");
+            databaseReference.child("Sorular").child(String.valueOf(deger)).child(uuid_String).child("soru").setValue(oneri_soru.getText().toString());
+            databaseReference.child("Sorular").child(String.valueOf(deger)).child(uuid_String).child("cevap").setValue("No");
 
         } else {
             Toast.makeText(getActivity(), "Lütfen Alanları boş geçmeyiniz", Toast.LENGTH_LONG).show();
         }
-        switch (deger) {
+      /*  switch (deger) {
             case 1:
                 databaseReference.child("Sorular").child(uuid_String).child("kategori").setValue(1);
                 break;
@@ -145,9 +146,8 @@ public class OneriFragment extends Fragment {
                 databaseReference.child("Sorular").child(uuid_String).child("kategori").setValue(5);
                 break;
             case 6:
-                databaseReference.child("Sorular").child(uuid_String).child("kategori").setValue(6);
-                break;
-        }
+                databaseReference.child("Sorular").child(uuid_String).child("kategori").setValue(6); break;
+        } */
 
     }
 
@@ -177,6 +177,7 @@ public class OneriFragment extends Fragment {
                         break;
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.cuma.tinder.Activity.ExamsActivity;
 import com.example.cuma.tinder.Class.Profile;
+import com.example.cuma.tinder.Class.Sorular;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.Resolve;
@@ -44,28 +45,26 @@ public class TinderCard {
     @View(R.id.dislike_img)
     ImageButton dislike;
 
-    private Profile mProfile;
+    private Sorular mSorular;
     private int mQuiz;
     private Context mContext;
     private SwipePlaceHolderView mSwipeView;
     int say = 0;
     private ExamsActivity activity;
 
-    public TinderCard(Context context, Profile profile, SwipePlaceHolderView swipeView, int quiz) {
+    public TinderCard(Context context, Sorular sorular, SwipePlaceHolderView swipeView, int quiz) {
         mContext = context;
         activity = (ExamsActivity) context;
-        mProfile = profile;
+        mSorular=sorular;
         mSwipeView = swipeView;
         mQuiz = quiz;
     }
-    public TinderCard(){
 
-    }
 
     @Resolve
     public void onResolved() {
-        question.setText(mProfile.getQuestion());
-        answer.setText(mProfile.getAnswer());
+        question.setText(mSorular.getSoru());
+        answer.setText(mSorular.getCevap());
         selectcategory();
 
 
