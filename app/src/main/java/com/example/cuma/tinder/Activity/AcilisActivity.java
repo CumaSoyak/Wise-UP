@@ -47,7 +47,7 @@ public class AcilisActivity extends AppCompatActivity {
         Thread timer=new Thread(){
             public void run(){
                 try{
-                    sleep(3500);
+                    sleep(0);
                 }
                 catch (Exception e){
                     e.printStackTrace();

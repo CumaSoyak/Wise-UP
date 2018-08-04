@@ -232,12 +232,15 @@ public class ExamsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     mSorular = ds.getValue(Sorular.class);
-                     sorularList.add(mSorular);
-                     mSwipeView.addView(new TinderCard(mContext, mSorular, mSwipeView, quiz));
+                    sorularList.add(mSorular);
+                    mSwipeView.addView(new TinderCard(mContext, mSorular, mSwipeView, quiz));
+                    cevaplistesi.add(mSorular.getCevap());
 
 
                 }
-            //    Log.i("Liste_Cek", ":" +sorularList.get(2).toString());
+                Log.i("Sorular_listesi", ":" + mSorular.getCevap());
+
+                //    Log.i("Liste_Cek", ":" +sorularList.get(2).toString());
 
 
                 //todo cevaplar ve sorular gelecek gelen değerlere göre doğru yanlış hesaplanacak
