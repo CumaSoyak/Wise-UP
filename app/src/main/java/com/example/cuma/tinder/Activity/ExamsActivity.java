@@ -13,15 +13,11 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
 import com.example.cuma.tinder.Class.Profile;
@@ -40,11 +36,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mindorks.placeholderview.SwipeDecor;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
-import com.mindorks.placeholderview.annotations.Layout;
-import com.mindorks.placeholderview.annotations.swipe.SwipeIn;
-import com.mindorks.placeholderview.annotations.swipe.SwipeOut;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.UUID;
 
 public class ExamsActivity extends AppCompatActivity {
@@ -77,7 +71,7 @@ public class ExamsActivity extends AppCompatActivity {
     ImageView kirik_kalp_image1, kirik_kalp_image2, kirik_kalp_image3;
     private long time_hatırla = 0;
     public ArrayList<String> cevaplistesi = new ArrayList<>();
-    public ArrayList<Sorular> sorularList = new ArrayList<>();
+    public ArrayList<Sorular> sorularList = new ArrayList<Sorular>();
     int tut = 0;
     private static final String TAG = "ExamsActivity";
     public int quiz;
@@ -230,20 +224,18 @@ public class ExamsActivity extends AppCompatActivity {
         databaseReference.child("Sorular").child(String.valueOf(quiz)).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     mSorular = ds.getValue(Sorular.class);
                     sorularList.add(mSorular);
-                    mSwipeView.addView(new TinderCard(mContext, mSorular, mSwipeView, quiz));
-                    cevaplistesi.add(mSorular.getCevap());
-
-
-                }
+                    }
                 Log.i("Sorular_listesi", ":" + mSorular.getCevap());
+                Collections.shuffle(sorularList);
+                for (Sorular sorular:sorularList){
+                    mSwipeView.addView(new TinderCard(mContext,sorular, mSwipeView, quiz));
+                    cevaplistesi.add(sorular.getCevap());
+                }
 
-                //    Log.i("Liste_Cek", ":" +sorularList.get(2).toString());
-
-
-                //todo cevaplar ve sorular gelecek gelen değerlere göre doğru yanlış hesaplanacak
             }
 
             @Override
@@ -471,7 +463,7 @@ public class ExamsActivity extends AppCompatActivity {
         databaseReference.child("Puanlar").child(user_id).child("useremail").setValue(useremail);
         databaseReference.child("Puanlar").child(user_id).child("para").setValue(getEvetsayisi() + getHayirsayisi());
         databaseReference.child("Puanlar").child(user_id).child("elmas").setValue(getEvetsayisi() + getHayirsayisi());
-        databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(getEvetsayisi() * 10);//Todo burda sadece göstermelik için 10 ile çarptım
+        databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(getEvetsayisi() * 8.15);//Todo burda sadece göstermelik için 10 ile çarptım
 
     }
 

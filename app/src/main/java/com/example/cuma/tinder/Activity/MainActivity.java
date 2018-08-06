@@ -67,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
             databaseReference.child("Puanlar").child(user_id).child("kalp").setValue(5);
             databaseReference.child("Puanlar").child(user_id).child("para").setValue(0);
             databaseReference.child("Puanlar").child(user_id).child("elmas").setValue(0);
+            databaseReference.child("Yarisma").child(user_id).child("nickname").setValue("tindergame");
+            databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(0);
             kullanici_adi_al(); //Kullanıcı adını burda alıyoruz
 
             //

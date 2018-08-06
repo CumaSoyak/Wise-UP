@@ -22,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.sql.Timestamp;
@@ -50,7 +51,7 @@ public class KupaFragment extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference();
+        databaseReference = database.getReference("Yarisma");
         user = firebaseAuth.getCurrentUser();
         user_id = user.getUid();
 
@@ -70,22 +71,17 @@ public class KupaFragment extends Fragment {
 
 
     private void Firebase_getData() {
-        databaseReference.child("Yarisma").child(user_id).addValueEventListener(new ValueEventListener() {
-            //todo girilen kullanıcnın puanını getirıyor hepsını getirmesi lazım ara-bul
+        Query query = databaseReference.orderByChild("siralama");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Kupa kupa = dataSnapshot.getValue(Kupa.class); //todo buraya bakmam lazım
-                kupaList.add(new Kupa(kupa.getNickname(), kupa.getSiralama(), R.mipmap.madalyon1));
-                kupaList.add(new Kupa(kupa.getNickname(), kupa.getSiralama(), R.mipmap.madalyon1));
-                kupaList.add(new Kupa(kupa.getNickname(), kupa.getSiralama(), R.mipmap.madalyon1));
-                kupaList.add(new Kupa(kupa.getNickname(), kupa.getSiralama(), R.mipmap.madalyon1));
-                kupaList.add(new Kupa(kupa.getNickname(), kupa.getSiralama(), R.mipmap.madalyon1));
-                kupaList.add(new Kupa(kupa.getNickname(), kupa.getSiralama(), R.mipmap.madalyon1));
-                kupaList.add(new Kupa(kupa.getNickname(), kupa.getSiralama(), R.mipmap.madalyon1));
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Kupa kupa = ds.getValue(Kupa.class); //todo buraya bakmam lazım
+                    kupaList.add(new Kupa(kupa.getNickname(), kupa.getSiralama(), R.mipmap.madalyon1));
+                }
 
 
                 kupaAdapter.notifyDataSetChanged();
-
             }
 
             @Override
@@ -93,6 +89,8 @@ public class KupaFragment extends Fragment {
 
             }
         });
+
+
     }
 
 }

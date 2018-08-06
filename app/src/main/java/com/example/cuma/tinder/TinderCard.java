@@ -91,7 +91,7 @@ public class TinderCard {
         // Log.d("Liste Dondur", "onSwipedOut"+ ((ExamsActivity)mContext).listedondur());
         // Log.d("Sıra Dondur",": :"          +((ExamsActivity)mContext).cevapsiradonder());
         String hayir = "No";
-        if (activity.getCurrentAnswer().equalsIgnoreCase(hayir)) {
+        if ((activity.getCurrentAnswer().equalsIgnoreCase(hayir))) {
             activity.incHayirsayisi();
 
         } else {
