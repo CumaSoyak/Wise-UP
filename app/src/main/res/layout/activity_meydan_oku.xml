@@ -10,7 +10,7 @@
 
     <include
         android:id="@+id/include4"
-        layout="@layout/toolbar" />
+        layout="@layout/toolbar_meydan_oku" />
 
     <com.mindorks.placeholderview.SwipePlaceHolderView
         android:id="@+id/swipeView"

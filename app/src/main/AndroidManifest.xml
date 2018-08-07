@@ -49,6 +49,7 @@
         <activity android:name=".Activity.SkorActivity" />
         <activity android:name=".Activity.MoneyActivity" />
         <activity android:name=".Activity.MainActivity" />
+        <activity android:name=".Activity.Meydan_OkuActivity"/>
         <activity
             android:name=".Activity.AcilisActivity"
             android:label="@string/title_activity_login"></activity>

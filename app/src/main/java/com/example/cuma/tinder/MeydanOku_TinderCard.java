@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cuma.tinder.Activity.ExamsActivity;
+import com.example.cuma.tinder.Activity.Meydan_OkuActivity;
 import com.example.cuma.tinder.Class.Sorular;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Layout;
@@ -19,7 +20,7 @@ import com.mindorks.placeholderview.annotations.swipe.SwipeOut;
 import com.mindorks.placeholderview.annotations.swipe.SwipeOutState;
 
 @Layout(R.layout.tinder_card_view)
-public class TinderCard {
+public class MeydanOku_TinderCard {
     Utils utils = new Utils();
 
 
@@ -50,16 +51,16 @@ public class TinderCard {
     private SwipePlaceHolderView mSwipeView;
     int say = 0;
     int degisken=0;
-    private ExamsActivity activity;
+    private Meydan_OkuActivity activity;
 
-    public TinderCard(Context context, Sorular sorular, SwipePlaceHolderView swipeView, int quiz) {
+    public MeydanOku_TinderCard(Context context, Sorular sorular, SwipePlaceHolderView swipeView, int quiz) {
         mContext = context;
-        activity = (ExamsActivity) context;
+        activity = (Meydan_OkuActivity) context;
         mSorular=sorular;
         mSwipeView = swipeView;
         mQuiz = quiz;
     }
-    public TinderCard(){
+    public MeydanOku_TinderCard(){
 
     }
 

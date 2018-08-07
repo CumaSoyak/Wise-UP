@@ -58,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
         user = firebaseAuth.getCurrentUser();
         user_id = user.getUid();
 
+
+
+
+
+
+
         final String ilkacilis="ilkdosyam";
         SharedPreferences sharedPreferences=getSharedPreferences(ilkacilis,0);
         if (sharedPreferences.getBoolean("ilk_acilis",true)){
@@ -162,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
         databaseReference.child("Kullanıcı_Adı").child(user_id).child("nickname").setValue(al_kullanici_adi.getText().toString());
         databaseReference.child("Yarisma").child(user_id).child("nickname").setValue(al_kullanici_adi.getText().toString());
     }
+
 
 
 }

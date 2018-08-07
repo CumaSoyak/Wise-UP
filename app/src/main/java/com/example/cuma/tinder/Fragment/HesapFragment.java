@@ -118,7 +118,7 @@ public class HesapFragment extends Fragment {
         parola_degistir_dialog = (Button) dialog.findViewById(R.id.dialog_cikis_evet);
         yeni_parola_edit = (EditText) dialog.findViewById(R.id.yeni_parola_al);
         parola_degistir_dialog.setOnClickListener(new View.OnClickListener() {
-            @Override   //todo yarıda kaldı parola değişikliği
+            @Override
             public void onClick(View v) {
                 String yeni_parola = yeni_parola_edit.getText().toString().trim();
                 if (yeni_parola.matches("")) {

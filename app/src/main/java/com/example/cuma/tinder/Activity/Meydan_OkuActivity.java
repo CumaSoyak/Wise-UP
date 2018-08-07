@@ -6,26 +6,26 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.support.v7.widget.Toolbar;
 
 import com.example.cuma.tinder.Class.Profile;
 import com.example.cuma.tinder.Class.PuanHesapla;
 import com.example.cuma.tinder.Class.Sorular;
 import com.example.cuma.tinder.Fragment.MainFragment;
+import com.example.cuma.tinder.MeydanOku_TinderCard;
 import com.example.cuma.tinder.R;
-import com.example.cuma.tinder.TinderCard;
 import com.example.cuma.tinder.Utils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,7 +41,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.UUID;
 
-public class ExamsActivity extends AppCompatActivity {
+public class Meydan_OkuActivity extends AppCompatActivity {
 
     //Eğer popupta son ana kadar beklersem puan ve can değişiyor
     //TODO dogru cevap sayısı fazladan değer geliyor
@@ -69,12 +69,14 @@ public class ExamsActivity extends AppCompatActivity {
     private ImageButton like, dislike, evet_buton, hayir_buton;
     public PuanHesapla puanHesapla;
     public Dialog dialog;
+    public String oda_ismi;
     public int evetsayisi, hayirsayisi;
     public int cevapsira, kirik_kalp = 0;
     ImageView kirik_kalp_image1, kirik_kalp_image2, kirik_kalp_image3;
     private long time_hatırla = 0;
     public ArrayList<String> cevaplistesi = new ArrayList<>();
     public ArrayList<Sorular> sorularList = new ArrayList<Sorular>();
+    public ArrayList<String> keylistesi = new ArrayList<>();
     int para_topla;
     int para;
 
@@ -152,7 +154,7 @@ public class ExamsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exams);
+        setContentView(R.layout.activity_meydan_oku);
 
         firebaseAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
@@ -161,7 +163,7 @@ public class ExamsActivity extends AppCompatActivity {
         user_id = user.getUid();
 
 
-        TinderCard tinderCard = new TinderCard();
+        MeydanOku_TinderCard tinderCard = new MeydanOku_TinderCard();
         mSwipeView = (SwipePlaceHolderView) findViewById(R.id.swipeView);
         mContext = this;
         time = (TextView) findViewById(R.id.time);
@@ -174,9 +176,10 @@ public class ExamsActivity extends AppCompatActivity {
         kirik_kalp_image3 = (ImageView) findViewById(R.id.kalp3);
 
         getCountDownTimer();
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_meydan_oku);
         setSupportActionBar(toolbar);
         quiz = getIntent().getIntExtra(MainFragment.sorukey, MainFragment.tarih);
+        quiz = 2;//todo bu bir örnektir iki kullanıcınında aynı kategoride olmasını sağlıyor
         dialog = new Dialog(this, R.style.DialogNotitle);
 
 
@@ -196,7 +199,7 @@ public class ExamsActivity extends AppCompatActivity {
             //evet_buton.performClick();
 
         }
-
+        kullanıcı_eslestir();
         soru_ve_cevapları_getir();
         evet_buton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -241,6 +244,34 @@ public class ExamsActivity extends AppCompatActivity {
     }
 
 
+    public void kullanıcı_eslestir() {
+        UUID uuıd = UUID.randomUUID();
+        final String uuidString = uuıd.toString();//todo uuisstring oda ismi çıkış yapınca silinecek
+        oda_ismi=uuidString;
+        databaseReference.child("Etkin").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot datas : dataSnapshot.getChildren()) {
+                    String keys = datas.getKey();//todo burda kaldım
+                    Log.i("key_listesi", ":" + keys);
+                    keylistesi.add(keys);
+                }
+
+                Collections.shuffle(keylistesi);
+                String rakip_kullanıcı = keylistesi.get(0);
+                databaseReference.child("Oyun").child(uuidString).child("oyuncu_bir").setValue(user_id);
+                databaseReference.child("Oyun").child(uuidString).child("oyuncu_iki").setValue(keylistesi.get(0));
+
+                Log.i("Birinci_eleman", ":" + keylistesi.get(0)); //todo restgele kullanıcı alma işi tamam
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+    }
+
     public void soru_ve_cevapları_getir() {
         databaseReference.child("Sorular").child(String.valueOf(quiz)).addValueEventListener(new ValueEventListener() {
             @Override
@@ -253,7 +284,7 @@ public class ExamsActivity extends AppCompatActivity {
                 Log.i("Sorular_listesi", ":" + mSorular.getCevap());
                 Collections.shuffle(sorularList);
                 for (Sorular sorular : sorularList) {
-                    mSwipeView.addView(new TinderCard(mContext, sorular, mSwipeView, quiz));
+                    mSwipeView.addView(new MeydanOku_TinderCard(mContext, sorular, mSwipeView, quiz));
                     cevaplistesi.add(sorular.getCevap());
                 }
 
@@ -296,8 +327,8 @@ public class ExamsActivity extends AppCompatActivity {
         return cevapsira;
     }
 
-    public CountDownTimer getCountDownTimer() {
-        countDownTimer = new CountDownTimer(11900, 1000) { //Burdaki saniye 49 olması lazım
+    public CountDownTimer getCountDownTimer() { //todo zaman her iki kullanıcı oyuna girince başlasa iyi olur
+        countDownTimer = new CountDownTimer(20000, 1000) { //Burdaki saniye 49 olması lazım
             @Override
             public void onTick(long millisUntilFinished) {
                 time.setText(String.valueOf(millisUntilFinished / 1000).toString());
@@ -430,9 +461,13 @@ public class ExamsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cikis_dialog.dismiss();//Anasayfaya dönmeden önce dialogu kapatmak lazım
+                databaseReference.child("Etkin").child(user_id).child("nickname").removeValue();
+                databaseReference.child("Oyun").child(oda_ismi).removeValue();
+
                 finish();
             }
         });
+
         cikis_dialog.show();
     }
 
@@ -452,7 +487,6 @@ public class ExamsActivity extends AppCompatActivity {
     }
 
     public void ekleveritabani() {
-        user = firebaseAuth.getCurrentUser();
         useremail = user.getEmail().toString();
         UUID uuıd = UUID.randomUUID();
         String uuidString = uuıd.toString();
@@ -464,7 +498,7 @@ public class ExamsActivity extends AppCompatActivity {
 
             }
 
-             @Override
+            @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }

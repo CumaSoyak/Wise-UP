@@ -43,6 +43,8 @@ dependencies {
     implementation 'github.hellocsl:CursorWheelLayout:1.1.0'
     implementation 'ru.github.igla:ferriswheel:1.1.1'
     implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-firestore:17.0.4'
+
     implementation 'com.facebook.android:facebook-android-sdk:4.1.0'
    // implementation 'com.facebook.android:facebook-login:4.35.0'
 

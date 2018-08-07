@@ -22,8 +22,6 @@ import java.util.List;
 
 public class Utils {
 
-    //TODO Soruları json dosyasının içindende random çekmem lazım yoksa hep 1. sorudan başlar
-
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
     private FirebaseUser user;

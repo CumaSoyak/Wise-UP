@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KupaFragment extends Fragment {
-
+//todo sıralama ile puan ayrı tutulabilir
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
     private FirebaseUser user;
@@ -76,7 +76,7 @@ public class KupaFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Kupa kupa = ds.getValue(Kupa.class); //todo buraya bakmam lazım
+                    Kupa kupa = ds.getValue(Kupa.class);
                     kupaList.add(new Kupa(kupa.getNickname(), kupa.getSiralama(), R.mipmap.madalyon1));
                 }
 

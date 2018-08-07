@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 
 
 import com.example.cuma.tinder.Activity.ExamsActivity;
+import com.example.cuma.tinder.Activity.Meydan_OkuActivity;
 import com.example.cuma.tinder.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,6 +43,7 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
     private FirebaseUser user;
     private FirebaseAuth firebaseAuth;
     private String user_id;
+    private String etkin;
 
     public static final String sorukey = "key";
     public static final int tarih = 1;
@@ -54,6 +57,7 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
     Animation animation;
     ImageView checked, checked1, checked2, checked3, checked4, checked5, checked6, isaret_oku;
     Button oyunu_baslat;
+    Button meydan_oku;
     TextView main_kategori_adi, main_motivasyon;
     TextView main_kalp_toplam, main_para_toplam, main_elmas_toplam;
     ImageView main_kategori_resmi;
@@ -74,6 +78,7 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
 
 
         oyunu_baslat = (Button) view.findViewById(R.id.baslat);
+        meydan_oku=(Button)view.findViewById(R.id.meydan_oku);
         isaret_oku = (ImageView) view.findViewById(R.id.isaret_oku);
         animation = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate);
         animation.setAnimationListener(MainFragment.this);
@@ -101,6 +106,15 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
                 random = new Random();
                 random_sayi = 1 + random.nextInt(6);
                 isaret_oku.startAnimation(animation);
+            }
+        });
+        meydan_oku.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                kullanıcı_etkinlestirme();
+                Intent ıntent=new Intent(getActivity(),Meydan_OkuActivity.class);
+                startActivity(ıntent);
+                //todo butona basınca çark kendi kendine dönsün veya quize değer atayalım
             }
         });
         return view;
@@ -262,6 +276,9 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
                 Integer elmas = dataSnapshot.child("Puanlar").child(user_id).child("elmas").getValue(Integer.class);
                 main_elmas_toplam.setText(String.valueOf(elmas));
 
+
+
+
                 //Database de değişiklik olursa ne yapayım
             }
 
@@ -297,6 +314,21 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
             }
         });
         dialog.show();
+
+    }
+    public void kullanıcı_etkinlestirme(){
+        databaseReference.child("Kullanıcı_Adı").child(user_id).child("nickname").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                etkin=dataSnapshot.getValue(String.class);
+                 databaseReference.child("Etkin").child(user_id).child("nickname").setValue(etkin);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
