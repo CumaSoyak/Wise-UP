@@ -34,7 +34,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
+import java.util.UUID;
 
 public class MainFragment extends Fragment implements Animation.AnimationListener {
 
@@ -45,7 +49,13 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
     private String user_id;
     private String etkin;
 
+    public ArrayList<String> keylistesi = new ArrayList<>();
+    public ArrayList<Iterable<DataSnapshot>> randomlistesi = new ArrayList<Iterable<DataSnapshot>>();
+    public Dialog dialog;
+
     public static final String sorukey = "key";
+    public static final String odakey = "odakey";
+    public static final  int default_oda_key =5;
     public static final int tarih = 1;
     public static final int bilim = 2;
     public static final int eglence = 3;
@@ -54,17 +64,24 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
     public static final int spor = 6;
     Random random;
     public int random_sayi;
+    public int meydan_random_sayi;
+    public int karsılasma = 1;
+    public int meydanoku_random_sayi;
+    public int meydanoku_random_sayi_int;
+
+    public ArrayList<Integer> random_meydan_oku_list = new ArrayList<Integer>();
     Animation animation;
     ImageView checked, checked1, checked2, checked3, checked4, checked5, checked6, isaret_oku;
     Button oyunu_baslat;
-    Button meydan_oku;
+    ImageButton meydan_oku, klasik;
     TextView main_kategori_adi, main_motivasyon;
     TextView main_kalp_toplam, main_para_toplam, main_elmas_toplam;
     ImageView main_kategori_resmi;
     ImageButton main_tekrar_buton, main_basla_buton;
-    Intent key_gonder;
+    Intent key_gonder, meydan_oku_key_gonder, oda_ismi;
 
     //TODO manin fragment deyken  geri dersem dialog açılıyorrr
+    //todo activity iki kere üst üste biniyor
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -76,9 +93,19 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
         user = firebaseAuth.getCurrentUser();
         user_id = user.getUid();
 
+        UUID uuıd = UUID.randomUUID();
+        final String uuidString = uuıd.toString();
+
+        dialog = new Dialog(getActivity());
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
 
         oyunu_baslat = (Button) view.findViewById(R.id.baslat);
-        meydan_oku=(Button)view.findViewById(R.id.meydan_oku);
+        meydan_oku = (ImageButton) view.findViewById(R.id.meydan_oku);
+        klasik = (ImageButton) view.findViewById(R.id.klasik);
         isaret_oku = (ImageView) view.findViewById(R.id.isaret_oku);
         animation = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate);
         animation.setAnimationListener(MainFragment.this);
@@ -86,6 +113,7 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
         main_kalp_toplam = (TextView) view.findViewById(R.id.main_kalp_toplam);
         main_para_toplam = (TextView) view.findViewById(R.id.main_para_toplam);
         main_elmas_toplam = (TextView) view.findViewById(R.id.main_elmas_toplam);
+        meydan_oku_key_gonder = new Intent(getActivity(), Meydan_OkuActivity.class);
 
 
         checked1 = (ImageView) view.findViewById(R.id.kategori_image_checked1);
@@ -94,87 +122,206 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
         checked4 = (ImageView) view.findViewById(R.id.kategori_image_checked4);
         checked5 = (ImageView) view.findViewById(R.id.kategori_image_checked5);
         checked6 = (ImageView) view.findViewById(R.id.kategori_image_checked6);
+        klasik.setImageResource(R.drawable.checked);
+        carki_tekrar_cevir();
 
 
         //TODO silinecek experimental
         setHasOptionsMenu(true);
         Firebase_get_data();
 
-        oyunu_baslat.setOnClickListener(new View.OnClickListener() {
+
+        klasik.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                random = new Random();
-                random_sayi = 1 + random.nextInt(6);
-                isaret_oku.startAnimation(animation);
+                klasik.setImageResource(R.drawable.checked);
+                meydan_oku.setImageResource(R.drawable.savas);
+                karsılasma = 1;
+
             }
         });
         meydan_oku.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                kullanıcı_etkinlestirme();
-                Intent ıntent=new Intent(getActivity(),Meydan_OkuActivity.class);
-                startActivity(ıntent);
+                meydan_oku.setImageResource(R.drawable.checked);
+                klasik.setImageResource(R.drawable.klasik);
+                karsılasma = 2;
                 //todo butona basınca çark kendi kendine dönsün veya quize değer atayalım
+            }
+        });
+        oyunu_baslat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (karsılasma) {
+                    case 1: //klasik yöntemdir
+                        random = new Random();
+                        random_sayi = 1 + random.nextInt(6);
+                        isaret_oku.startAnimation(animation);
+                        break;
+                    case 2: //karşılaşmadır
+                        kullanıcı_etkinlestirme();
+                        random = new Random();
+                        meydan_random_sayi = 1 + random.nextInt(6); //todo random sayıyı kullanıcı değil sistem ayarlasa
+                        random_sayi_getir();
+                        //todo her oyun başlat değilde her main fragmente  girince random sayı üretse daha iyi olur
+                        isaret_oku.startAnimation(animation);
+                        kullanıcı_eslestir();
+                        break;
+                }
+
             }
         });
         return view;
     }
 
+    public void kullanıcı_beklet_dialog() {
+        dialog.setContentView(R.layout.dialog_kullanici_beklet);
+        dialog.show();
+        Thread timer = new Thread() {
+            public void run() {
+                try {
+                    sleep(4000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    startActivity(meydan_oku_key_gonder);
+                    databaseReference.child("Etkin").child(user_id).child("nickname").removeValue();
+                    dialog.dismiss();
+
+                }
+            }
+        };
+        timer.start();
+    }
+
+    public void random_sayi_getir() {
+        databaseReference.child("Random").child("randomsayi").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {//todo üst üste binmei galiba datayı her okumasından oluyor
+                meydanoku_random_sayi = dataSnapshot.getValue(Integer.class);
+                Log.i("Random_sayi", ":" + meydanoku_random_sayi);
+                deneme();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void deneme() {
+        Log.i("Deneme_veri", ":" + meydanoku_random_sayi);
+        meydanoku_random_sayi_int = meydanoku_random_sayi;
+    }
+
     @Override
     public void onAnimationStart(Animation animation) {
+        oyunu_baslat.setEnabled(false);
 
     }
 
     @Override
     public void onAnimationEnd(Animation animation) {
         // Log.i("Random", ":" + random_sayi);
-        key_gonder = new Intent(getActivity(), ExamsActivity.class);
-        switch (random_sayi) {
+        // isaret_oku.clearAnimation();
+        switch (karsılasma) {
             case 1:
-                isaret_oku.setRotation(315); //Tarih
-                checked1.setImageResource(R.drawable.checked);
-                key_gonder.putExtra(sorukey, tarih);
-                // startActivity(key_gonder);
-                show_pup();
+                key_gonder = new Intent(getActivity(), ExamsActivity.class);
+                switch (random_sayi) {
+                    case 1:
+                        isaret_oku.setRotation(315); //Tarih
+                        checked1.setImageResource(R.drawable.checked);
+                        key_gonder.putExtra(sorukey, tarih);
+                        // startActivity(key_gonder);
+                        show_pup();
+                        break;
+                    case 2:
+                        isaret_oku.setRotation(0);//Bilim
+                        checked2.setImageResource(R.drawable.checked);
+                        key_gonder.putExtra(sorukey, bilim);
+                        // startActivity(key_gonder);
+                        show_pup();
+                        break;
+                    case 3:
+                        isaret_oku.setRotation(45);//Eğlence
+                        checked3.setImageResource(R.drawable.checked);
+                        key_gonder.putExtra(sorukey, eglence);
+                        // startActivity(key_gonder);
+                        show_pup();
+                        break;
+                    case 4:
+                        isaret_oku.setRotation(225);//Coğrafya
+                        checked4.setImageResource(R.drawable.checked);
+                        key_gonder.putExtra(sorukey, cografya);
+                        // startActivity(key_gonder);
+                        show_pup();
+                        break;
+                    case 5:
+                        isaret_oku.setRotation(180);//Sanat
+                        checked5.setImageResource(R.drawable.checked);
+                        key_gonder.putExtra(sorukey, sanat);
+                        // startActivity(key_gonder);
+                        show_pup();
+                        break;
+                    case 6:
+                        isaret_oku.setRotation(135);//Sporsa
+                        checked6.setImageResource(R.drawable.checked);
+                        key_gonder.putExtra(sorukey, spor);
+                        show_pup();
+                        break;
+
+                }
                 break;
             case 2:
-                isaret_oku.setRotation(0);//Bilim
-                checked2.setImageResource(R.drawable.checked);
-                key_gonder.putExtra(sorukey, bilim);
-                // startActivity(key_gonder);
-                show_pup();
-                break;
-            case 3:
-                isaret_oku.setRotation(45);//Eğlence
-                checked3.setImageResource(R.drawable.checked);
-                key_gonder.putExtra(sorukey, eglence);
-                // startActivity(key_gonder);
-                show_pup();
-                break;
-            case 4:
-                isaret_oku.setRotation(225);//Coğrafya
-                checked4.setImageResource(R.drawable.checked);
-                key_gonder.putExtra(sorukey, cografya);
-                // startActivity(key_gonder);
-                show_pup();
-                break;
-            case 5:
-                isaret_oku.setRotation(180);//Sanat
-                checked5.setImageResource(R.drawable.checked);
-                key_gonder.putExtra(sorukey, sanat);
-                // startActivity(key_gonder);
-                show_pup();
-                break;
-            case 6:
-                isaret_oku.setRotation(135);//Sporsa
-                checked6.setImageResource(R.drawable.checked);
-                key_gonder.putExtra(sorukey, spor);
-                // startActivity(key_gonder);
-                show_pup();
-                break;
+                //  meydan_oku_ıntent = new Intent(getActivity(), Meydan_OkuActivity.class);//todo firebasten random sayo okumam lazım
+                switch (meydanoku_random_sayi_int) {
+                    case 1:
+                        isaret_oku.setRotation(315); //Tarih
+                        checked1.setImageResource(R.drawable.checked);
+                        meydan_oku_key_gonder.putExtra(sorukey, tarih);
+                        kullanıcı_beklet_dialog();
+                        break;
+                    case 2:
+                        isaret_oku.setRotation(0);//Bilim
+                        checked2.setImageResource(R.drawable.checked);
+                        meydan_oku_key_gonder.putExtra(sorukey, bilim);
+                        kullanıcı_beklet_dialog();
+                        break;
+                    case 3:
+                        isaret_oku.setRotation(45);//Eğlence
+                        checked3.setImageResource(R.drawable.checked);
+                        meydan_oku_key_gonder.putExtra(sorukey, eglence);
+                        kullanıcı_beklet_dialog();
 
+                        break;
+                    case 4:
+                        isaret_oku.setRotation(225);//Coğrafya
+                        checked4.setImageResource(R.drawable.checked);
+                        meydan_oku_key_gonder.putExtra(sorukey, cografya);
+                        kullanıcı_beklet_dialog();
+                        break;
+                    case 5:
+                        isaret_oku.setRotation(180);//Sanat
+                        checked5.setImageResource(R.drawable.checked);
+                        meydan_oku_key_gonder.putExtra(sorukey, sanat);
+                        kullanıcı_beklet_dialog();
+                        break;
+                    case 6:
+                        isaret_oku.setRotation(135);//Sporsa
+                        checked6.setImageResource(R.drawable.checked);
+                        meydan_oku_key_gonder.putExtra(sorukey, spor);
+                        kullanıcı_beklet_dialog();
+                        break;
+
+                }
+
+                break;
         }
+        oyunu_baslat.setEnabled(true);
     }
+
 
     @Override
     public void onAnimationRepeat(Animation animation) {
@@ -182,17 +329,11 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
     }
 
     private void show_pup() {
-        final Dialog dialog = new Dialog(getActivity());
-        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         dialog.setContentView(R.layout.basla_dialog);
-        dialog.setCancelable(false);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
-        main_kategori_adi = (TextView) dialog.findViewById(R.id.main_kategoriadi);
-        main_kategori_resmi = (ImageView) dialog.findViewById(R.id.resim);
-        main_basla_buton = (ImageButton) dialog.findViewById(R.id.main_basla_buton);
-        main_tekrar_buton = (ImageButton) dialog.findViewById(R.id.main_tekrar_buton);
+        main_kategori_adi = (TextView) dialog.findViewById(R.id.savas_baslik);
+        main_kategori_resmi = (ImageView) dialog.findViewById(R.id.savas_icon);
+        main_basla_buton = (ImageButton) dialog.findViewById(R.id.savas_basla_buton);
+        main_tekrar_buton = (ImageButton) dialog.findViewById(R.id.savas_tekrar_buton);
         main_motivasyon = (TextView) dialog.findViewById(R.id.text_baslikkk);
         switch (random_sayi) {
             case 1:
@@ -277,8 +418,6 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
                 main_elmas_toplam.setText(String.valueOf(elmas));
 
 
-
-
                 //Database de değişiklik olursa ne yapayım
             }
 
@@ -316,17 +455,48 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
         dialog.show();
 
     }
-    public void kullanıcı_etkinlestirme(){
+
+    public void kullanıcı_etkinlestirme() {
         databaseReference.child("Kullanıcı_Adı").child(user_id).child("nickname").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                etkin=dataSnapshot.getValue(String.class);
-                 databaseReference.child("Etkin").child(user_id).child("nickname").setValue(etkin);
+                etkin = dataSnapshot.getValue(String.class);
+                databaseReference.child("Etkin").child(user_id).child("nickname").setValue(etkin);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+
+    }
+
+    public void kullanıcı_eslestir() {
+        UUID uuıd = UUID.randomUUID();
+        final String uuidString = uuıd.toString();//todo uuisstring oda ismi çıkış yapınca silinecek
+       // oda_ismi = new Intent(getActivity(), Meydan_OkuActivity.class);
+        meydan_oku_key_gonder.putExtra("oda_adi",uuidString);
+        databaseReference.child("Etkin").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot datas : dataSnapshot.getChildren()) {
+                    String keys = datas.getKey();
+                    Log.i("key_listesi", ":" + keys);
+                    keylistesi.add(keys);
+                }
+
+                Collections.shuffle(keylistesi);
+                String rakip_kullanıcı = keylistesi.get(0);
+                databaseReference.child("Oyun").child(uuidString).child("oyuncu_bir").setValue(user_id);
+                databaseReference.child("Oyun").child(uuidString).child("oyuncu_iki").setValue(keylistesi.get(0));
+                databaseReference.child("Oyun").child(uuidString).child("randomsayi").setValue(meydan_random_sayi);
+
+                Log.i("Birinci_eleman", ":" + keylistesi.get(0)); //todo restgele kullanıcı alma işi tamam
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
             }
         });
 

@@ -69,20 +69,22 @@ public class Meydan_OkuActivity extends AppCompatActivity {
     private ImageButton like, dislike, evet_buton, hayir_buton;
     public PuanHesapla puanHesapla;
     public Dialog dialog;
-    public String oda_ismi;
+
     public int evetsayisi, hayirsayisi;
     public int cevapsira, kirik_kalp = 0;
     ImageView kirik_kalp_image1, kirik_kalp_image2, kirik_kalp_image3;
     private long time_hatırla = 0;
     public ArrayList<String> cevaplistesi = new ArrayList<>();
     public ArrayList<Sorular> sorularList = new ArrayList<Sorular>();
-    public ArrayList<String> keylistesi = new ArrayList<>();
+
     int para_topla;
     int para;
 
     public int dinle = 0;
     private static final String TAG = "ExamsActivity";
-    public int quiz;
+    public int meydanoku_quiz;
+    Intent oda_ismi;
+    public String oda_key;
 
     public int getDinle() {
         return dinle;
@@ -174,12 +176,18 @@ public class Meydan_OkuActivity extends AppCompatActivity {
         kirik_kalp_image1 = (ImageView) findViewById(R.id.kalp1);
         kirik_kalp_image2 = (ImageView) findViewById(R.id.kalp2);
         kirik_kalp_image3 = (ImageView) findViewById(R.id.kalp3);
-
+        
         getCountDownTimer();
         toolbar = (Toolbar) findViewById(R.id.toolbar_meydan_oku);
         setSupportActionBar(toolbar);
-        quiz = getIntent().getIntExtra(MainFragment.sorukey, MainFragment.tarih);
-        quiz = 2;//todo bu bir örnektir iki kullanıcınında aynı kategoride olmasını sağlıyor
+        //////////// oda ismi
+        oda_ismi=getIntent();
+        Bundle bundle=oda_ismi.getExtras();
+        oda_key=(String)bundle.get("oda_adi");
+         Log.i("Odaismi", ":" + oda_key); //todo oda ismi gelmiyor
+        ///////////////
+
+        meydanoku_quiz = getIntent().getIntExtra(MainFragment.sorukey, MainFragment.tarih);
         dialog = new Dialog(this, R.style.DialogNotitle);
 
 
@@ -199,7 +207,6 @@ public class Meydan_OkuActivity extends AppCompatActivity {
             //evet_buton.performClick();
 
         }
-        kullanıcı_eslestir();
         soru_ve_cevapları_getir();
         evet_buton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -244,36 +251,8 @@ public class Meydan_OkuActivity extends AppCompatActivity {
     }
 
 
-    public void kullanıcı_eslestir() {
-        UUID uuıd = UUID.randomUUID();
-        final String uuidString = uuıd.toString();//todo uuisstring oda ismi çıkış yapınca silinecek
-        oda_ismi=uuidString;
-        databaseReference.child("Etkin").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot datas : dataSnapshot.getChildren()) {
-                    String keys = datas.getKey();//todo burda kaldım
-                    Log.i("key_listesi", ":" + keys);
-                    keylistesi.add(keys);
-                }
-
-                Collections.shuffle(keylistesi);
-                String rakip_kullanıcı = keylistesi.get(0);
-                databaseReference.child("Oyun").child(uuidString).child("oyuncu_bir").setValue(user_id);
-                databaseReference.child("Oyun").child(uuidString).child("oyuncu_iki").setValue(keylistesi.get(0));
-
-                Log.i("Birinci_eleman", ":" + keylistesi.get(0)); //todo restgele kullanıcı alma işi tamam
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
-    }
-
     public void soru_ve_cevapları_getir() {
-        databaseReference.child("Sorular").child(String.valueOf(quiz)).addValueEventListener(new ValueEventListener() {
+        databaseReference.child("Sorular").child(String.valueOf(meydanoku_quiz)).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -284,7 +263,7 @@ public class Meydan_OkuActivity extends AppCompatActivity {
                 Log.i("Sorular_listesi", ":" + mSorular.getCevap());
                 Collections.shuffle(sorularList);
                 for (Sorular sorular : sorularList) {
-                    mSwipeView.addView(new MeydanOku_TinderCard(mContext, sorular, mSwipeView, quiz));
+                    mSwipeView.addView(new MeydanOku_TinderCard(mContext, sorular, mSwipeView, meydanoku_quiz));
                     cevaplistesi.add(sorular.getCevap());
                 }
 
@@ -381,7 +360,7 @@ public class Meydan_OkuActivity extends AppCompatActivity {
         //  kirik_kalp=0;
 
         ekleveritabani();
-        switch (quiz) {
+        switch (meydanoku_quiz) {
             case 1:
                 kategori_image.setImageResource(R.drawable.tarihim);
                 kategori_text.setText("Tarih");
@@ -462,9 +441,10 @@ public class Meydan_OkuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 cikis_dialog.dismiss();//Anasayfaya dönmeden önce dialogu kapatmak lazım
                 databaseReference.child("Etkin").child(user_id).child("nickname").removeValue();
-                databaseReference.child("Oyun").child(oda_ismi).removeValue();
+                databaseReference.child("Oyun").child(oda_key).removeValue();
+                Intent ıntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(ıntent);
 
-                finish();
             }
         });
 

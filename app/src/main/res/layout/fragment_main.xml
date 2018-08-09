@@ -458,25 +458,57 @@
         card_view:layout_constraintStart_toStartOf="parent"
         card_view:srcCompat="@drawable/ibre_cubuk" />
 
-    <Button
+    <ImageButton
         android:id="@+id/meydan_oku"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="32dp"
         android:layout_marginEnd="16dp"
         android:text="Meydan oku"
+        android:src="@drawable/savas"
+        android:background="@color/backgroundcolor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/klasik"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="32dp"
         android:layout_marginStart="24dp"
         android:text="Klasik"
+        android:background="@color/backgroundcolor"
+        android:src="@drawable/klasik"
         app:layout_constraintBottom_toBottomOf="parent"
         card_view:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Klasik"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/klasik"
+        app:layout_constraintStart_toStartOf="@+id/klasik"
+        app:layout_constraintTop_toBottomOf="@+id/klasik"
+        card_view:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Meydan Oku"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/meydan_oku"
+        app:layout_constraintStart_toStartOf="@+id/meydan_oku"
+        app:layout_constraintTop_toBottomOf="@+id/meydan_oku"
+        card_view:layout_constraintBottom_toBottomOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>
