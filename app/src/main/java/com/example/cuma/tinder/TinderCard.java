@@ -84,8 +84,8 @@ public class TinderCard {
             activity.artir_kalp_sayisi();
             activity.kalp_patlat();
         }  */
-       activity.dinle_artir(1);
-
+     //  activity.evet_buton.performClick();
+       //  activity.getirartık();
         Log.d("EVET-IN", "onSwipedIn");
 
     }

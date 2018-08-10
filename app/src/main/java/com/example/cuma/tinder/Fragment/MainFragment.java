@@ -55,7 +55,7 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
 
     public static final String sorukey = "key";
     public static final String odakey = "odakey";
-    public static final  int default_oda_key =5;
+    public static final int default_oda_key = 5;
     public static final int tarih = 1;
     public static final int bilim = 2;
     public static final int eglence = 3;
@@ -159,13 +159,12 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
                         isaret_oku.startAnimation(animation);
                         break;
                     case 2: //karşılaşmadır
-                        kullanıcı_etkinlestirme();
+                       // kullanıcı_etkinlestirme();
                         random = new Random();
                         meydan_random_sayi = 1 + random.nextInt(6); //todo random sayıyı kullanıcı değil sistem ayarlasa
                         random_sayi_getir();
                         //todo her oyun başlat değilde her main fragmente  girince random sayı üretse daha iyi olur
                         isaret_oku.startAnimation(animation);
-                        kullanıcı_eslestir();
                         break;
                 }
 
@@ -409,8 +408,6 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
                 if (kalp == 0) {
                     //    reklam_izle();
                 }
-
-
                 Integer para = dataSnapshot.child("Puanlar").child(user_id).child("para").getValue(Integer.class);
                 main_para_toplam.setText(String.valueOf(para));
 
@@ -469,14 +466,14 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
 
             }
         });
-
+        kullanıcı_eslestir();
     }
 
     public void kullanıcı_eslestir() {
         UUID uuıd = UUID.randomUUID();
         final String uuidString = uuıd.toString();//todo uuisstring oda ismi çıkış yapınca silinecek
-       // oda_ismi = new Intent(getActivity(), Meydan_OkuActivity.class);
-        meydan_oku_key_gonder.putExtra("oda_adi",uuidString);
+        // oda_ismi = new Intent(getActivity(), Meydan_OkuActivity.class);
+        meydan_oku_key_gonder.putExtra("oda_adi", uuidString);
         databaseReference.child("Etkin").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -488,6 +485,7 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
 
                 Collections.shuffle(keylistesi);
                 String rakip_kullanıcı = keylistesi.get(0);
+                databaseReference.child("Etkin").child(keylistesi.get(0)).child("nickname").removeValue();
                 databaseReference.child("Oyun").child(uuidString).child("oyuncu_bir").setValue(user_id);
                 databaseReference.child("Oyun").child(uuidString).child("oyuncu_iki").setValue(keylistesi.get(0));
                 databaseReference.child("Oyun").child(uuidString).child("randomsayi").setValue(meydan_random_sayi);

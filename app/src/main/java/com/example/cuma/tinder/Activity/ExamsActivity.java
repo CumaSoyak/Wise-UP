@@ -66,7 +66,7 @@ public class ExamsActivity extends AppCompatActivity {
     public Utils utils;
     public CountDownTimer countDownTimer;
     public TextView time;
-    private ImageButton like, dislike, evet_buton, hayir_buton;
+    public ImageButton like, dislike, evet_buton, hayir_buton;
     public PuanHesapla puanHesapla;
     public Dialog dialog;
     public int evetsayisi, hayirsayisi;
@@ -76,23 +76,11 @@ public class ExamsActivity extends AppCompatActivity {
     public ArrayList<String> cevaplistesi = new ArrayList<>();
     public ArrayList<Sorular> sorularList = new ArrayList<Sorular>();
     int para_topla;
-    int para;
+    int gelen_para,gelen_elmas, para,elmas;
 
     public int dinle = 0;
     private static final String TAG = "ExamsActivity";
     public int quiz;
-
-    public int getDinle() {
-        return dinle;
-    }
-
-    public void setDinle(int dinle) {
-        this.dinle = dinle;
-    }
-
-    public void dinle_artir(int arti) {
-        this.dinle = arti;
-    }
 
     public int getEvetsayisi() {
         return evetsayisi;
@@ -191,13 +179,10 @@ public class ExamsActivity extends AppCompatActivity {
             mSwipeView.addView(new TinderCard(mContext, deger, mSwipeView, quiz));
             cevaplistesi.add(deger.getAnswer());
         }*/
-        if (getDinle() == 1) {
-            Log.i("Tamam", ":");
-            //evet_buton.performClick();
 
-        }
 
         soru_ve_cevapları_getir();
+        puanlargetir();
         evet_buton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -215,6 +200,7 @@ public class ExamsActivity extends AppCompatActivity {
                 }
                 cevapsira++;
                 cevabı_beklet();
+                Log.i("EveteTıklandı", ":");
             }
         });
 
@@ -297,7 +283,7 @@ public class ExamsActivity extends AppCompatActivity {
     }
 
     public CountDownTimer getCountDownTimer() {
-        countDownTimer = new CountDownTimer(11900, 1000) { //Burdaki saniye 49 olması lazım
+        countDownTimer = new CountDownTimer(30000, 1000) { //Burdaki saniye 49 olması lazım
             @Override
             public void onTick(long millisUntilFinished) {
                 time.setText(String.valueOf(millisUntilFinished / 1000).toString());
@@ -451,25 +437,35 @@ public class ExamsActivity extends AppCompatActivity {
         }, bekletsure);
     }
 
-    public void ekleveritabani() {
-        user = firebaseAuth.getCurrentUser();
-        useremail = user.getEmail().toString();
-        UUID uuıd = UUID.randomUUID();
-        String uuidString = uuıd.toString();
+    public void puanlargetir() {
         databaseReference.child("Puanlar").child(user_id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                para = dataSnapshot.child("para").getValue(Integer.class);
-
+                gelen_para = dataSnapshot.child("para").getValue(Integer.class);
+                gelen_elmas = dataSnapshot.child("elmas").getValue(Integer.class);
+                cagir();
             }
 
-             @Override
+            @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
 
         });
+    }
+
+    public void cagir() {
+        para = gelen_para;
+        elmas=gelen_elmas;
+    }
+
+    public void ekleveritabani() {
+        user = firebaseAuth.getCurrentUser();
+        useremail = user.getEmail().toString();
+        UUID uuıd = UUID.randomUUID();
+        String uuidString = uuıd.toString();
+
         Log.i("ParaDegeri", ":" + para);
         if (kirik_kalp == 0) {
             databaseReference.child("Puanlar").child(user_id).child("kalp").setValue(3);
@@ -482,8 +478,9 @@ public class ExamsActivity extends AppCompatActivity {
         }
         databaseReference.child("Puanlar").child(user_id).child("useremail").setValue(useremail);
         databaseReference.child("Puanlar").child(user_id).child("para").setValue(getEvetsayisi() + getHayirsayisi() + para);//todo para değeri buraya gelmesi lazım
-        databaseReference.child("Puanlar").child(user_id).child("elmas").setValue(getEvetsayisi() + getHayirsayisi());
-        databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(getEvetsayisi() * 8.15);//Todo burda sadece göstermelik için 10 ile çarptım
+        databaseReference.child("Puanlar").child(user_id).child("elmas").setValue(getEvetsayisi() + getHayirsayisi()+elmas);
+        databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(100-(elmas+para+getEvetsayisi()+getHayirsayisi()));//Todo burda sadece göstermelik için 10 ile çarptım
+        databaseReference.child("Yarisma").child(user_id).child("puan").setValue(elmas+para+getEvetsayisi()+getHayirsayisi());//Todo burda sadece göstermelik için 10 ile çarptım
 
 
     }

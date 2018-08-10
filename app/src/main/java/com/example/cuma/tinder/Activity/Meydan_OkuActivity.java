@@ -42,7 +42,7 @@ import java.util.Collections;
 import java.util.UUID;
 
 public class Meydan_OkuActivity extends AppCompatActivity {
-
+    //todo win dialogta kaldım
     //Eğer popupta son ana kadar beklersem puan ve can değişiyor
     //TODO dogru cevap sayısı fazladan değer geliyor
     // TODO //home // Restart // Devam et  Decam et kısmı düzelecek fakat çıkıç yapmak isterse görünecek
@@ -77,8 +77,7 @@ public class Meydan_OkuActivity extends AppCompatActivity {
     public ArrayList<String> cevaplistesi = new ArrayList<>();
     public ArrayList<Sorular> sorularList = new ArrayList<Sorular>();
 
-    int para_topla;
-    int para;
+    int gelen_para,gelen_elmas, para,elmas;
 
     public int dinle = 0;
     private static final String TAG = "ExamsActivity";
@@ -422,8 +421,7 @@ public class Meydan_OkuActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //TODO süre durduktan sonra devam etmesi lazım
-        final Dialog cikis_dialog = new Dialog(this, R.style.DialogNotitle);
+         final Dialog cikis_dialog = new Dialog(this, R.style.DialogNotitle);
         cikis_dialog.setContentView(R.layout.exit_popup);
         cikis_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         cikis_dialog.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
@@ -440,8 +438,8 @@ public class Meydan_OkuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cikis_dialog.dismiss();//Anasayfaya dönmeden önce dialogu kapatmak lazım
-                databaseReference.child("Etkin").child(user_id).child("nickname").removeValue();
-                databaseReference.child("Oyun").child(oda_key).removeValue();
+               // databaseReference.child("Etkin").child(user_id).child("nickname").removeValue();
+             //   databaseReference.child("Oyun").child(oda_key).removeValue();
                 Intent ıntent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(ıntent);
 
@@ -465,7 +463,28 @@ public class Meydan_OkuActivity extends AppCompatActivity {
             }
         }, bekletsure);
     }
+    public void puanlargetir() {
+        databaseReference.child("Puanlar").child(user_id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                gelen_para = dataSnapshot.child("para").getValue(Integer.class);
+                gelen_elmas = dataSnapshot.child("elmas").getValue(Integer.class);
+                cagir();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
+    }
+
+    public void cagir() {
+        para = gelen_para;
+        elmas=gelen_elmas;
+    }
     public void ekleveritabani() {
         useremail = user.getEmail().toString();
         UUID uuıd = UUID.randomUUID();
@@ -496,8 +515,9 @@ public class Meydan_OkuActivity extends AppCompatActivity {
         }
         databaseReference.child("Puanlar").child(user_id).child("useremail").setValue(useremail);
         databaseReference.child("Puanlar").child(user_id).child("para").setValue(getEvetsayisi() + getHayirsayisi() + para);//todo para değeri buraya gelmesi lazım
-        databaseReference.child("Puanlar").child(user_id).child("elmas").setValue(getEvetsayisi() + getHayirsayisi());
-        databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(getEvetsayisi() * 8.15);//Todo burda sadece göstermelik için 10 ile çarptım
+        databaseReference.child("Puanlar").child(user_id).child("elmas").setValue(getEvetsayisi() + getHayirsayisi()+elmas);
+        databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(100-(elmas+para+getEvetsayisi()+getHayirsayisi()));//Todo burda sadece göstermelik için 10 ile çarptım
+        databaseReference.child("Yarisma").child(user_id).child("puan").setValue(elmas+para+getEvetsayisi()+getHayirsayisi());//Todo burda sadece göstermelik için 10 ile çarptım
 
 
     }

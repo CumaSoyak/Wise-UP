@@ -77,10 +77,13 @@
 
     <EditText
         android:id="@+id/email"
-        android:layout_width="352dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_weight="1"
         android:ems="10"
+        android:gravity="start"
         android:inputType="textPersonName"
         android:text="soyakcuma@gmail.com"
         app:layout_constraintBottom_toTopOf="@+id/password"
@@ -94,6 +97,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:hint="@string/prompt_password"
         android:imeActionId="6"
         android:imeActionLabel="@string/action_sign_in_short"

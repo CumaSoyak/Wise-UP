@@ -1,7 +1,9 @@
 package com.example.cuma.tinder.Fragment;
 
 
+import android.app.Dialog;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -42,6 +45,7 @@ public class OneriFragment extends Fragment {
     private Button oneri_gonder;
     private EditText oneri_soru;
     private RadioButton evet, hayir;
+    private ImageButton onerildi_soru_thanks;
     int radiobuton_id;
     private Spinner kategori_spinner;
     private ArrayAdapter<String> spinner_adapter;
@@ -98,8 +102,7 @@ public class OneriFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                //Todo eğer sor paylaşımı başarılı olursa dialog açılsın
-                if (selectedItem.equals("Kategori")) {
+                 if (selectedItem.equals("Kategori")) {
                     Toast.makeText(getActivity(), "Lütfen Alanları boş geçmeyiniz", Toast.LENGTH_LONG).show();
                 } else {
                     Firebase_kaydet_soru();
@@ -122,10 +125,13 @@ public class OneriFragment extends Fragment {
         if (evet.isChecked()) {
             databaseReference.child("Sorular").child(String.valueOf(deger)).child(uuid_String).child("soru").setValue(oneri_soru.getText().toString());
             databaseReference.child("Sorular").child(String.valueOf(deger)).child(uuid_String).child("cevap").setValue("Yes");
+            tesekur_dialog_goster();
+            oneri_soru.getText().clear();
         } else if (hayir.isChecked()) {
             databaseReference.child("Sorular").child(String.valueOf(deger)).child(uuid_String).child("soru").setValue(oneri_soru.getText().toString());
             databaseReference.child("Sorular").child(String.valueOf(deger)).child(uuid_String).child("cevap").setValue("No");
-
+            tesekur_dialog_goster();
+            oneri_soru.getText().clear();
         } else {
             Toast.makeText(getActivity(), "Lütfen Alanları boş geçmeyiniz", Toast.LENGTH_LONG).show();
         }
@@ -182,6 +188,33 @@ public class OneriFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+    }
+
+    public void tesekur_dialog_goster() {
+        final Dialog basarili_dialog = new Dialog(getActivity(), R.style.DialogNotitle);
+        basarili_dialog.setContentView(R.layout.dialog_oneri_basarili);
+        basarili_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        basarili_dialog.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
+        onerildi_soru_thanks = (ImageButton) basarili_dialog.findViewById(R.id.onerildi_soru_thanks);
+        basarili_dialog.show();
+        onerildi_soru_thanks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                basarili_dialog.dismiss();
+            }
+        });
+         Thread thread = new Thread() {
+            public void run() {
+                try {
+                    sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    basarili_dialog.dismiss();
+                }
+            }
+        };
 
     }
 

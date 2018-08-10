@@ -58,33 +58,6 @@ public class MainActivity extends AppCompatActivity {
         user = firebaseAuth.getCurrentUser();
         user_id = user.getUid();
 
-
-
-
-
-
-
-        final String ilkacilis="ilkdosyam";
-        SharedPreferences sharedPreferences=getSharedPreferences(ilkacilis,0);
-        if (sharedPreferences.getBoolean("ilk_acilis",true)){
-            // todo Default Değerler atadık ilk kullanıcı için burayı kontrol etmem lazım ilk defa açılıp açılmadığını
-            databaseReference.child("Yarisma").child(user_id).child("nickname").setValue("tindergame"); //default olarak değer atadık
-            databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(0); //default olarak değer atadık
-            databaseReference.child("Puanlar").child(user_id).child("kalp").setValue(5);
-            databaseReference.child("Puanlar").child(user_id).child("para").setValue(0);
-            databaseReference.child("Puanlar").child(user_id).child("elmas").setValue(0);
-            databaseReference.child("Yarisma").child(user_id).child("nickname").setValue("tindergame");
-            databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(0);
-            kullanici_adi_al(); //Kullanıcı adını burda alıyoruz
-
-            //
-
-            sharedPreferences.edit().putBoolean("ilk_acilis",false).commit();
-        }
-
-
-
-
         mainAdapter = new MainAdapter(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.viewpager_main);
         viewPager.setOffscreenPageLimit(2);
@@ -138,37 +111,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(ıntent);
     }
 
-    public void kullanici_adi_al() {  //todo uygulamaya ilk kez giren kişiye bir defa gösterilecek
-        final Dialog dialog = new Dialog(this, R.style.DialogNotitle);
-        dialog.setContentView(R.layout.kullanici_adi_dialog);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
-        dialog.setCancelable(false);
-        Button tamam = (Button) dialog.findViewById(R.id.dialog_cikis_evet);
-        al_kullanici_adi = (EditText) dialog.findViewById(R.id.kullanici_adi_editext);
-        tamam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (al_kullanici_adi.getText().toString().matches("")) {
-                    Toast.makeText(getApplicationContext(), "Kullanıcı Adı Giriniz !", Toast.LENGTH_LONG).show();
-                } else {
-                    ekle_Firebase_kullanici_adi();
-                    dialog.dismiss();
-
-                }
-            }
-        });
-        dialog.show();
+    @Override
+    public void onBackPressed() {
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
 
     }
-
-    private void ekle_Firebase_kullanici_adi() {
-        user = firebaseAuth.getCurrentUser();
-        String useremail = user.getEmail().toString();
-        databaseReference.child("Kullanıcı_Adı").child(user_id).child("nickname").setValue(al_kullanici_adi.getText().toString());
-        databaseReference.child("Yarisma").child(user_id).child("nickname").setValue(al_kullanici_adi.getText().toString());
-    }
-
-
-
 }

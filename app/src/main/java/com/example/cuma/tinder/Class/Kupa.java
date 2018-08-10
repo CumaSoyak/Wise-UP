@@ -5,12 +5,12 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class Kupa {
     String nickname;
-    double siralama;
+    double puan;
     int kupa_image;
 
-    public Kupa(String nickname, double siralama, int kupa_image) {
+    public Kupa(String nickname, double puan, int kupa_image) {
         this.nickname =  nickname;
-        this.siralama =  siralama;
+        this.puan =  puan;
         this.kupa_image = kupa_image;
     }
 
@@ -26,12 +26,12 @@ public class Kupa {
         this.nickname = nickname;
     }
 
-    public double getSiralama() {
-        return siralama;
+    public double getPuan() {
+        return puan;
     }
 
-    public void setSiralama(double siralama) {
-        this.siralama = siralama;
+    public void setPuan(double puan) {
+        this.puan = puan;
     }
 
     public int getKupa_image() {

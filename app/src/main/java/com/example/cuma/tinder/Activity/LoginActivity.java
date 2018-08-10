@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
         email = (EditText) findViewById(R.id.email);
         parola = (EditText) findViewById(R.id.password);
         progressBar = (ProgressBar) findViewById(R.id.login_progress);
-        mProgressView = findViewById(R.id.login_progress);
+        //   mProgressView = findViewById(R.id.login_progress);
         facebook_kayit();
 
 
@@ -107,9 +107,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        FirebaseUser currentUser=mAuth.getCurrentUser();
-        if (currentUser!=null){
-            Intent ıntent=new Intent(getApplicationContext(),MainActivity.class);
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            Intent ıntent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(ıntent);
         }
     }
@@ -124,19 +124,11 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             progressBar.setVisibility(View.GONE);
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("dda", "" +
-                                    ":success");
-                            Toast.makeText(getApplicationContext(), "Başarılı", Toast.LENGTH_LONG).show();
-
-
-                            Intent ıntent = new Intent(getApplicationContext(), MainActivity.class);
+                            //   Toast.makeText(getApplicationContext(), "Başarılı", Toast.LENGTH_LONG).show();
+                            Intent ıntent = new Intent(getApplicationContext(), Gecis.class);
                             startActivity(ıntent);
-                            // progressBar.setVisibility(View.VISIBLE);
 
                         }
-
-                        // ...
                     }
                 }).addOnFailureListener(this, new OnFailureListener() {
             @Override
@@ -158,8 +150,6 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             progressBar.setVisibility(View.GONE);
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("Login Activity", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             Intent ıntent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(ıntent);
@@ -172,13 +162,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.d("Login", "Error" + e.getLocalizedMessage());
-                Toast.makeText(getApplicationContext(),"E-mail veya Parola Yanlış",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "E-mail veya Parola Yanlış", Toast.LENGTH_LONG).show();
                 progressBar.setVisibility(View.GONE);
 
             }
         });
     }
-    public void ilk_degerler(){
+
+    public void ilk_degerler() {
 
     }
 

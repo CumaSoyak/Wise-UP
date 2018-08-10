@@ -30,8 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KupaFragment extends Fragment {
-//todo sıralama ile puan ayrı tutulabilir
-    private FirebaseDatabase database;
+     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
     private FirebaseUser user;
     private FirebaseAuth firebaseAuth;
@@ -42,7 +41,10 @@ public class KupaFragment extends Fragment {
     private List<Kupa> kupaList;
     private RecyclerView recyclerView;
     private KupaAdapter kupaAdapter;
-
+    private int rutbe=0;
+    private int[] rutbeler = {R.drawable.rutbe1,R.drawable.rutbe3, R.drawable.rutbe4
+            ,R.drawable.rutbe6,R.drawable.rutbe7,R.drawable.rutbe8,R.drawable.rutbe9,
+            R.drawable.rutbe10,R.drawable.rutbe11,R.drawable.rutbe5};
 
     @Nullable
     @Override
@@ -71,13 +73,14 @@ public class KupaFragment extends Fragment {
 
 
     private void Firebase_getData() {
-        Query query = databaseReference.orderByChild("siralama");
+        Query query = databaseReference.orderByChild("siralama").limitToFirst(10);// ilk 20 kullanıcıyı getirir
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     Kupa kupa = ds.getValue(Kupa.class);
-                    kupaList.add(new Kupa(kupa.getNickname(), kupa.getSiralama(), R.mipmap.madalyon1));
+                    kupaList.add(new Kupa(kupa.getNickname(), kupa.getPuan(),rutbeler[rutbe]));
+                    rutbe++;
                 }
 
 

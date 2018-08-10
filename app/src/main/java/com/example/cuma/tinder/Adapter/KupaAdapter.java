@@ -34,7 +34,7 @@ public class KupaAdapter extends RecyclerView.Adapter<KupaAdapter.MyViewHolder> 
 
         //Holder tutacak demek
         holder.kupa_ad.setText(kupaList.get(position).getNickname());
-        holder.kupa_puan.setText(Integer.toString((int) kupaList.get(position).getSiralama()));
+        holder.kupa_puan.setText(Integer.toString((int) kupaList.get(position).getPuan()));
         holder.kupa_image.setImageResource(kupaList.get(position).getKupa_image());
     }
 
