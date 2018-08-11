@@ -80,8 +80,6 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
     ImageButton main_tekrar_buton, main_basla_buton;
     Intent key_gonder, meydan_oku_key_gonder, oda_ismi;
 
-    //TODO manin fragment deyken  geri dersem dialog açılıyorrr
-    //todo activity iki kere üst üste biniyor
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -126,7 +124,7 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
         carki_tekrar_cevir();
 
 
-        //TODO silinecek experimental
+
         setHasOptionsMenu(true);
         Firebase_get_data();
 
@@ -146,8 +144,7 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
                 meydan_oku.setImageResource(R.drawable.checked);
                 klasik.setImageResource(R.drawable.klasik);
                 karsılasma = 2;
-                //todo butona basınca çark kendi kendine dönsün veya quize değer atayalım
-            }
+             }
         });
         oyunu_baslat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,12 +156,10 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
                         isaret_oku.startAnimation(animation);
                         break;
                     case 2: //karşılaşmadır
-                       // kullanıcı_etkinlestirme();
+                        kullanıcı_etkinlestirme();
                         random = new Random();
-                        meydan_random_sayi = 1 + random.nextInt(6); //todo random sayıyı kullanıcı değil sistem ayarlasa
-                        random_sayi_getir();
-                        //todo her oyun başlat değilde her main fragmente  girince random sayı üretse daha iyi olur
-                        isaret_oku.startAnimation(animation);
+                        meydan_random_sayi = 1 + random.nextInt(6);
+                          isaret_oku.startAnimation(animation);
                         break;
                 }
 
@@ -184,7 +179,6 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
                     e.printStackTrace();
                 } finally {
                     startActivity(meydan_oku_key_gonder);
-                    databaseReference.child("Etkin").child(user_id).child("nickname").removeValue();
                     dialog.dismiss();
 
                 }
@@ -193,22 +187,6 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
         timer.start();
     }
 
-    public void random_sayi_getir() {
-        databaseReference.child("Random").child("randomsayi").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {//todo üst üste binmei galiba datayı her okumasından oluyor
-                meydanoku_random_sayi = dataSnapshot.getValue(Integer.class);
-                Log.i("Random_sayi", ":" + meydanoku_random_sayi);
-                deneme();
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
 
     private void deneme() {
         Log.i("Deneme_veri", ":" + meydanoku_random_sayi);
@@ -274,8 +252,8 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
                 }
                 break;
             case 2:
-                //  meydan_oku_ıntent = new Intent(getActivity(), Meydan_OkuActivity.class);//todo firebasten random sayo okumam lazım
-                switch (meydanoku_random_sayi_int) {
+                //  meydan_oku_ıntent = new Intent(getActivity(), Meydan_OkuActivity.class);/
+                switch (meydan_random_sayi) {
                     case 1:
                         isaret_oku.setRotation(315); //Tarih
                         checked1.setImageResource(R.drawable.checked);
@@ -459,6 +437,7 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 etkin = dataSnapshot.getValue(String.class);
                 databaseReference.child("Etkin").child(user_id).child("nickname").setValue(etkin);
+                meydan_oku_key_gonder.putExtra("kullanici_adim",etkin);
             }
 
             @Override
@@ -466,39 +445,10 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
 
             }
         });
-        kullanıcı_eslestir();
-    }
-
-    public void kullanıcı_eslestir() {
-        UUID uuıd = UUID.randomUUID();
-        final String uuidString = uuıd.toString();//todo uuisstring oda ismi çıkış yapınca silinecek
-        // oda_ismi = new Intent(getActivity(), Meydan_OkuActivity.class);
-        meydan_oku_key_gonder.putExtra("oda_adi", uuidString);
-        databaseReference.child("Etkin").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot datas : dataSnapshot.getChildren()) {
-                    String keys = datas.getKey();
-                    Log.i("key_listesi", ":" + keys);
-                    keylistesi.add(keys);
-                }
-
-                Collections.shuffle(keylistesi);
-                String rakip_kullanıcı = keylistesi.get(0);
-                databaseReference.child("Etkin").child(keylistesi.get(0)).child("nickname").removeValue();
-                databaseReference.child("Oyun").child(uuidString).child("oyuncu_bir").setValue(user_id);
-                databaseReference.child("Oyun").child(uuidString).child("oyuncu_iki").setValue(keylistesi.get(0));
-                databaseReference.child("Oyun").child(uuidString).child("randomsayi").setValue(meydan_random_sayi);
-
-                Log.i("Birinci_eleman", ":" + keylistesi.get(0)); //todo restgele kullanıcı alma işi tamam
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
 
     }
+
+
 
 
 }

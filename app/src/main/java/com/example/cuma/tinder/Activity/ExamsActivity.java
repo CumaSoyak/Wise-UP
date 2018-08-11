@@ -311,11 +311,11 @@ public class ExamsActivity extends AppCompatActivity {
         again = (ImageButton) dialog.findViewById(R.id.popoup_restart);
         devam = (ImageButton) dialog.findViewById(R.id.popup_play);
         kategori_image = (ImageView) dialog.findViewById(R.id.kategori_image);
-        kategori_text = (TextView) dialog.findViewById(R.id.kategori_popup);
+        kategori_text = (TextView) dialog.findViewById(R.id.kullanıcı_bir_popup);
 
-        popup_can = (TextView) dialog.findViewById(R.id.popup_can);
-        popup_para = (TextView) dialog.findViewById(R.id.pop_para);
-        popup_elmas = (TextView) dialog.findViewById(R.id.pop_elmas);
+        popup_can = (TextView) dialog.findViewById(R.id.pop_para_kullanıcıiki);
+        popup_para = (TextView) dialog.findViewById(R.id.pop_para_kullanıcıbir);
+        popup_elmas = (TextView) dialog.findViewById(R.id.pop_elmas_kullanıcıbir);
         Log.i("Dogru", ":" + String.valueOf(getEvetsayisi()));
         if (puanHesapla.puanarti() <= 0) {
             popup_para.setText(String.valueOf(getEvetsayisi() + getHayirsayisi()));

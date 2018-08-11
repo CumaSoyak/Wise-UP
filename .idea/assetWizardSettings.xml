@@ -79,9 +79,10 @@
                                   </option>
                                   <option name="values">
                                     <map>
+                                      <entry key="assetType" value="IMAGE" />
                                       <entry key="iconShape" value="NONE" />
-                                      <entry key="imageAsset" value="C:\Users\Cuma\Desktop\Resimler\uygulama resimler\Yeni klasör\menu.png" />
-                                      <entry key="outputName" value="video" />
+                                      <entry key="imageAsset" value="C:\Users\Cuma\Desktop\Resimler\uygulama resimler\Yeni klasör\swords.png" />
+                                      <entry key="outputName" value="savas" />
                                     </map>
                                   </option>
                                 </PersistentState>

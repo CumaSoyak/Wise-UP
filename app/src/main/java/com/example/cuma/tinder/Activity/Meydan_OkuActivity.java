@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.cuma.tinder.Class.Etkinler;
 import com.example.cuma.tinder.Class.Profile;
 import com.example.cuma.tinder.Class.PuanHesapla;
 import com.example.cuma.tinder.Class.Sorular;
@@ -62,10 +63,12 @@ public class Meydan_OkuActivity extends AppCompatActivity {
     private Context mContext;
     private Profile mProfile;
     private Sorular mSorular;
+    Etkinler etkinler;
     private Toolbar toolbar;
     public Utils utils;
     public CountDownTimer countDownTimer;
     public TextView time;
+    private TextView kullanici_bir, kullanici_iki;
     private ImageButton like, dislike, evet_buton, hayir_buton;
     public PuanHesapla puanHesapla;
     public Dialog dialog;
@@ -76,14 +79,17 @@ public class Meydan_OkuActivity extends AppCompatActivity {
     private long time_hatırla = 0;
     public ArrayList<String> cevaplistesi = new ArrayList<>();
     public ArrayList<Sorular> sorularList = new ArrayList<Sorular>();
+    public ArrayList<Etkinler> kullanıcılar_listesi = new ArrayList<Etkinler>();//todo kapasite ayarlamam lazım
+    private TextView kullanıcı_bir_popup, kullanıcı_iki_popup;
 
-    int gelen_para,gelen_elmas, para,elmas;
+    int gelen_para, gelen_elmas, para, elmas;
 
     public int dinle = 0;
     private static final String TAG = "ExamsActivity";
     public int meydanoku_quiz;
-    Intent oda_ismi;
-    public String oda_key;
+    Intent kullanici_adim_Intent;
+    public String kullanici_adim;
+    private String kullanici_iki_for,kullanici_iki_getir;
 
     public int getDinle() {
         return dinle;
@@ -175,15 +181,15 @@ public class Meydan_OkuActivity extends AppCompatActivity {
         kirik_kalp_image1 = (ImageView) findViewById(R.id.kalp1);
         kirik_kalp_image2 = (ImageView) findViewById(R.id.kalp2);
         kirik_kalp_image3 = (ImageView) findViewById(R.id.kalp3);
-        
+
         getCountDownTimer();
         toolbar = (Toolbar) findViewById(R.id.toolbar_meydan_oku);
         setSupportActionBar(toolbar);
         //////////// oda ismi
-        oda_ismi=getIntent();
-        Bundle bundle=oda_ismi.getExtras();
-        oda_key=(String)bundle.get("oda_adi");
-         Log.i("Odaismi", ":" + oda_key); //todo oda ismi gelmiyor
+        kullanici_adim_Intent = getIntent();
+        Bundle bundle = kullanici_adim_Intent.getExtras();
+        kullanici_adim = (String) bundle.get("kullanici_adim");
+        Log.i("kullanici_adim", ":" + kullanici_adim); //todo oda ismi gelmiyor
         ///////////////
 
         meydanoku_quiz = getIntent().getIntExtra(MainFragment.sorukey, MainFragment.tarih);
@@ -201,11 +207,9 @@ public class Meydan_OkuActivity extends AppCompatActivity {
             mSwipeView.addView(new TinderCard(mContext, deger, mSwipeView, quiz));
             cevaplistesi.add(deger.getAnswer());
         }*/
-        if (getDinle() == 1) {
-            Log.i("Tamam", ":");
-            //evet_buton.performClick();
 
-        }
+
+        kullanıcılarıyazdır();
         soru_ve_cevapları_getir();
         evet_buton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -247,6 +251,41 @@ public class Meydan_OkuActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void kullanıcılarıyazdır() {
+        kullanici_bir = (TextView) findViewById(R.id.kullanici_bir);
+        kullanici_iki = (TextView) findViewById(R.id.kullanici_iki);
+        UUID uuıd = UUID.randomUUID();
+        final String uuidString = uuıd.toString();
+        databaseReference.child("Kullanıcı_Adı").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot datas : dataSnapshot.getChildren()) {
+                    etkinler = datas.getValue(Etkinler.class);
+                    kullanıcılar_listesi.add(etkinler);
+                    Collections.shuffle(kullanıcılar_listesi);
+                }
+                for (Etkinler etkinler1 : kullanıcılar_listesi) {
+                    kullanici_bir.setText(kullanici_adim);
+                    kullanici_iki.setText(etkinler1.getNickname());
+                    kullanici_iki_for=etkinler1.getNickname();
+                    kullanıcı_getir();
+                    Log.i("Kullanıcılar", ":" + etkinler1.getNickname());
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    private void kullanıcı_getir() {
+        kullanici_iki_getir = kullanici_iki_for;
     }
 
 
@@ -324,94 +363,49 @@ public class Meydan_OkuActivity extends AppCompatActivity {
     }
 
     public void ShowPop() {    //Zaman bittiğinde kazanılan altın ve elmasları gösteriyoruz
-        TextView textclose, kategori_text, popup_para, popup_can, popup_elmas;
-        ImageButton home, again, devam;
-        ImageView kategori_image;
-        dialog.setContentView(R.layout.win_popup);
+        TextView pop_can_kullanici_bir, pop_para_kullanici_bir, pop_elmas_kullanici_bir, pop_can_kullanici_iki, pop_para_kullanici_iki, pop_elmas_kullanici_iki;
+        Button meydan_buton_tamam;
+        dialog.setContentView(R.layout.meydan_win_popup);
         dialog.setCancelable(false);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        home = (ImageButton) dialog.findViewById(R.id.popup_home);
-        again = (ImageButton) dialog.findViewById(R.id.popoup_restart);
-        devam = (ImageButton) dialog.findViewById(R.id.popup_play);
-        kategori_image = (ImageView) dialog.findViewById(R.id.kategori_image);
-        kategori_text = (TextView) dialog.findViewById(R.id.kategori_popup);
+        meydan_buton_tamam = (Button) dialog.findViewById(R.id.meydan_buton_tamam);
+        kullanıcı_bir_popup = (TextView) dialog.findViewById(R.id.kullanıcı_bir_popup);
+        kullanıcı_iki_popup = (TextView) dialog.findViewById(R.id.kullanıcı_iki_popup);
 
-        popup_can = (TextView) dialog.findViewById(R.id.popup_can);
-        popup_para = (TextView) dialog.findViewById(R.id.pop_para);
-        popup_elmas = (TextView) dialog.findViewById(R.id.pop_elmas);
-        Log.i("Dogru", ":" + String.valueOf(getEvetsayisi()));
-        if (puanHesapla.puanarti() <= 0) {
-            popup_para.setText(String.valueOf(getEvetsayisi() + getHayirsayisi()));
-            popup_elmas.setText(String.valueOf(getEvetsayisi() + getHayirsayisi()));
-        }
-        popup_para.setText(String.valueOf(getEvetsayisi() + getHayirsayisi()));
-        popup_elmas.setText(String.valueOf(getEvetsayisi() + getHayirsayisi()));
-        Log.i("Kalpp", ":" + kirik_kalp);
+        pop_can_kullanici_bir = (TextView) dialog.findViewById(R.id.pop_can_kullanicibir);
+        pop_para_kullanici_bir = (TextView) dialog.findViewById(R.id.pop_para_kullanıcıbir);
+        pop_elmas_kullanici_bir = (TextView) dialog.findViewById(R.id.pop_elmas_kullanıcıbir);
+
+        pop_can_kullanici_iki = (TextView) dialog.findViewById(R.id.popup_can_kullanıcıiki);
+        pop_para_kullanici_iki = (TextView) dialog.findViewById(R.id.pop_para_kullanıcıiki);
+        pop_elmas_kullanici_iki = (TextView) dialog.findViewById(R.id.pop_elmas_kullanıcıiki);
+
+
+        kullanıcı_bir_popup.setText(kullanici_adim);
+        kullanıcı_iki_popup.setText(kullanici_iki_getir);
+
+
+        pop_para_kullanici_bir.setText(String.valueOf(getEvetsayisi() + getHayirsayisi()));
+        pop_elmas_kullanici_bir.setText(String.valueOf(getEvetsayisi() + getHayirsayisi()));
+
+
         if (kirik_kalp == 0) {
-            popup_can.setText("3");
+            pop_can_kullanici_bir.setText("3");
         } else if (kirik_kalp == 1) {
-            popup_can.setText("2");
+            pop_can_kullanici_bir.setText("2");
         } else if (kirik_kalp == 2) {
-            popup_can.setText("1");
+            pop_can_kullanici_bir.setText("1");
         } else if (kirik_kalp == 3) {
-            popup_can.setText("0");
+            pop_can_kullanici_bir.setText("0");
         }
-        //  kirik_kalp=0;
-
         ekleveritabani();
-        switch (meydanoku_quiz) {
-            case 1:
-                kategori_image.setImageResource(R.drawable.tarihim);
-                kategori_text.setText("Tarih");
-                break;
-            case 2:
-                kategori_image.setImageResource(R.drawable.bilim);
-                kategori_text.setText("Bilim");
-                break;
-            case 3:
-                kategori_image.setImageResource(R.drawable.eglence);
-                kategori_text.setText("Eğlence");
-                break;
-            case 4:
-                kategori_image.setImageResource(R.drawable.cografya);
-                kategori_text.setText("Dünya");
-                break;
-            case 5:
-                kategori_image.setImageResource(R.drawable.sanat);
-                kategori_text.setText("Sanat");
-                break;
-            case 6:
-                kategori_image.setImageResource(R.drawable.spor);
-                kategori_text.setText("Spor");
-                break;
-
-        }
-        home.setOnClickListener(new View.OnClickListener() {
+        meydan_buton_tamam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 kirik_kalp = 0;
                 Intent ıntent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(ıntent);
 
-            }
-        });
-        again.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                kirik_kalp = 0;
-                Intent intent = getIntent();
-                finish();
-                startActivity(intent);
-
-
-            }
-        });
-        devam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss(); //Burası düzelecek
-                //TODO devam yapamaması lazım çunku süre bitince veya yanınca popup açılıyor
             }
         });
         if (!isFinishing()) {
@@ -421,7 +415,7 @@ public class Meydan_OkuActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-         final Dialog cikis_dialog = new Dialog(this, R.style.DialogNotitle);
+        final Dialog cikis_dialog = new Dialog(this, R.style.DialogNotitle);
         cikis_dialog.setContentView(R.layout.exit_popup);
         cikis_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         cikis_dialog.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
@@ -437,9 +431,8 @@ public class Meydan_OkuActivity extends AppCompatActivity {
         cikis_yap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cikis_dialog.dismiss();//Anasayfaya dönmeden önce dialogu kapatmak lazım
-               // databaseReference.child("Etkin").child(user_id).child("nickname").removeValue();
-             //   databaseReference.child("Oyun").child(oda_key).removeValue();
+                cikis_dialog.dismiss();
+                databaseReference.child("Etkin").child(user_id).child("nickname").removeValue();
                 Intent ıntent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(ıntent);
 
@@ -463,6 +456,7 @@ public class Meydan_OkuActivity extends AppCompatActivity {
             }
         }, bekletsure);
     }
+
     public void puanlargetir() {
         databaseReference.child("Puanlar").child(user_id).addValueEventListener(new ValueEventListener() {
             @Override
@@ -483,8 +477,9 @@ public class Meydan_OkuActivity extends AppCompatActivity {
 
     public void cagir() {
         para = gelen_para;
-        elmas=gelen_elmas;
+        elmas = gelen_elmas;
     }
+
     public void ekleveritabani() {
         useremail = user.getEmail().toString();
         UUID uuıd = UUID.randomUUID();
@@ -515,9 +510,9 @@ public class Meydan_OkuActivity extends AppCompatActivity {
         }
         databaseReference.child("Puanlar").child(user_id).child("useremail").setValue(useremail);
         databaseReference.child("Puanlar").child(user_id).child("para").setValue(getEvetsayisi() + getHayirsayisi() + para);//todo para değeri buraya gelmesi lazım
-        databaseReference.child("Puanlar").child(user_id).child("elmas").setValue(getEvetsayisi() + getHayirsayisi()+elmas);
-        databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(100-(elmas+para+getEvetsayisi()+getHayirsayisi()));//Todo burda sadece göstermelik için 10 ile çarptım
-        databaseReference.child("Yarisma").child(user_id).child("puan").setValue(elmas+para+getEvetsayisi()+getHayirsayisi());//Todo burda sadece göstermelik için 10 ile çarptım
+        databaseReference.child("Puanlar").child(user_id).child("elmas").setValue(getEvetsayisi() + getHayirsayisi() + elmas);
+        databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(100 - (elmas + para + getEvetsayisi() + getHayirsayisi()));//Todo burda sadece göstermelik için 10 ile çarptım
+        databaseReference.child("Yarisma").child(user_id).child("puan").setValue(elmas + para + getEvetsayisi() + getHayirsayisi());//Todo burda sadece göstermelik için 10 ile çarptım
 
 
     }

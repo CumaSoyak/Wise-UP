@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/kategori_popup"
+        android:id="@+id/kullanıcı_bir_popup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -41,7 +41,7 @@
         app:layout_constraintEnd_toStartOf="@+id/imageView2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/kategori_popup"
+        app:layout_constraintTop_toBottomOf="@+id/kullanıcı_bir_popup"
         app:srcCompat="@drawable/kalp" />
 
     <ImageView
@@ -54,7 +54,7 @@
         app:layout_constraintEnd_toStartOf="@+id/imageView3"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/kategori_popup"
+        app:layout_constraintTop_toBottomOf="@+id/kullanıcı_bir_popup"
         app:srcCompat="@drawable/coins" />
 
     <ImageView
@@ -66,24 +66,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/kategori_popup"
+        app:layout_constraintTop_toBottomOf="@+id/kullanıcı_bir_popup"
         app:srcCompat="@drawable/elmas" />
 
     <TextView
-        android:id="@+id/popup_can"
+        android:id="@+id/pop_para_kullanıcıiki"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="100"
         android:textColor="@color/white"
-        app:layout_constraintBaseline_toBaselineOf="@+id/pop_para"
-        app:layout_constraintEnd_toStartOf="@+id/pop_para"
+        app:layout_constraintBaseline_toBaselineOf="@+id/pop_para_kullanıcıbir"
+        app:layout_constraintEnd_toStartOf="@+id/pop_para_kullanıcıbir"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/pop_para"
+        android:id="@+id/pop_para_kullanıcıbir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -91,23 +91,23 @@
         android:layout_marginTop="16dp"
         android:text="100"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/pop_elmas"
+        app:layout_constraintEnd_toStartOf="@+id/pop_elmas_kullanıcıbir"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/popup_can"
+        app:layout_constraintStart_toEndOf="@+id/pop_para_kullanıcıiki"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <TextView
-        android:id="@+id/pop_elmas"
+        android:id="@+id/pop_elmas_kullanıcıbir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="100"
         android:textColor="@color/white"
-        app:layout_constraintBaseline_toBaselineOf="@+id/pop_para"
+        app:layout_constraintBaseline_toBaselineOf="@+id/pop_para_kullanıcıbir"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/pop_para" />
+        app:layout_constraintStart_toEndOf="@+id/pop_para_kullanıcıbir" />
 
     <ImageButton
         android:id="@+id/popup_home"
