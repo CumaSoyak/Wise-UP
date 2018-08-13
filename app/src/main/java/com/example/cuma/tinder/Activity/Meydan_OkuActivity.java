@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -348,8 +349,9 @@ public class Meydan_OkuActivity extends AppCompatActivity {
         countDownTimer = new CountDownTimer(20000, 1000) { //Burdaki saniye 49 olması lazım
             @Override
             public void onTick(long millisUntilFinished) {
-                time.setText(String.valueOf(millisUntilFinished / 1000).toString());
+                time.setText(String.valueOf(millisUntilFinished / 1000));
                 time_hatırla = millisUntilFinished;
+
             }
 
             @Override
@@ -361,7 +363,40 @@ public class Meydan_OkuActivity extends AppCompatActivity {
 
         return countDownTimer;
     }
+    @Override
+    public void onBackPressed() {
+        final Dialog cikis_dialog = new Dialog(this, R.style.DialogNotitle);
+        cikis_dialog.setContentView(R.layout.exit_popup);
+        cikis_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        cikis_dialog.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
+        // countDownTimer.cancel();
+        Button devam_et = (Button) cikis_dialog.findViewById(R.id.dialog_cikis_evet);
+        Button cikis_yap = (Button) cikis_dialog.findViewById(R.id.dialog_cikis_hayir);
+        TextView kaybettin=(TextView)cikis_dialog.findViewById(R.id.textview_normal);
+        ImageView savas_image_cikis=(ImageView)cikis_dialog.findViewById(R.id.savas_image_cikis);
+        kaybettin.setText("Kaçarsan Oyunu Kaybedersin");
+        savas_image_cikis.setImageResource(R.drawable.savas_cikis);
 
+        devam_et.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cikis_dialog.dismiss();
+            }
+        });
+        cikis_yap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cikis_dialog.dismiss();
+                databaseReference.child("Etkin").child(user_id).child("nickname").removeValue();
+                Intent ıntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(ıntent);
+
+
+            }
+        });
+
+        cikis_dialog.show();
+    }
     public void ShowPop() {    //Zaman bittiğinde kazanılan altın ve elmasları gösteriyoruz
         TextView pop_can_kullanici_bir, pop_para_kullanici_bir, pop_elmas_kullanici_bir, pop_can_kullanici_iki, pop_para_kullanici_iki, pop_elmas_kullanici_iki;
         Button meydan_buton_tamam;
@@ -413,34 +448,7 @@ public class Meydan_OkuActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        final Dialog cikis_dialog = new Dialog(this, R.style.DialogNotitle);
-        cikis_dialog.setContentView(R.layout.exit_popup);
-        cikis_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        cikis_dialog.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
-        // countDownTimer.cancel();
-        Button devam_et = (Button) cikis_dialog.findViewById(R.id.dialog_cikis_evet);
-        Button cikis_yap = (Button) cikis_dialog.findViewById(R.id.dialog_cikis_hayir);
-        devam_et.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cikis_dialog.dismiss();
-            }
-        });
-        cikis_yap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cikis_dialog.dismiss();
-                databaseReference.child("Etkin").child(user_id).child("nickname").removeValue();
-                Intent ıntent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(ıntent);
 
-            }
-        });
-
-        cikis_dialog.show();
-    }
 
     public void cevabı_beklet() {
         evet_buton.setEnabled(false);

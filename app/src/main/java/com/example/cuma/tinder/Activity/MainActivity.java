@@ -1,10 +1,6 @@
 package com.example.cuma.tinder.Activity;
 
-import android.app.Dialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
@@ -12,12 +8,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
 
 import com.example.cuma.tinder.Adapter.MainAdapter;
+import com.example.cuma.tinder.Fragment.AdminFragment;
 import com.example.cuma.tinder.Fragment.HesapFragment;
 import com.example.cuma.tinder.Fragment.KupaFragment;
 import com.example.cuma.tinder.Fragment.MainFragment;
@@ -42,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private MainAdapter mainAdapter;
     private TabLayout tabLayout;
     private Toolbar toolbar;
-    private int[] tabicons = {R.mipmap.house, R.mipmap.alisveris, R.mipmap.kazanan, R.mipmap.soru_oneri, R.mipmap.menu};
+    private int[] tabicons = {R.mipmap.house, R.mipmap.alisveris, R.mipmap.kazanan, R.mipmap.soru_oneri, R.mipmap.menu,R.drawable.checked};
 
     EditText al_kullanici_adi;
 
@@ -57,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         databaseReference = database.getReference();
         user = firebaseAuth.getCurrentUser();
         user_id = user.getUid();
+
 
         mainAdapter = new MainAdapter(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.viewpager_main);
@@ -94,6 +90,10 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(2).setIcon(tabicons[2]);
         tabLayout.getTabAt(3).setIcon(tabicons[3]);
         tabLayout.getTabAt(4).setIcon(tabicons[4]);
+        if (user.getEmail().equalsIgnoreCase("cumasoyak51@gmail.com")){
+            tabLayout.getTabAt(5).setIcon(tabicons[5]);
+        }
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -103,6 +103,9 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new KupaFragment(), "dasd");
         adapter.addFragment(new OneriFragment(), "Öneri");
         adapter.addFragment(new HesapFragment(), "hesap");
+        if (user.getEmail().equalsIgnoreCase("cumasoyak51@gmail.com")){
+            adapter.addFragment(new AdminFragment(), "hesap");
+        }
         viewPager.setAdapter(adapter);
     }
 

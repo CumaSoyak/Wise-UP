@@ -150,6 +150,7 @@ public class ExamsActivity extends AppCompatActivity {
 
 
         TinderCard tinderCard = new TinderCard();
+
         mSwipeView = (SwipePlaceHolderView) findViewById(R.id.swipeView);
         mContext = this;
         time = (TextView) findViewById(R.id.time);

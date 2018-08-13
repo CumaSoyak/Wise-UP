@@ -49,19 +49,21 @@ public class TinderCard {
     private Context mContext;
     private SwipePlaceHolderView mSwipeView;
     int say = 0;
-    int degisken=0;
+    int degisken = 0;
     private ExamsActivity activity;
 
     public TinderCard(Context context, Sorular sorular, SwipePlaceHolderView swipeView, int quiz) {
         mContext = context;
         activity = (ExamsActivity) context;
-        mSorular=sorular;
+        mSorular = sorular;
         mSwipeView = swipeView;
         mQuiz = quiz;
     }
-    public TinderCard(){
+
+    public TinderCard() {
 
     }
+
 
 
     @Resolve
@@ -84,8 +86,8 @@ public class TinderCard {
             activity.artir_kalp_sayisi();
             activity.kalp_patlat();
         }  */
-     //  activity.evet_buton.performClick();
-       //  activity.getirartık();
+        //  activity.evet_buton.performClick();
+        //  activity.getirartık();
         Log.d("EVET-IN", "onSwipedIn");
 
     }
@@ -104,7 +106,7 @@ public class TinderCard {
         } */
         // mSwipeView.addView(this);
         Log.d("HAYIR-OUT", "onSwipedout");
-return false;
+        return false;
     }
 
     @SwipeInState

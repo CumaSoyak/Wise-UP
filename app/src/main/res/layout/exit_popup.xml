@@ -10,7 +10,7 @@
      >
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/savas_image_cikis"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="8dp"
@@ -33,7 +33,7 @@
         app:layout_constraintBottom_toTopOf="@+id/dialog_cikis_hayir"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+        app:layout_constraintTop_toBottomOf="@+id/savas_image_cikis" />
 
     <Button
         android:id="@+id/dialog_cikis_hayir"

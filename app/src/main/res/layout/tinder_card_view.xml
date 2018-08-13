@@ -76,7 +76,6 @@
 
             <ImageButton
                 android:id="@+id/like_img"
-                android:onClick="begen_begenme"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="11dp"
@@ -84,8 +83,7 @@
                 android:background="@color/backgroundcolor"
                 android:scaleType="fitCenter"
                 android:src="@drawable/like_disable"
-                android:tint="@drawable/touch_selector"
-                app:layout_constraintBottom_toBottomOf="parent"
+                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <ImageButton
@@ -95,11 +93,9 @@
                 android:layout_marginBottom="4dp"
                 android:layout_marginEnd="4dp"
                 android:background="@color/backgroundcolor"
-                android:onClick="begen_begenme"
                 android:scaleType="fitCenter"
                 android:src="@drawable/dislike_disable"
-                android:tint="@drawable/touch_selector"
-                app:layout_constraintBottom_toBottomOf="parent"
+                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/like_img" />
 
 
