@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundcolor"
+    android:background="@color/bluedark"
     android:orientation="vertical"
     tools:layout_editor_absoluteY="25dp">
 
@@ -13,11 +13,11 @@
         android:id="@+id/kalp"
         android:layout_width="0dp"
         android:layout_height="30dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="moneyclick"
-        app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toStartOf="@+id/elmas"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_weight="0.33"
@@ -27,7 +27,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/acıksiyah">
+            android:background="@color/koyusiyah">
 
             <ImageView
                 android:layout_width="50dp"
@@ -43,11 +43,10 @@
                 android:id="@+id/main_kalp_toplam"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/titan_one"
                 android:gravity="center"
-                android:text="..."
-                android:textColor="@color/backgroundcolor"
-                android:textSize="15dp"
-                android:textStyle="bold" />
+                android:text="100"
+                android:textColor="@color/backgroundcolor" />
         </LinearLayout>
 
 
@@ -57,11 +56,12 @@
         android:id="@+id/elmas"
         android:layout_width="0dp"
         android:layout_height="30dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="moneyclick"
-        app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toStartOf="@+id/para"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_weight="0.33"
@@ -71,7 +71,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/acıksiyah">
+            android:background="@color/koyusiyah">
 
             <ImageView
                 android:layout_width="50dp"
@@ -87,11 +87,10 @@
                 android:id="@+id/main_para_toplam"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/titan_one"
                 android:gravity="center"
-                android:text="..."
-                android:textColor="@color/backgroundcolor"
-                android:textSize="15dp"
-                android:textStyle="bold" />
+                android:text="100"
+                android:textColor="@color/backgroundcolor" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
@@ -99,11 +98,11 @@
         android:id="@+id/para"
         android:layout_width="0dp"
         android:layout_height="30dp"
+        android:layout_marginEnd="4dp"
         android:layout_marginTop="8dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:onClick="moneyclick"
-        app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_weight="0.33"
@@ -113,7 +112,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/acıksiyah">
+            android:background="@color/koyusiyah">
 
             <ImageView
                 android:layout_width="50dp"
@@ -129,11 +128,10 @@
                 android:id="@+id/main_elmas_toplam"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/titan_one"
                 android:gravity="center"
-                android:text="..."
-                android:textColor="@color/backgroundcolor"
-                android:textSize="15dp"
-                android:textStyle="bold" />
+                android:text="100"
+                android:textColor="@color/backgroundcolor" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
@@ -167,8 +165,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Tarih"
-                android:textStyle="bold" />
+                android:fontFamily="@font/titan_one"
+                android:text="Tarih" />
 
             <View
                 android:layout_width="match_parent"
@@ -179,6 +177,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/titan_one"
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="1/10"
@@ -191,7 +190,7 @@
         android:id="@+id/card2"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="10dp"
@@ -217,8 +216,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Bilim"
-                android:textStyle="bold" />
+                android:fontFamily="@font/titan_one"
+                android:text="Bilim" />
 
             <View
                 android:layout_width="match_parent"
@@ -229,6 +228,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/titan_one"
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="1/10"
@@ -250,7 +250,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/card2"
-        app:layout_constraintTop_toBottomOf="@+id/para">
+        app:layout_constraintTop_toTopOf="@+id/card2">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -269,8 +269,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Eğlence"
-                android:textStyle="bold" />
+                android:fontFamily="@font/titan_one"
+                android:text="Eğlence" />
 
             <View
                 android:layout_width="match_parent"
@@ -281,6 +281,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/titan_one"
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="1/10"
@@ -319,8 +320,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Coğrafya"
-                android:textStyle="bold" />
+                android:fontFamily="@font/titan_one"
+                android:text="Coğrafya" />
 
             <View
                 android:layout_width="match_parent"
@@ -331,6 +332,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/titan_one"
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="1/10"
@@ -343,9 +345,11 @@
         android:id="@+id/card5"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
         android:layout_marginTop="45dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/card6"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/card4"
@@ -369,8 +373,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Sanat"
-                android:textStyle="bold" />
+                android:fontFamily="@font/titan_one"
+                android:text="Sanat" />
 
             <View
                 android:layout_width="match_parent"
@@ -381,6 +385,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/titan_one"
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="1/10"
@@ -419,8 +424,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Spor"
-                android:textStyle="bold" />
+                android:fontFamily="@font/titan_one"
+                android:text="Spor" />
 
             <View
                 android:layout_width="match_parent"
@@ -431,6 +436,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/titan_one"
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="1/10"
@@ -441,59 +447,63 @@
 
     <Button
         android:id="@+id/baslat"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@drawable/ibre"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/pusula"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/isaret_oku"
-        android:layout_width="60dp"
-        android:layout_height="70dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="40dp"
         android:layout_marginTop="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/card5"
         app:layout_constraintTop_toBottomOf="@+id/card2"
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintStart_toStartOf="parent"
-        card_view:srcCompat="@drawable/ibre_cubuk" />
+        card_view:srcCompat="@drawable/pusula" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/meydan_oku"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="16dp"
-        android:text="Meydan oku"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@android:color/transparent"
         android:src="@drawable/savas"
-        android:background="@color/backgroundcolor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/textView16"
+        app:layout_constraintEnd_toEndOf="@+id/textView16"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="@+id/textView16" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/klasik"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="32dp"
-        android:layout_marginStart="24dp"
-        android:text="Klasik"
-        android:background="@color/backgroundcolor"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@android:color/transparent"
         android:src="@drawable/klasik"
-        app:layout_constraintBottom_toBottomOf="parent"
-        card_view:layout_constraintStart_toStartOf="parent" />
+        android:text="Klasik"
+        app:layout_constraintBottom_toTopOf="@+id/textView13"
+        app:layout_constraintEnd_toEndOf="@+id/textView13"
+        app:layout_constraintStart_toStartOf="@+id/textView13"
+          />
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="24dp"
+        android:fontFamily="@font/titan_one"
         android:text="Klasik"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/klasik"
-        app:layout_constraintStart_toStartOf="@+id/klasik"
-        app:layout_constraintTop_toBottomOf="@+id/klasik"
+        android:textColor="@color/backgroundcolor"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="parent"
         card_view:layout_constraintBottom_toBottomOf="parent" />
 
     <TextView
@@ -501,13 +511,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/titan_one"
         android:text="Meydan Oku"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/meydan_oku"
-        app:layout_constraintStart_toStartOf="@+id/meydan_oku"
-        app:layout_constraintTop_toBottomOf="@+id/meydan_oku"
+        android:textColor="@color/backgroundcolor"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintBottom_toBottomOf="parent" />
 
 

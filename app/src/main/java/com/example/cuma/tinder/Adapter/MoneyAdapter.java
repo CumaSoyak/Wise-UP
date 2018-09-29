@@ -33,7 +33,7 @@ public class MoneyAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return null; //        // sadece icon istiyorsak return null yapmak yeterli
+        return null;//        // sadece icon istiyorsak return null yapmak yeterli
 
     }
 }

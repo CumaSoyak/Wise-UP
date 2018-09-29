@@ -5,44 +5,60 @@
     android:id="@+id/cancel"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey"
+    android:background="@drawable/arkaplan"
     android:orientation="vertical">
 
     <include
-        android:id="@+id/include4"
+        android:id="@+id/include"
         layout="@layout/toolbar" />
+
+    <View
+        android:id="@+id/toolbar_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/toolbar_dropshadow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include">
+
+    </View>
 
     <com.mindorks.placeholderview.SwipePlaceHolderView
         android:id="@+id/swipeView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="64dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:layout_weight="1"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/rejectBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include4" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_shadow" />
 
 
-    <ImageButton
+    <Button
         android:id="@+id/rejectBtn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/cancel"
-         app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/hayir_buton_exams"
+        android:fontFamily="@font/titan_one"
+        android:text="Hayır"
+        android:textColor="@color/backgroundcolor"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/acceptBtn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageButton
+    <Button
         android:id="@+id/acceptBtn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/herat"
-         app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/evet_buton_exams"
+        android:fontFamily="@font/titan_one"
+        android:text="Evet"
+        android:textColor="@color/backgroundcolor"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/rejectBtn" />

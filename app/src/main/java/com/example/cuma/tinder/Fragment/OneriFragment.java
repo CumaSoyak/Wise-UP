@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -34,7 +35,7 @@ import java.util.UUID;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OneriFragment extends Fragment {
+public class OneriFragment extends Fragment implements View.OnClickListener {
 
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
@@ -47,11 +48,8 @@ public class OneriFragment extends Fragment {
     private RadioButton evet, hayir;
     private ImageButton onerildi_soru_thanks;
     int radiobuton_id;
-    private Spinner kategori_spinner;
-    private ArrayAdapter<String> spinner_adapter;
-    private String[] kategoriler = {"Kategori", "Tarih", "Bilim", "Eğlence", "Coğrafya", "Sanat", "Spor"};
-    private String selectedItem;
-    private int deger;
+    private int deger, kategori_deger = 0;
+    private ImageView kategori1, kategori2, kategori3, kategori4, kategori5, kategori6;
 
     public OneriFragment() {
         // Required empty public constructor
@@ -72,123 +70,134 @@ public class OneriFragment extends Fragment {
         oneri_soru = (EditText) view.findViewById(R.id.oneri_soru);
         evet = (RadioButton) view.findViewById(R.id.evet);
         hayir = (RadioButton) view.findViewById(R.id.hayir);
-        kategori_spinner = (Spinner) view.findViewById(R.id.kategori_spinner);
-        spinner_adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, kategoriler) {
-            @Override
-            public boolean isEnabled(int position) {
-                if (position == 0) {
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-
-            @Override
-            public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-                TextView textView = (TextView) view;
-                if (position == 0) {
-                    textView.setTextColor(Color.GRAY);
-                } else {
-                    textView.setTextColor(Color.BLACK);
-                }
-                return view;
-            }
-        };//spinnerler için adapterler belırlıyoruz
-        spinner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);//listelenecek verilerin görunumunu belırlıyoruz
-        kategori_spinner.setAdapter(spinner_adapter);//hazırladığımız adapterleri sniplera eklıyoruz
-        kategori_sec();
+        kategori1 = view.findViewById(R.id.kategori1);
+        kategori1.setOnClickListener(this);
+        kategori2 = view.findViewById(R.id.kategori2);
+        kategori2.setOnClickListener(this);
+        kategori3 = view.findViewById(R.id.kategori3);
+        kategori3.setOnClickListener(this);
+        kategori4 = view.findViewById(R.id.kategori4);
+        kategori4.setOnClickListener(this);
+        kategori5 = view.findViewById(R.id.kategori5);
+        kategori5.setOnClickListener(this);
+        kategori6 = view.findViewById(R.id.kategori6);
+        kategori6.setOnClickListener(this);
         oneri_gonder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                 if (selectedItem.equals("Kategori")) {
-                    Toast.makeText(getActivity(), "Lütfen Alanları boş geçmeyiniz", Toast.LENGTH_LONG).show();
-                } else {
                     Firebase_kaydet_soru();
-                }
+
             }
         });
 
-
         return view;
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.kategori1:
+                kategori_deger = 1;
+                break;
+            case R.id.kategori2:
+                kategori_deger = 2;
+                break;
+            case R.id.kategori3:
+                kategori_deger = 3;
+                break;
+            case R.id.kategori4:
+                kategori_deger = 4;
+                break;
+            case R.id.kategori5:
+                kategori_deger = 5;
+                break;
+            case R.id.kategori6:
+                kategori_deger = 6;
+                break;
+
+        }
+
+        secilmemis_hale_getir();
+
+    }
+
+    public void secilmemis_hale_getir() {
+        switch (kategori_deger) {
+            case 1:
+                kategori1.setImageResource(R.drawable.checked);
+                kategori2.setImageResource(R.drawable.bilim);
+                kategori3.setImageResource(R.drawable.eglence);
+                kategori4.setImageResource(R.drawable.cografya);
+                kategori5.setImageResource(R.drawable.sanat);
+                kategori6.setImageResource(R.drawable.spor);
+                break;
+            case 2:
+                kategori2.setImageResource(R.drawable.checked);
+                kategori1.setImageResource(R.drawable.tarihim);
+                kategori3.setImageResource(R.drawable.eglence);
+                kategori4.setImageResource(R.drawable.cografya);
+                kategori5.setImageResource(R.drawable.sanat);
+                kategori6.setImageResource(R.drawable.spor);
+                break;
+            case 3:
+                kategori3.setImageResource(R.drawable.checked);
+                kategori1.setImageResource(R.drawable.tarihim);
+                kategori2.setImageResource(R.drawable.bilim);
+                kategori4.setImageResource(R.drawable.cografya);
+                kategori5.setImageResource(R.drawable.sanat);
+                kategori6.setImageResource(R.drawable.spor);
+                break;
+            case 4:
+                kategori4.setImageResource(R.drawable.checked);
+                kategori2.setImageResource(R.drawable.bilim);
+                kategori3.setImageResource(R.drawable.eglence);
+                kategori1.setImageResource(R.drawable.tarihim);
+                kategori5.setImageResource(R.drawable.sanat);
+                kategori6.setImageResource(R.drawable.spor);
+                break;
+            case 5:
+                kategori5.setImageResource(R.drawable.checked);
+                kategori2.setImageResource(R.drawable.bilim);
+                kategori3.setImageResource(R.drawable.eglence);
+                kategori4.setImageResource(R.drawable.cografya);
+                kategori1.setImageResource(R.drawable.tarihim);
+                kategori6.setImageResource(R.drawable.spor);
+                break;
+            case 6:
+                kategori6.setImageResource(R.drawable.checked);
+                kategori2.setImageResource(R.drawable.bilim);
+                kategori3.setImageResource(R.drawable.eglence);
+                kategori4.setImageResource(R.drawable.cografya);
+                kategori5.setImageResource(R.drawable.sanat);
+                kategori1.setImageResource(R.drawable.tarihim);
+                break;
+
+        }
+
     }
 
     private void Firebase_kaydet_soru() {
         UUID uuıd = UUID.randomUUID();
         uuid_String = uuıd.toString();
         user = firebaseAuth.getCurrentUser();
-        if (oneri_soru.getText().toString().matches("")) {
+        if (oneri_soru.getText().toString().matches("") || kategori_deger == 0) {
             Toast.makeText(getActivity(), "Lütfen Alanları boş geçmeyiniz", Toast.LENGTH_LONG).show();
             return;
         }
-        if (evet.isChecked()) {
-            databaseReference.child("Sorular").child(String.valueOf(deger)).child(uuid_String).child("soru").setValue(oneri_soru.getText().toString());
-            databaseReference.child("Sorular").child(String.valueOf(deger)).child(uuid_String).child("cevap").setValue("Yes");
+        else if (evet.isChecked()) {
+            databaseReference.child("Sorular_Onay").child(String.valueOf(kategori_deger)).child(uuid_String).child("soru").setValue(oneri_soru.getText().toString());
+            databaseReference.child("Sorular_Onay").child(String.valueOf(kategori_deger)).child(uuid_String).child("cevap").setValue("Yes");
             tesekur_dialog_goster();
             oneri_soru.getText().clear();
         } else if (hayir.isChecked()) {
-            databaseReference.child("Sorular").child(String.valueOf(deger)).child(uuid_String).child("soru").setValue(oneri_soru.getText().toString());
-            databaseReference.child("Sorular").child(String.valueOf(deger)).child(uuid_String).child("cevap").setValue("No");
+            databaseReference.child("Sorular_Onay").child(String.valueOf(kategori_deger)).child(uuid_String).child("soru").setValue(oneri_soru.getText().toString());
+            databaseReference.child("Sorular_Onay").child(String.valueOf(kategori_deger)).child(uuid_String).child("cevap").setValue("No");
             tesekur_dialog_goster();
             oneri_soru.getText().clear();
         } else {
             Toast.makeText(getActivity(), "Lütfen Alanları boş geçmeyiniz", Toast.LENGTH_LONG).show();
         }
-      /*  switch (deger) {
-            case 1:
-                databaseReference.child("Sorular").child(uuid_String).child("kategori").setValue(1);
-                break;
-            case 2:
-                databaseReference.child("Sorular").child(uuid_String).child("kategori").setValue(2);
-                break;
-            case 3:
-                databaseReference.child("Sorular").child(uuid_String).child("kategori").setValue(3);
-                break;
-            case 4:
-                databaseReference.child("Sorular").child(uuid_String).child("kategori").setValue(4);
-                break;
-            case 5:
-                databaseReference.child("Sorular").child(uuid_String).child("kategori").setValue(5);
-                break;
-            case 6:
-                databaseReference.child("Sorular").child(uuid_String).child("kategori").setValue(6); break;
-        } */
-
-    }
-
-    public void kategori_sec() {
-        kategori_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedItem = parent.getItemAtPosition(position).toString();
-                switch (position) {
-                    case 1:
-                        deger = 1;
-                        break;
-                    case 2:
-                        deger = 2;
-                        break;
-                    case 3:
-                        deger = 3;
-                        break;
-                    case 4:
-                        deger = 4;
-                        break;
-                    case 5:
-                        deger = 5;
-                        break;
-                    case 6:
-                        deger = 6;
-                        break;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
     }
 
     public void tesekur_dialog_goster() {
@@ -204,7 +213,7 @@ public class OneriFragment extends Fragment {
                 basarili_dialog.dismiss();
             }
         });
-         Thread thread = new Thread() {
+        Thread thread = new Thread() {
             public void run() {
                 try {
                     sleep(200);

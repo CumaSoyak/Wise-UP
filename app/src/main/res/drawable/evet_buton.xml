@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <shape >
-            <corners android:radius="20dp">
-
-            </corners>
-            <stroke android:color="@color/yesil"
-                android:width="1dp"
-                android:dashGap="1dp"
-                android:dashWidth="5dp"/>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android"
+            android:shape="rectangle">
+            <corners android:radius= "10dp"
+                android:bottomRightRadius="10dp"
+                android:topRightRadius="10dp"
+                android:topLeftRadius="10dp"
+                android:bottomLeftRadius="10dp" />
+            <solid android:color="@color/yesil"/>
         </shape>
-
     </item>
 
 </selector>

@@ -4,17 +4,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.AdminFragment">
+    tools:context=".Fragment.AdminFragment"
+    tools:layout_editor_absoluteY="25dp">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="103dp"
-        android:layout_height="75dp"
-        android:src="@drawable/cografya"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <EditText
+        android:id="@+id/onay_edittext_soru"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Soru"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/onay_edittext_cevap"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/admin_gonder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gönder"
+        app:layout_constraintBaseline_toBaselineOf="@+id/admin_gec"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/admin_gec" />
+
+    <EditText
+        android:id="@+id/onay_edittext_cevap"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="cevap"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/adimin_spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/onay_edittext_soru" />
+
+    <Button
+        android:id="@+id/admin_gec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
+        android:layout_marginTop="8dp"
+        android:text="Geç"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/admin_gonder"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adimin_spinner" />
+
+    <Spinner
+        android:id="@+id/adimin_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="98dp"
+        app:layout_constraintBottom_toTopOf="@+id/admin_gec"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/onay_edittext_cevap" />
 </android.support.constraint.ConstraintLayout>

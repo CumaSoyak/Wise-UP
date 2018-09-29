@@ -45,13 +45,11 @@ public class CanFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(satinalAdapter);
 
-        satinalList.add(new Satinal("para 2",R.drawable.coins,"24 tl"));
-        satinalList.add(new Satinal("para 3",R.drawable.coins,"85 tl"));
-        satinalList.add(new Satinal("para 2",R.drawable.coins,"24 tl"));
-        satinalList.add(new Satinal("para 3",R.drawable.coins,"85 tl"));
-        satinalList.add(new Satinal("para 2",R.drawable.coins,"24 tl"));
-        satinalList.add(new Satinal("para 3",R.drawable.coins,"85 tl"));
-        satinalList.add(new Satinal("para 3",R.drawable.coins,"85 tl"));
+        satinalList.add(new Satinal("8 tane can",R.drawable.kalpfazla,"24 tl"));
+        satinalList.add(new Satinal("100 tane can",R.drawable.kalpkamyon,"56 tl"));
+        satinalList.add(new Satinal("250 tane can",R.drawable.kalpbira,"75 tl"));
+        satinalList.add(new Satinal("750 tane can",R.drawable.kalpkamyonlar,"99 tl"));
+
 
 
         satinalAdapter.notifyDataSetChanged();

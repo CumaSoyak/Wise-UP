@@ -22,11 +22,12 @@
 
     <TextView
         android:id="@+id/textView15"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="İnternet bağlantısını kontrol ediniz"
+        android:fontFamily="@font/titan_one"
+        android:text="internet bağlantısını kontrol ediniz"
         android:textColor="@color/white"
-        android:textSize="15dp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

@@ -13,65 +13,63 @@
         android:id="@+id/guc_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
+        android:layout_marginTop="45dp"
+        android:fontFamily="@font/titan_one"
         android:gravity="center"
         android:text="Hayatta kalabilmen için güç yükleniyor ..."
         android:textColor="@color/backgroundcolor"
         android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/savas_image_cikis"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/savas_image_cikis"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toTopOf="@+id/textview_normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guc_text"
-        app:srcCompat="@drawable/rainbow" />
-
     <TextView
         android:id="@+id/textview_normal"
-        android:layout_width="250dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
+        android:fontFamily="@font/titan_one"
         android:gravity="center"
         android:text="Kullanıcı adın ne ?"
         android:textColor="@color/backgroundcolor"
         android:textSize="18dp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/kullanici_adi_editext"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/savas_image_cikis" />
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
 
     <EditText
         android:id="@+id/kullanici_adi_editext"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
         android:ems="10"
+        android:fontFamily="@font/autour_one1"
         android:gravity="center"
         android:hint="Nickname"
         android:inputType="textPersonName"
-        android:textColor="@color/backgroundcolor"
+        android:maxLength="11"
+        android:textColor="@color/grey"
         android:textColorHint="@color/backgroundcolor"
         android:textSize="15dp"
         app:layout_constraintBottom_toTopOf="@+id/gecis_tamam"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textview_normal"
         app:layout_constraintTop_toBottomOf="@+id/textview_normal" />
 
     <Button
         android:id="@+id/gecis_tamam"
-        android:layout_width="100dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/devam_button"
+        android:layout_marginBottom="44dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:background="@drawable/evet_buton"
+        android:fontFamily="@font/titan_one"
         android:text="Tamam"
         android:textColor="@color/backgroundcolor"
         app:layout_constraintBottom_toTopOf="@+id/gecis_progressBar"
@@ -83,13 +81,104 @@
         android:id="@+id/gecis_progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:progressTint="@color/yesil"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gecis_tamam" />
+
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="44dp"
+        android:layout_marginTop="8dp"
+        android:scrollbarThumbVertical="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/textview_normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guc_text">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/savas1"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/karakterler_arkaplan"
+                android:onClick="savasci_sec"
+                android:padding="5dp"
+                app:srcCompat="@drawable/tarihadami" />
+
+            <ImageView
+                android:id="@+id/savas2"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/karakterler_arkaplan"
+                android:onClick="savasci_sec"
+                android:padding="10dp"
+                app:srcCompat="@drawable/bilimadami" />
+
+            <ImageView
+                android:id="@+id/savas3"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/karakterler_arkaplan"
+                android:onClick="savasci_sec"
+                android:padding="10dp"
+                app:srcCompat="@drawable/eglenceadami" />
+
+            <ImageView
+                android:id="@+id/savas4"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/karakterler_arkaplan"
+                android:onClick="savasci_sec"
+                android:padding="10dp"
+                app:srcCompat="@drawable/cografyadami" />
+
+            <ImageView
+                android:id="@+id/savas5"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/karakterler_arkaplan"
+                android:onClick="savasci_sec"
+                android:padding="10dp"
+                app:srcCompat="@drawable/sanatadami" />
+
+            <ImageView
+                android:id="@+id/savas6"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/karakterler_arkaplan"
+                android:onClick="savasci_sec"
+                android:padding="10dp"
+                app:srcCompat="@drawable/sporadami" />
+
+
+        </LinearLayout>
+    </HorizontalScrollView>
 
 
 </android.support.constraint.ConstraintLayout>

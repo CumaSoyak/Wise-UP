@@ -1,6 +1,9 @@
 package com.example.cuma.tinder.Activity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +16,8 @@ import android.widget.ImageView;
 
 import com.example.cuma.tinder.R;
 import com.facebook.login.widget.LoginButton;
+
+import java.net.InetAddress;
 
 
 public class AcilisActivity extends AppCompatActivity {
@@ -31,10 +36,23 @@ public class AcilisActivity extends AppCompatActivity {
         image5=(ImageView)findViewById(R.id.image5);
         image6=(ImageView)findViewById(R.id.image6);
 
+       /* if (internet_kontrol() == false) {//TODO burayı normal hale getir
+            internet_dialog();
+
+        }
+        else {
+            zaman_durdur();
+        } */
+        zaman_durdur();
         Window window=getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(getResources().getColor(R.color.bluedark));
+
+
+
+    }
+    public void zaman_durdur(){
 
         Animation animation =AnimationUtils.loadAnimation(this,R.anim.rotate);
         image1.startAnimation(animation);
@@ -47,7 +65,7 @@ public class AcilisActivity extends AppCompatActivity {
         Thread timer=new Thread(){
             public void run(){
                 try{
-                    sleep(0);
+                    sleep(4000);
                 }
                 catch (Exception e){
                     e.printStackTrace();
@@ -60,7 +78,26 @@ public class AcilisActivity extends AppCompatActivity {
             }
         };
         timer.start();
+    }
 
+    public void internet_dialog() {
+        Dialog kontrol = new Dialog(this, R.style.DialogNotitle);
+        kontrol.setContentView(R.layout.dialog_internet);
+        kontrol.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        kontrol.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
+        kontrol.setCancelable(false);
+        kontrol.show();
+
+    }
+    public boolean internet_kontrol() {
+        try {
+            InetAddress ipAddr = InetAddress.getByName("www.google.com");
+            //You can replace it with your name
+            return !ipAddr.equals("");
+
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }

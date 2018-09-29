@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/alfa_slab_one</item>
+        <item>@font/archivo_black</item>
+        <item>@font/autour_one</item>
+        <item>@font/baloo_bhai</item>
+        <item>@font/baloo_da</item>
+        <item>@font/bevan</item>
+        <item>@font/bungee</item>
+        <item>@font/chango</item>
+        <item>@font/coiny</item>
+        <item>@font/emblema_one</item>
+        <item>@font/galindo</item>
+        <item>@font/holtwood_one_sc</item>
+        <item>@font/wendy_one</item>
+    </array>
+</resources>

@@ -5,8 +5,20 @@
     android:id="@+id/cancel"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey"
+    android:background="@drawable/arkaplan"
     android:orientation="vertical">
+
+    <View
+        android:id="@+id/toolbar_shadow2"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@drawable/toolbar_dropshadow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include4">
+
+    </View>
 
     <include
         android:id="@+id/include4"
@@ -16,31 +28,36 @@
         android:id="@+id/swipeView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginTop="8dp"
         android:layout_weight="1"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/rejectBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
-
-    <ImageButton
+    <Button
         android:id="@+id/rejectBtn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/cancel"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/hayir_buton"
+        android:fontFamily="@font/titan_one"
+        android:text="Hayır"
+        android:textColor="@color/backgroundcolor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/acceptBtn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageButton
+    <Button
         android:id="@+id/acceptBtn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/herat"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/evet_buton"
+        android:fontFamily="@font/titan_one"
+        android:text="Evet"
+        android:textColor="@color/backgroundcolor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -52,9 +69,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="Cuma"
-        android:textSize="25dp"
-        android:textStyle="bold"
+        android:text="afsarturgay"
+        android:textSize="20dp"
+        android:fontFamily="@font/titan_one"
+        android:textColor="@color/backgroundcolor"
         app:layout_constraintEnd_toStartOf="@+id/imageView8"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,9 +84,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="Barış"
-        android:textSize="25dp"
-        android:textStyle="bold"
+        android:text="afsarturgay"
+        android:textSize="20dp"
+        android:fontFamily="@font/titan_one"
+        android:textColor="@color/backgroundcolor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/imageView8"
@@ -76,8 +95,8 @@
 
     <ImageView
         android:id="@+id/imageView8"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -85,6 +104,6 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/kullanici_bir"
         app:layout_constraintTop_toBottomOf="@+id/include4"
-        app:srcCompat="@drawable/savas" />
+        app:srcCompat="@drawable/kilic" />
 
 </android.support.constraint.ConstraintLayout>

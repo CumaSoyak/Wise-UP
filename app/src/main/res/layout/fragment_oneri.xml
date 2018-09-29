@@ -7,22 +7,112 @@
     android:background="@color/backgroundcolor"
     tools:context=".Fragment.OneriFragment"
     tools:layout_editor_absoluteY="25dp">
+    <View
+        android:id="@+id/view9"
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:background="@color/bluedark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:scrollbarThumbVertical="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/oneri_gonder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radiogrup">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/kategori1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/kategori_arkaplan"
+                android:padding="10dp"
+                app:srcCompat="@drawable/tarihim" />
+
+            <ImageView
+                android:id="@+id/kategori2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/kategori_arkaplan"
+                android:padding="10dp"
+                app:srcCompat="@drawable/bilim" />
+
+            <ImageView
+                android:id="@+id/kategori3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/kategori_arkaplan"
+                android:padding="10dp"
+                app:srcCompat="@drawable/eglence" />
+
+            <ImageView
+                android:id="@+id/kategori4"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/kategori_arkaplan"
+                android:padding="10dp"
+                app:srcCompat="@drawable/cografya" />
+
+            <ImageView
+                android:id="@+id/kategori5"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/kategori_arkaplan"
+                android:padding="10dp"
+                app:srcCompat="@drawable/sanat" />
+
+            <ImageView
+                android:id="@+id/kategori6"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/kategori_arkaplan"
+                android:padding="10dp"
+                app:srcCompat="@drawable/spor" />
+
+
+        </LinearLayout>
+    </HorizontalScrollView>
 
     <EditText
         android:id="@+id/oneri_soru"
         android:layout_width="0dp"
         android:layout_height="260dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:background="@drawable/soru_oneri"
         android:ems="10"
+        android:fontFamily="@font/titan_one"
         android:gravity="center"
         android:hint="Beyin Yakan Sorunu Bekliyoruz "
         android:inputType="textPersonName"
         android:textColorHint="@color/grey"
         app:layout_constraintBottom_toTopOf="@+id/radiogrup"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,25 +120,25 @@
         android:id="@+id/oneri_gonder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:background="@drawable/button_rounded"
+        android:background="@drawable/soru_gonder"
+        android:fontFamily="@font/titan_one"
         android:gravity="center"
         android:padding="20dp"
         android:text="Soruyu Gönder"
+        android:textColor="@color/backgroundcolor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radiogrup" />
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
 
     <RadioGroup
         android:id="@+id/radiogrup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/oneri_gonder"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/oneri_soru">
@@ -58,12 +148,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:background="@drawable/evet_buton"
+            android:fontFamily="@font/titan_one"
             android:gravity="center"
             android:padding="10dp"
             android:text="Evet"
+            android:textColor="@color/backgroundcolor"
+            android:buttonTint="@color/bluedark"
             app:layout_constraintBottom_toTopOf="@+id/oneri_gonder"
             app:layout_constraintEnd_toStartOf="@+id/hayir"
             app:layout_constraintHorizontal_bias="0.5"
@@ -75,33 +170,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:background="@drawable/hayir_buton"
+            android:fontFamily="@font/titan_one"
             android:gravity="center"
             android:padding="10dp"
             android:text="Hayır"
+            android:textColor="@color/backgroundcolor"
+            android:buttonTint="@color/bluedark"
             app:layout_constraintBottom_toTopOf="@+id/oneri_gonder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/evet"
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
     </RadioGroup>
-
-    <Spinner
-        android:id="@+id/kategori_spinner"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:prompt="@string/kategori_default"
-        app:layout_constraintBottom_toTopOf="@+id/oneri_gonder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radiogrup" />
 
 
 </android.support.constraint.ConstraintLayout>

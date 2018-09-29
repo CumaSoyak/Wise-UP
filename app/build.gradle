@@ -7,9 +7,18 @@ android {
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
+        multiDexEnabled true
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+   /* signingConfigs{
+        key{
+            keyAlias 'cuma'
+            keyPassword '5386399039'
+            storeFile file('C:/Users/Cuma/key/quiz_keystoreiki.jks')
+            storePassword '5386399039'
+        }
+    }*/
     buildTypes {
         release {
             minifyEnabled false
@@ -44,8 +53,12 @@ dependencies {
     implementation 'ru.github.igla:ferriswheel:1.1.1'
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-firestore:17.0.4'
+    implementation 'com.android.support:multidex:1.0.3'
+
+
 
     implementation 'com.facebook.android:facebook-android-sdk:4.1.0'
+
     // implementation 'com.facebook.android:facebook-login:4.35.0'
 
 

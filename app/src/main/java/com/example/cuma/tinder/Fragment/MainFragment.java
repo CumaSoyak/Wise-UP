@@ -4,7 +4,9 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -68,17 +70,20 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
     public int karsılasma = 1;
     public int meydanoku_random_sayi;
     public int meydanoku_random_sayi_int;
+    public CountDownTimer countDownTimer;
 
     public ArrayList<Integer> random_meydan_oku_list = new ArrayList<Integer>();
     Animation animation;
     ImageView checked, checked1, checked2, checked3, checked4, checked5, checked6, isaret_oku;
-    Button oyunu_baslat;
-    ImageButton meydan_oku, klasik;
-    TextView main_kategori_adi, main_motivasyon;
+    ImageView oyunu_baslat_isaret_oku;
+    ImageView meydan_oku, klasik;
+    TextView main_kategori_adi, main_motivasyon, karsılasma_time;
     TextView main_kalp_toplam, main_para_toplam, main_elmas_toplam;
     ImageView main_kategori_resmi;
     ImageButton main_tekrar_buton, main_basla_buton;
     Intent key_gonder, meydan_oku_key_gonder, oda_ismi;
+    MediaPlayer mediaPlayer;
+    int kalp_deger;
 
     @Nullable
     @Override
@@ -101,9 +106,9 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
 
-        oyunu_baslat = (Button) view.findViewById(R.id.baslat);
-        meydan_oku = (ImageButton) view.findViewById(R.id.meydan_oku);
-        klasik = (ImageButton) view.findViewById(R.id.klasik);
+        oyunu_baslat_isaret_oku = view.findViewById(R.id.isaret_oku);
+        meydan_oku = view.findViewById(R.id.meydan_oku);
+        klasik = view.findViewById(R.id.klasik);
         isaret_oku = (ImageView) view.findViewById(R.id.isaret_oku);
         animation = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate);
         animation.setAnimationListener(MainFragment.this);
@@ -113,7 +118,6 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
         main_elmas_toplam = (TextView) view.findViewById(R.id.main_elmas_toplam);
         meydan_oku_key_gonder = new Intent(getActivity(), Meydan_OkuActivity.class);
 
-
         checked1 = (ImageView) view.findViewById(R.id.kategori_image_checked1);
         checked2 = (ImageView) view.findViewById(R.id.kategori_image_checked2);
         checked3 = (ImageView) view.findViewById(R.id.kategori_image_checked3);
@@ -122,7 +126,6 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
         checked6 = (ImageView) view.findViewById(R.id.kategori_image_checked6);
         klasik.setImageResource(R.drawable.checked);
         carki_tekrar_cevir();
-
 
 
         setHasOptionsMenu(true);
@@ -144,47 +147,72 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
                 meydan_oku.setImageResource(R.drawable.checked);
                 klasik.setImageResource(R.drawable.klasik);
                 karsılasma = 2;
-             }
-        });
-        oyunu_baslat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (karsılasma) {
-                    case 1: //klasik yöntemdir
-                        random = new Random();
-                        random_sayi = 1 + random.nextInt(6);
-                        isaret_oku.startAnimation(animation);
-                        break;
-                    case 2: //karşılaşmadır
-                        kullanıcı_etkinlestirme();
-                        random = new Random();
-                        meydan_random_sayi = 1 + random.nextInt(6);
-                          isaret_oku.startAnimation(animation);
-                        break;
-                }
-
             }
         });
+
+        oyunu_baslat_isaret_oku.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Firebase_get_kalp_deger() == 0) {
+                    reklam_izle();
+                } else {
+                    switch (karsılasma) {
+                        case 1: //klasik yöntemdir
+                            random = new Random();
+                            random_sayi = 1 + random.nextInt(6);
+                            isaret_oku.startAnimation(animation);
+                            break;
+                        case 2: //karşılaşmadır
+                            kullanıcı_etkinlestirme();
+                            random = new Random();
+                            meydan_random_sayi = 1 + random.nextInt(6);
+                            isaret_oku.startAnimation(animation);
+                            break;
+                    }
+                }
+            }
+        });
+
         return view;
     }
 
-    public void kullanıcı_beklet_dialog() {
-        dialog.setContentView(R.layout.dialog_kullanici_beklet);
-        dialog.show();
-        Thread timer = new Thread() {
-            public void run() {
-                try {
-                    sleep(4000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    startActivity(meydan_oku_key_gonder);
-                    dialog.dismiss();
+    public int Firebase_get_kalp_deger() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                }
+                //Todo kalbe veriyi toplam kalp puanı felan br şey olması lazım satın aldığı kadar veya her 24 saatte 5 tane felan
+                kalp_deger = dataSnapshot.child("Puanlar").child(user_id).child("kalp").getValue(Integer.class);
+
             }
-        };
-        timer.start();
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        return kalp_deger;
+    }
+
+    public void kullanıcı_beklet_dialog() {
+        mediaPlayer = MediaPlayer.create(getActivity(), R.raw.meydan_oku_ses);
+        mediaPlayer.start();
+        dialog.setContentView(R.layout.dialog_kullanici_beklet);
+        karsılasma_time = (TextView) dialog.findViewById(R.id.karsılasma_time);
+        dialog.show();
+        countDownTimer = new CountDownTimer(4000, 1000) { //Burdaki saniye 49 olması lazım
+            @Override
+            public void onTick(long millisUntilFinished) {
+                karsılasma_time.setText(String.valueOf(millisUntilFinished / 1000).toString());
+            }
+
+            @Override
+            public void onFinish() {
+                startActivity(meydan_oku_key_gonder);
+                dialog.dismiss();
+            }
+        }.start();
+
     }
 
 
@@ -193,9 +221,10 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
         meydanoku_random_sayi_int = meydanoku_random_sayi;
     }
 
+
     @Override
     public void onAnimationStart(Animation animation) {
-        oyunu_baslat.setEnabled(false);
+        oyunu_baslat_isaret_oku.setEnabled(false);
 
     }
 
@@ -296,7 +325,7 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
 
                 break;
         }
-        oyunu_baslat.setEnabled(true);
+        oyunu_baslat_isaret_oku.setEnabled(true);
     }
 
 
@@ -316,32 +345,32 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
             case 1:
                 main_kategori_adi.setText("Tarih");
                 main_motivasyon.setText("Tarihte iyimisin Dostum !");
-                main_kategori_resmi.setImageResource(R.drawable.tarihim);
+                main_kategori_resmi.setImageResource(R.drawable.tarih);
                 break;
             case 2:
                 main_kategori_adi.setText("Bilim");
                 main_motivasyon.setText("Seni gidi BilimAdamı");
-                main_kategori_resmi.setImageResource(R.drawable.bilim);
+                main_kategori_resmi.setImageResource(R.drawable.bilim_pop);
                 break;
             case 3:
                 main_kategori_adi.setText("Eğlence");
                 main_motivasyon.setText("Hadi biraz Eğlenelim");
-                main_kategori_resmi.setImageResource(R.drawable.eglence);
+                main_kategori_resmi.setImageResource(R.drawable.eglence_pop);
                 break;
             case 4:
                 main_kategori_adi.setText("Coğrafya");
                 main_motivasyon.setText("Dünyayı turlamaya ne dersin!");
-                main_kategori_resmi.setImageResource(R.drawable.cografya);
+                main_kategori_resmi.setImageResource(R.drawable.cografya_pop);
                 break;
             case 5:
                 main_kategori_adi.setText("Sanat");
                 main_motivasyon.setText("Sanata yeteneğin olduğunu bilmiyordum !");
-                main_kategori_resmi.setImageResource(R.drawable.sanat);
+                main_kategori_resmi.setImageResource(R.drawable.sanat_pop);
                 break;
             case 6:
                 main_kategori_adi.setText("Spor");
                 main_motivasyon.setText("Yorucu bir kategori eminmisin Dostum");
-                main_kategori_resmi.setImageResource(R.drawable.spor);
+                main_kategori_resmi.setImageResource(R.drawable.spor_pop);
                 break;
 
         }
@@ -383,9 +412,7 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
                 //Todo kalbe veriyi toplam kalp puanı felan br şey olması lazım satın aldığı kadar veya her 24 saatte 5 tane felan
                 Integer kalp = dataSnapshot.child("Puanlar").child(user_id).child("kalp").getValue(Integer.class);
                 main_kalp_toplam.setText(String.valueOf(kalp));
-                if (kalp == 0) {
-                    //    reklam_izle();
-                }
+
                 Integer para = dataSnapshot.child("Puanlar").child(user_id).child("para").getValue(Integer.class);
                 main_para_toplam.setText(String.valueOf(para));
 
@@ -393,7 +420,6 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
                 main_elmas_toplam.setText(String.valueOf(elmas));
 
 
-                //Database de değişiklik olursa ne yapayım
             }
 
             @Override
@@ -407,12 +433,13 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
     public void reklam_izle() {
         Button exit_dialog, izle_button;
         final Dialog dialog = new Dialog(getActivity());
-        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        dialog.setContentView(R.layout.reklam_izle_dialog);
+        Window window = dialog.getWindow();
+        //dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        window.setContentView(R.layout.reklam_izle_dialog);
         dialog.setCancelable(false);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        window.getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
         izle_button = (Button) dialog.findViewById(R.id.reklam_izle);
         exit_dialog = (Button) dialog.findViewById(R.id.exit_reklam);
         izle_button.setOnClickListener(new View.OnClickListener() {
@@ -437,7 +464,7 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 etkin = dataSnapshot.getValue(String.class);
                 databaseReference.child("Etkin").child(user_id).child("nickname").setValue(etkin);
-                meydan_oku_key_gonder.putExtra("kullanici_adim",etkin);
+                meydan_oku_key_gonder.putExtra("kullanici_adim", etkin);
             }
 
             @Override
@@ -447,8 +474,6 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
         });
 
     }
-
-
 
 
 }

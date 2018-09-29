@@ -16,6 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,7 @@ public class HesapFragment extends Fragment {
     String gecerli_kullanici_mail;
     EditText yeni_parola_edit;
     Dialog dialog;
+    private ImageView savasci_image;
 
 
     @Override
@@ -64,6 +66,7 @@ public class HesapFragment extends Fragment {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
 
+        savasci_image=view.findViewById(R.id.savasci_image);
         kullanici_adi = (TextView) view.findViewById(R.id.kullanici_adi);
         email = (TextView) view.findViewById(R.id.e_mail);
         kademe = (TextView) view.findViewById(R.id.rutbe);
@@ -95,12 +98,33 @@ public class HesapFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                Integer savasci=dataSnapshot.child("Kullanıcı_Adı").child(user_id).child("photo").getValue(Integer.class);
+                switch (savasci){
+                    case 1:
+                        savasci_image.setImageResource(R.drawable.tarihadami);
+                        break;
+                    case  2:
+                        savasci_image.setImageResource(R.drawable.bilimadami);
+                        break;
+                    case 3:
+                        savasci_image.setImageResource(R.drawable.eglenceadami);
+                        break;
+                    case 4:
+                        savasci_image.setImageResource(R.drawable.cografyadami);
+                        break;
+                    case 5:
+                        savasci_image.setImageResource(R.drawable.sanatadami);
+                        break;
+                    case 6:
+                        savasci_image.setImageResource(R.drawable.sporadami);
+                        break;
+                }
                 String kullanıcıad = dataSnapshot.child("Kullanıcı_Adı").child(user_id).child("nickname").getValue(String.class);
-                Log.i("Kullanıcıad", ":" + kullanıcıad);
                 kullanici_adi.setText(kullanıcıad.toString());
                 email.setText(gecerli_kullanici_mail.toString());
                 Integer rutbe = dataSnapshot.child("Yarisma").child(user_id).child("siralama").getValue(Integer.class);
                 kademe.setText(rutbe.toString());
+
 
             }
 
@@ -109,7 +133,9 @@ public class HesapFragment extends Fragment {
 
             }
         });
+
     }
+
 
 
     private void parola_degistir_dialog() {

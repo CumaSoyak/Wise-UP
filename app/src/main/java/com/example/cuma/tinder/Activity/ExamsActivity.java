@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -14,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -66,7 +69,8 @@ public class ExamsActivity extends AppCompatActivity {
     public Utils utils;
     public CountDownTimer countDownTimer;
     public TextView time;
-    public ImageButton like, dislike, evet_buton, hayir_buton;
+    public ImageButton like, dislike;
+    private Button evet_buton, hayir_buton;
     public PuanHesapla puanHesapla;
     public Dialog dialog;
     public int evetsayisi, hayirsayisi;
@@ -76,7 +80,7 @@ public class ExamsActivity extends AppCompatActivity {
     public ArrayList<String> cevaplistesi = new ArrayList<>();
     public ArrayList<Sorular> sorularList = new ArrayList<Sorular>();
     int para_topla;
-    int gelen_para,gelen_elmas, para,elmas;
+    int gelen_kalp, gelen_para, gelen_elmas, kalp, para, elmas;
 
     public int dinle = 0;
     private static final String TAG = "ExamsActivity";
@@ -149,6 +153,12 @@ public class ExamsActivity extends AppCompatActivity {
         user_id = user.getUid();
 
 
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setStatusBarColor(Color.parseColor("#2f333f"));
+
+
         TinderCard tinderCard = new TinderCard();
 
         mSwipeView = (SwipePlaceHolderView) findViewById(R.id.swipeView);
@@ -156,8 +166,8 @@ public class ExamsActivity extends AppCompatActivity {
         time = (TextView) findViewById(R.id.time);
         like = (ImageButton) findViewById(R.id.like_img);
         dislike = (ImageButton) findViewById(R.id.dislike_img);
-        evet_buton = (ImageButton) findViewById(R.id.acceptBtn);
-        hayir_buton = (ImageButton) findViewById(R.id.rejectBtn);
+        evet_buton = findViewById(R.id.acceptBtn);
+        hayir_buton = findViewById(R.id.rejectBtn);
         kirik_kalp_image1 = (ImageView) findViewById(R.id.kalp1);
         kirik_kalp_image2 = (ImageView) findViewById(R.id.kalp2);
         kirik_kalp_image3 = (ImageView) findViewById(R.id.kalp3);
@@ -174,6 +184,8 @@ public class ExamsActivity extends AppCompatActivity {
                 .setSwipeDecor(new SwipeDecor()
                         .setPaddingTop(20)
                         .setRelativeScale(0.01f));
+        mSwipeView.disableTouchSwipe();
+
         // .setSwipeInMsgLayoutId(R.layout.tinder_swipe_in_msg_view)
         // .setSwipeOutMsgLayoutId(R.layout.tinder_swipe_out_msg_view));
     /*   for (Profile deger : Utils.loadProfiles(this.getApplicationContext(), quiz)) {
@@ -188,7 +200,7 @@ public class ExamsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mSwipeView.doSwipe(true);
-                String evet = "Yes";
+                 String evet = "Yes";
                 if (getCurrentAnswer().equalsIgnoreCase(evet)) {
                     incEvetsayisi();
 
@@ -279,6 +291,7 @@ public class ExamsActivity extends AppCompatActivity {
 
     }
 
+    //todo gif eklense daha iyi olur
     public int cevapsiradonder() {
         return cevapsira;
     }
@@ -294,6 +307,7 @@ public class ExamsActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 Log.i("Saat_degersiz", ":");
+                time.setText("0");
                 ShowPop();
             }
         }.start();
@@ -302,6 +316,7 @@ public class ExamsActivity extends AppCompatActivity {
     }
 
     public void ShowPop() {    //Zaman bittiğinde kazanılan altın ve elmasları gösteriyoruz
+        countDownTimer.cancel();
         TextView textclose, kategori_text, popup_para, popup_can, popup_elmas;
         ImageButton home, again, devam;
         ImageView kategori_image;
@@ -339,27 +354,27 @@ public class ExamsActivity extends AppCompatActivity {
         ekleveritabani();
         switch (quiz) {
             case 1:
-                kategori_image.setImageResource(R.drawable.tarihim);
+                kategori_image.setImageResource(R.drawable.tarih);
                 kategori_text.setText("Tarih");
                 break;
             case 2:
-                kategori_image.setImageResource(R.drawable.bilim);
+                kategori_image.setImageResource(R.drawable.bilim_pop);
                 kategori_text.setText("Bilim");
                 break;
             case 3:
-                kategori_image.setImageResource(R.drawable.eglence);
+                kategori_image.setImageResource(R.drawable.eglence_pop);
                 kategori_text.setText("Eğlence");
                 break;
             case 4:
-                kategori_image.setImageResource(R.drawable.cografya);
+                kategori_image.setImageResource(R.drawable.cografya_pop);
                 kategori_text.setText("Dünya");
                 break;
             case 5:
-                kategori_image.setImageResource(R.drawable.sanat);
+                kategori_image.setImageResource(R.drawable.sanat_pop);
                 kategori_text.setText("Sanat");
                 break;
             case 6:
-                kategori_image.setImageResource(R.drawable.spor);
+                kategori_image.setImageResource(R.drawable.spor_pop);
                 kategori_text.setText("Spor");
                 break;
 
@@ -367,7 +382,6 @@ public class ExamsActivity extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                kirik_kalp = 0;
                 Intent ıntent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(ıntent);
 
@@ -377,7 +391,6 @@ public class ExamsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                kirik_kalp = 0;
                 Intent intent = getIntent();
                 finish();
                 startActivity(intent);
@@ -401,19 +414,19 @@ public class ExamsActivity extends AppCompatActivity {
     public void onBackPressed() {
         //TODO süre durduktan sonra devam etmesi lazım
         final Dialog cikis_dialog = new Dialog(this, R.style.DialogNotitle);
-        cikis_dialog.setContentView(R.layout.exit_popup);
+        cikis_dialog.setContentView(R.layout.dialog_cikis);
         cikis_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         cikis_dialog.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
         // countDownTimer.cancel();
-        Button devam_et = (Button) cikis_dialog.findViewById(R.id.dialog_cikis_evet);
-        Button cikis_yap = (Button) cikis_dialog.findViewById(R.id.dialog_cikis_hayir);
-        devam_et.setOnClickListener(new View.OnClickListener() {
+        Button cikis_hayir = (Button) cikis_dialog.findViewById(R.id.dialog_cikis_hayir);
+        Button cikis_evet = (Button) cikis_dialog.findViewById(R.id.dialog_cikis_evet);
+        cikis_hayir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cikis_dialog.dismiss();
             }
         });
-        cikis_yap.setOnClickListener(new View.OnClickListener() {
+        cikis_evet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cikis_dialog.dismiss();//Anasayfaya dönmeden önce dialogu kapatmak lazım
@@ -445,6 +458,7 @@ public class ExamsActivity extends AppCompatActivity {
 
                 gelen_para = dataSnapshot.child("para").getValue(Integer.class);
                 gelen_elmas = dataSnapshot.child("elmas").getValue(Integer.class);
+                gelen_kalp = dataSnapshot.child("kalp").getValue(Integer.class);
                 cagir();
             }
 
@@ -458,7 +472,8 @@ public class ExamsActivity extends AppCompatActivity {
 
     public void cagir() {
         para = gelen_para;
-        elmas=gelen_elmas;
+        elmas = gelen_elmas;
+        kalp = gelen_kalp;
     }
 
     public void ekleveritabani() {
@@ -467,21 +482,16 @@ public class ExamsActivity extends AppCompatActivity {
         UUID uuıd = UUID.randomUUID();
         String uuidString = uuıd.toString();
 
-        Log.i("ParaDegeri", ":" + para);
-        if (kirik_kalp == 0) {
-            databaseReference.child("Puanlar").child(user_id).child("kalp").setValue(3);
-        } else if (kirik_kalp == 1) {
-            databaseReference.child("Puanlar").child(user_id).child("kalp").setValue(2);
-        } else if (kirik_kalp == 2) {
-            databaseReference.child("Puanlar").child(user_id).child("kalp").setValue(1);
-        } else if (kirik_kalp == 3) {
-            databaseReference.child("Puanlar").child(user_id).child("kalp").setValue(0);
+         if (kalp != 0) {
+            if (kirik_kalp == 3) {
+                databaseReference.child("Puanlar").child(user_id).child("kalp").setValue(kalp - 1);
+            }
         }
         databaseReference.child("Puanlar").child(user_id).child("useremail").setValue(useremail);
         databaseReference.child("Puanlar").child(user_id).child("para").setValue(getEvetsayisi() + getHayirsayisi() + para);//todo para değeri buraya gelmesi lazım
-        databaseReference.child("Puanlar").child(user_id).child("elmas").setValue(getEvetsayisi() + getHayirsayisi()+elmas);
-        databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(100-(elmas+para+getEvetsayisi()+getHayirsayisi()));//Todo burda sadece göstermelik için 10 ile çarptım
-        databaseReference.child("Yarisma").child(user_id).child("puan").setValue(elmas+para+getEvetsayisi()+getHayirsayisi());//Todo burda sadece göstermelik için 10 ile çarptım
+        databaseReference.child("Puanlar").child(user_id).child("elmas").setValue(getEvetsayisi() + getHayirsayisi() + elmas);
+        databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(100 - (elmas + para + getEvetsayisi() + getHayirsayisi()));//Todo burda sadece göstermelik için 10 ile çarptım
+        databaseReference.child("Yarisma").child(user_id).child("puan").setValue(elmas + para + getEvetsayisi() + getHayirsayisi());//Todo burda sadece göstermelik için 10 ile çarptım
 
 
     }

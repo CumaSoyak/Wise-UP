@@ -29,8 +29,6 @@ public class TinderCard {
     @View(R.id.answer)
     private TextView answer;
 
-    @View(R.id.kategori)
-    private TextView point;
 
     @View(R.id.kategori_image)
     ImageView kategori_circle_image;

@@ -4,24 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundcolor"
-    android:gravity="center_horizontal"
+     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Activity.LoginActivity"
-    tools:layout_editor_absoluteY="25dp">
+    tools:layout_editor_absoluteY="25dp"
+    android:background="@color/bluedark">
 
 
     <!-- Login progress -->
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,32 +28,18 @@
         app:layout_constraintTop_toBottomOf="@+id/email" />
 
 
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/facebook"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="#416BC1"
-        android:text="Facebook"
-        android:textColor="#ffffff"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
-
-
     <Button
         android:id="@+id/register"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/replay_button"
+        android:fontFamily="@font/titan_one"
         android:onClick="register"
         android:text="Kayıt"
-        app:layout_constraintBottom_toTopOf="@+id/facebook"
+        android:textColor="@color/backgroundcolor"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/sign_in"
@@ -64,12 +49,14 @@
         android:id="@+id/sign_in"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="32dp"
+        android:background="@drawable/evet_buton"
+        android:fontFamily="@font/titan_one"
         android:onClick="signin"
-        android:text="Giriş"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/facebook"
+        android:text="Gırış"
+        android:textColor="@color/backgroundcolor"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/register"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,39 +66,49 @@
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         android:layout_weight="1"
         android:ems="10"
+        android:hint="E-mail"
+        android:textColorHint="@color/grey"
         android:gravity="start"
+        android:fontFamily="@font/titan_one"
         android:inputType="textPersonName"
         android:text="soyakcuma@gmail.com"
-        app:layout_constraintBottom_toTopOf="@+id/password"
+        android:textColor="@color/backgroundcolor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:hint="@string/prompt_password"
+        android:layout_marginTop="32dp"
+        android:hint="Parola"
         android:imeActionId="6"
         android:imeActionLabel="@string/action_sign_in_short"
         android:imeOptions="actionUnspecified"
         android:inputType="textPassword"
         android:maxLines="1"
+        android:textColorHint="@color/grey"
         android:singleLine="true"
+        android:fontFamily="@font/titan_one"
+        android:textColor="@color/backgroundcolor"
         android:text="123456"
-        app:layout_constraintBottom_toTopOf="@+id/facebook"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/loginresim" />
 
 
 </android.support.constraint.ConstraintLayout>

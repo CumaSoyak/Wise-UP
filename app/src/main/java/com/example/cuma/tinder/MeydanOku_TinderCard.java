@@ -30,8 +30,6 @@ public class MeydanOku_TinderCard {
     @View(R.id.answer)
     private TextView answer;
 
-    @View(R.id.kategori)
-    private TextView point;
 
     @View(R.id.kategori_image)
     ImageView kategori_circle_image;
@@ -85,7 +83,6 @@ public class MeydanOku_TinderCard {
             activity.artir_kalp_sayisi();
             activity.kalp_patlat();
         }  */
-       activity.dinle_artir(1);
 
         Log.d("EVET-IN", "onSwipedIn");
 

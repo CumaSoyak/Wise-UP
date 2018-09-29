@@ -2,8 +2,8 @@
     <string name="app_name">Tinder</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_login">Sign in</string>
-    <string name="facebook_app_id">979834455530933</string>
-    <string name="fb_login_protocol_scheme">fb979834455530933</string>
+    <string name="facebook_app_id">211572389715215</string>
+    <string name="fb_login_protocol_scheme">fb211572389715215</string>
     <string name="kategori_default">kategori seç</string>
 
     <!-- Strings related to login -->
@@ -18,4 +18,5 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    
 </resources>

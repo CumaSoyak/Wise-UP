@@ -11,6 +11,14 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/include4">
 
+    <View
+        android:id="@+id/view3"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:background="@color/bluedark"
+        app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+
+
     <ImageView
         android:id="@+id/imageView7"
         android:layout_width="0dp"
@@ -18,31 +26,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@color/orange" />
+        app:srcCompat="@drawable/kupaarka" />
 
-    <TextView
-        android:id="@+id/time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="52dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView21">
+        app:layout_constraintTop_toBottomOf="@+id/view3">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view_kupa"
@@ -62,9 +58,13 @@
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/titan_one"
         android:text="Rütbeler"
+        android:textColor="@color/backgroundcolor"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView7" />
 
@@ -72,11 +72,16 @@
         android:id="@+id/textView21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/titan_one"
         android:text="Savaşçılar"
+        android:textColor="@color/backgroundcolor"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toStartOf="@+id/textView23"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toEndOf="@+id/textView18"
         app:layout_constraintTop_toBottomOf="@+id/imageView7" />
 
@@ -84,11 +89,24 @@
         android:id="@+id/textView23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="36dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/titan_one"
         android:text="Puanlar"
+        android:textColor="@color/backgroundcolor"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+
+    <View
+        android:id="@+id/view9"
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:background="@color/bluedark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
 

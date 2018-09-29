@@ -21,6 +21,9 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -39,7 +42,7 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.LoginActivity">
+        <activity android:name=".Activity.AcilisActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,14 +50,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.ExamsActivity" />
-        <activity android:name=".Activity.SkorActivity" />
         <activity android:name=".Activity.MoneyActivity" />
         <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.Meydan_OkuActivity" />
         <activity
-            android:name=".Activity.AcilisActivity"
+            android:name=".Activity.LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".Activity.Gecis"></activity>
+        <activity android:name=".Activity.GecisActivity"></activity>
     </application>
 
 </manifest>
