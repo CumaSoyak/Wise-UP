@@ -19,35 +19,15 @@ import java.util.List;
 
 
 public class ElmasFragment extends Fragment {
-    private List<Satinal> satinalList;
-    private RecyclerView recyclerView;
-    private SatinalAdapter satinalAdapter;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_elmas, container, false);
-        recyclerView=(RecyclerView)view.findViewById(R.id.recycler_view_elmas);
-
-        satinalList=new ArrayList<Satinal>();
-
-
-        satinalAdapter=new SatinalAdapter(satinalList);
-
-        RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(satinalAdapter);
-
-        satinalList.add(new Satinal("para 2",R.drawable.elmas,"24 tl"));
-        satinalList.add(new Satinal("para 3",R.drawable.elmaselarabasi,"85 tl"));
-        satinalList.add(new Satinal("para 2",
-                R.drawable.elmasbira,"24 tl"));
-        satinalList.add(new Satinal("para 3",R.drawable.elmas,"85 tl"));
+        View view = inflater.inflate(R.layout.fragment_elmas, container, false);
 
 
 
-        satinalAdapter.notifyDataSetChanged();
-    return view;
+        return view;
     }
 }

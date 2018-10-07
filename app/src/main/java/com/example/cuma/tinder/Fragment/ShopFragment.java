@@ -1,22 +1,29 @@
 package com.example.cuma.tinder.Fragment;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.example.cuma.tinder.Activity.MainActivity;
 import com.example.cuma.tinder.Adapter.MoneyAdapter;
@@ -48,7 +55,9 @@ public class ShopFragment extends Fragment {
     private Toolbar toolbar;
     private int[] tabicons = {R.drawable.kalp, R.drawable.coins, R.drawable.elmas};
     Integer gelen_kalp, gelen_para, gelen_elmas;
-    int kalp=3, para, elmas;
+    int kalp = 3, para, elmas;
+    private CardView cardView;
+    private ConstraintLayout constraintLayout;
 
     @Nullable
     @Override
@@ -72,6 +81,9 @@ public class ShopFragment extends Fragment {
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         toolbar = view.findViewById(R.id.toolbar_satinal);
         activity.setSupportActionBar(toolbar);
+
+        cardView = view.findViewById(R.id.cardview_satinal);
+        constraintLayout = view.findViewById(R.id.constraint_satinal);
 
 
         return view;
@@ -100,16 +112,16 @@ public class ShopFragment extends Fragment {
     }
 
     public void cagir() {
-        kalp=gelen_kalp;
-        para=gelen_para;
-        elmas=gelen_elmas;
+        kalp = gelen_kalp;
+        para = gelen_para;
+        elmas = gelen_elmas;
 
     }
 
     private void setupViewPager(ViewPager viewPager) {
 
         MoneyAdapter adapter = new MoneyAdapter(getChildFragmentManager());
-        adapter.addFragment(CanFragment.newInstance(), String.valueOf(kalp));
+        adapter.addFragment(new CanFragment(), String.valueOf(kalp));
         adapter.addFragment(new ParaFragment(), String.valueOf(para));
         adapter.addFragment(new ElmasFragment(), String.valueOf(elmas));
         viewPager.setAdapter(adapter);

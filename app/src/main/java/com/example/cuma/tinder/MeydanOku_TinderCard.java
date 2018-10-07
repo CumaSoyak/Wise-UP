@@ -6,7 +6,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.cuma.tinder.Activity.ExamsActivity;
 import com.example.cuma.tinder.Activity.Meydan_OkuActivity;
 import com.example.cuma.tinder.Class.Sorular;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
@@ -34,7 +33,7 @@ public class MeydanOku_TinderCard {
     @View(R.id.kategori_image)
     ImageView kategori_circle_image;
 
-    @View(R.id.kategori_title)
+    @View(R.id.kategori_baslik)
     TextView kategori_title;
 
     @View(R.id.like_img)

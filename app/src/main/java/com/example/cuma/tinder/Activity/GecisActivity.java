@@ -3,6 +3,7 @@ package com.example.cuma.tinder.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +24,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+
+
 public class GecisActivity extends AppCompatActivity {
 
     private FirebaseDatabase database;
@@ -40,7 +43,9 @@ public class GecisActivity extends AppCompatActivity {
     EditText al_kullanici_adi;
     private TextView guc_text;
     private ImageView savas1, savas2, savas3, savas4, savas5, savas6;
-    int deger=0;
+    int deger = 0;
+    private MediaPlayer mediaPlayer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +57,7 @@ public class GecisActivity extends AppCompatActivity {
         databaseReference = database.getReference();
         user = firebaseAuth.getCurrentUser();
         user_id = user.getUid();
-        Window window=getWindow();
+        Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(getResources().getColor(R.color.bluedark));
@@ -63,7 +68,7 @@ public class GecisActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.gecis_progressBar);
         guc_text = (TextView) findViewById(R.id.guc_text);
         guc_text.setVisibility(View.INVISIBLE);
-        guc_text.setText("Hayatta kalabilmen için güç yükleniyor ...");
+        guc_text.setText(getResources().getString(R.string.guc_baslik));
         progressBar.setVisibility(View.INVISIBLE);
         progressBar.getIndeterminateDrawable()
                 .setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN);
@@ -79,13 +84,11 @@ public class GecisActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (al_kullanici_adi.getText().toString().matches("")) {
-                    Toast.makeText(getApplicationContext(), "Kullanıcı Adı Giriniz !", Toast.LENGTH_LONG).show();
-                }
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.kullanici_adi_gir), Toast.LENGTH_LONG).show();
+                } else if (deger == 0) {
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.karakter_sec), Toast.LENGTH_LONG).show();
 
-                else if (deger==0){
-                    Toast.makeText(getApplicationContext(), "Lütfen Karakter seçiniz!", Toast.LENGTH_LONG).show();
-
-                }else {
+                } else {
                     progressBar.setVisibility(View.VISIBLE);
                     guc_text.setVisibility(View.VISIBLE);
                     ıntent = new Intent(getApplicationContext(), MainActivity.class);
@@ -109,13 +112,6 @@ public class GecisActivity extends AppCompatActivity {
                                 }
                             });
 
-                         /*   try {
-                                sleep(3000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            } finally {
-                                 startActivity(ıntent);
-                            }   */
                         }
                     };
                     timer.start();
@@ -160,6 +156,8 @@ public class GecisActivity extends AppCompatActivity {
     public void secilmemis_hale_getir() {
         switch (deger) {
             case 1:
+                mediaPlayer = MediaPlayer.create(GecisActivity.this, R.raw.tarih);
+                mediaPlayer.start();
                 savas1.setImageResource(R.drawable.checked);
                 savas2.setImageResource(R.drawable.bilimadami);
                 savas3.setImageResource(R.drawable.eglenceadami);
@@ -168,6 +166,8 @@ public class GecisActivity extends AppCompatActivity {
                 savas6.setImageResource(R.drawable.sporadami);
                 break;
             case 2:
+                mediaPlayer = MediaPlayer.create(GecisActivity.this, R.raw.bilim);
+                mediaPlayer.start();
                 savas2.setImageResource(R.drawable.checked);
                 savas1.setImageResource(R.drawable.tarihadami);
                 savas3.setImageResource(R.drawable.eglenceadami);
@@ -176,6 +176,8 @@ public class GecisActivity extends AppCompatActivity {
                 savas6.setImageResource(R.drawable.sporadami);
                 break;
             case 3:
+                mediaPlayer = MediaPlayer.create(GecisActivity.this, R.raw.eglence);
+                mediaPlayer.start();
                 savas3.setImageResource(R.drawable.checked);
                 savas1.setImageResource(R.drawable.tarihadami);
                 savas2.setImageResource(R.drawable.bilimadami);
@@ -184,6 +186,8 @@ public class GecisActivity extends AppCompatActivity {
                 savas6.setImageResource(R.drawable.sporadami);
                 break;
             case 4:
+                mediaPlayer = MediaPlayer.create(GecisActivity.this, R.raw.cografya);
+                mediaPlayer.start();
                 savas4.setImageResource(R.drawable.checked);
                 savas2.setImageResource(R.drawable.bilimadami);
                 savas3.setImageResource(R.drawable.eglenceadami);
@@ -192,6 +196,8 @@ public class GecisActivity extends AppCompatActivity {
                 savas6.setImageResource(R.drawable.sporadami);
                 break;
             case 5:
+                mediaPlayer = MediaPlayer.create(GecisActivity.this, R.raw.sanat);
+                mediaPlayer.start();
                 savas5.setImageResource(R.drawable.checked);
                 savas2.setImageResource(R.drawable.bilimadami);
                 savas3.setImageResource(R.drawable.eglenceadami);
@@ -200,6 +206,8 @@ public class GecisActivity extends AppCompatActivity {
                 savas6.setImageResource(R.drawable.sporadami);
                 break;
             case 6:
+                mediaPlayer = MediaPlayer.create(GecisActivity.this, R.raw.spor);
+                mediaPlayer.start();
                 savas6.setImageResource(R.drawable.checked);
                 savas2.setImageResource(R.drawable.bilimadami);
                 savas3.setImageResource(R.drawable.eglenceadami);
@@ -234,7 +242,6 @@ public class GecisActivity extends AppCompatActivity {
 
 
     }
-
 
 
 }

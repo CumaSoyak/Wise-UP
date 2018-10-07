@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/kullanıcı_bir_popup"
+        android:id="@+id/kategori_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -42,7 +42,7 @@
         app:layout_constraintEnd_toStartOf="@+id/imageView2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/kullanıcı_bir_popup"
+        app:layout_constraintTop_toBottomOf="@+id/kategori_text"
         app:srcCompat="@drawable/kalp" />
 
     <ImageView
@@ -55,7 +55,7 @@
         app:layout_constraintEnd_toStartOf="@+id/imageView3"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/kullanıcı_bir_popup"
+        app:layout_constraintTop_toBottomOf="@+id/kategori_text"
         app:srcCompat="@drawable/coins" />
 
     <ImageView
@@ -67,11 +67,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/kullanıcı_bir_popup"
+        app:layout_constraintTop_toBottomOf="@+id/kategori_text"
         app:srcCompat="@drawable/elmas" />
 
     <TextView
-        android:id="@+id/pop_para_kullanıcıiki"
+        android:id="@+id/pop_can"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -79,13 +79,13 @@
         android:text="100"
         android:textColor="@color/white"
         android:fontFamily="@font/titan_one"
-        app:layout_constraintBaseline_toBaselineOf="@+id/pop_para_kullanıcıbir"
-        app:layout_constraintEnd_toStartOf="@+id/pop_para_kullanıcıbir"
+        app:layout_constraintBaseline_toBaselineOf="@+id/pop_para"
+        app:layout_constraintEnd_toStartOf="@+id/pop_para"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/pop_para_kullanıcıbir"
+        android:id="@+id/pop_para"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -94,13 +94,13 @@
         android:text="100"
         android:textColor="@color/white"
         android:fontFamily="@font/titan_one"
-        app:layout_constraintEnd_toStartOf="@+id/pop_elmas_kullanıcıbir"
+        app:layout_constraintEnd_toStartOf="@+id/pop_elmas"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/pop_para_kullanıcıiki"
+        app:layout_constraintStart_toEndOf="@+id/pop_can"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <TextView
-        android:id="@+id/pop_elmas_kullanıcıbir"
+        android:id="@+id/pop_elmas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -108,10 +108,10 @@
         android:text="100"
         android:fontFamily="@font/titan_one"
         android:textColor="@color/white"
-        app:layout_constraintBaseline_toBaselineOf="@+id/pop_para_kullanıcıbir"
+        app:layout_constraintBaseline_toBaselineOf="@+id/pop_para"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/pop_para_kullanıcıbir" />
+        app:layout_constraintStart_toEndOf="@+id/pop_para" />
 
     <ImageButton
         android:id="@+id/popup_home"
@@ -130,24 +130,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:background="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/popup_play"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/popup_home"
-        app:srcCompat="@drawable/replay" />
-
-    <ImageButton
-        android:id="@+id/popup_play"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
         android:background="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/popoup_restart"
-        app:srcCompat="@drawable/play" />
+        app:layout_constraintStart_toEndOf="@+id/popup_home"
+        app:srcCompat="@drawable/replay" />
+
     <!-- Hem oyuna başla hemde tekrar-->
 
 </android.support.constraint.ConstraintLayout>

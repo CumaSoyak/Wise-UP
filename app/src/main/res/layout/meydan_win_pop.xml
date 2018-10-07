@@ -16,13 +16,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:src="@drawable/kilic"
+        android:src="@drawable/winner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/kullanıcı_bir_popup"
+        android:id="@+id/kullanıcı_bir_eleman"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -43,7 +43,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toStartOf="@+id/kullanıcı_iki_popup"
-        app:layout_constraintStart_toEndOf="@+id/kullanıcı_bir_popup"
+        app:layout_constraintStart_toEndOf="@+id/kullanıcı_bir_eleman"
         app:layout_constraintTop_toBottomOf="@+id/kullanıcı_iki_popup"
         app:srcCompat="@drawable/kalp" />
 
@@ -79,8 +79,8 @@
         android:fontFamily="@font/titan_one"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/kullanıcı_bir_popup"
-        app:layout_constraintStart_toStartOf="@+id/kullanıcı_bir_popup"
+        app:layout_constraintEnd_toEndOf="@+id/kullanıcı_bir_eleman"
+        app:layout_constraintStart_toStartOf="@+id/kullanıcı_bir_eleman"
         app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     <TextView
@@ -95,8 +95,8 @@
         android:textColor="@color/white"
         android:fontFamily="@font/titan_one"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintEnd_toEndOf="@+id/kullanıcı_bir_popup"
-        app:layout_constraintStart_toStartOf="@+id/kullanıcı_bir_popup"
+        app:layout_constraintEnd_toEndOf="@+id/kullanıcı_bir_eleman"
+        app:layout_constraintStart_toStartOf="@+id/kullanıcı_bir_eleman"
         app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
     <TextView
@@ -111,8 +111,8 @@
         android:textColor="@color/white"
         android:fontFamily="@font/titan_one"
         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintEnd_toEndOf="@+id/kullanıcı_bir_popup"
-        app:layout_constraintStart_toStartOf="@+id/kullanıcı_bir_popup"
+        app:layout_constraintEnd_toEndOf="@+id/kullanıcı_bir_eleman"
+        app:layout_constraintStart_toStartOf="@+id/kullanıcı_bir_eleman"
         app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
     <TextView
@@ -178,12 +178,13 @@
         android:id="@+id/meydan_buton_tamam"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/replay_button"
         android:fontFamily="@font/titan_one"
-        android:text="Tamamla"
+        android:text="@string/tamamla"
         android:textColor="@color/backgroundcolor"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"

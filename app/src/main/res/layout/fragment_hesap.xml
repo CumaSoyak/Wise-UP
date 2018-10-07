@@ -43,7 +43,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:gravity="center"
-        android:text="Kullanıcı Adı"
+        android:text="@string/kullanici_adi"
         android:fontFamily="@font/titan_one"
         app:layout_constraintBottom_toTopOf="@+id/view4"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +53,6 @@
         android:id="@+id/kullanici_adi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/autour_one1"
         android:text="cumasoyak"
@@ -68,7 +67,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:gravity="center"
-        android:text="E-mail"
+        android:text="@string/e_mail"
         android:fontFamily="@font/titan_one"
         app:layout_constraintBottom_toTopOf="@+id/view5"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,10 +77,9 @@
         android:id="@+id/e_mail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
-        android:text="null"
         android:fontFamily="@font/autour_one1"
+        android:text="null"
         app:layout_constraintBottom_toTopOf="@+id/view5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view4" />
@@ -93,22 +91,10 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:gravity="center"
-        android:text="Rütbe"
+        android:text="@string/rutbe"
         android:fontFamily="@font/titan_one"
         app:layout_constraintBottom_toTopOf="@+id/view6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view5" />
-
-    <TextView
-        android:id="@+id/rutbe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:text="1567"
-        android:fontFamily="@font/autour_one1"
-        app:layout_constraintBottom_toTopOf="@+id/view6"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view5" />
 
 
@@ -118,7 +104,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:gravity="center"
-        android:text="Parola"
+        android:text="@string/parola"
         android:fontFamily="@font/titan_one"
         app:layout_constraintBottom_toTopOf="@+id/view7"
         app:layout_constraintStart_toStartOf="parent"
@@ -131,7 +117,7 @@
         android:layout_marginEnd="16dp"
         android:background="@drawable/replay_button"
         android:fontFamily="@font/bungee1"
-        android:text="Değiştir"
+        android:text="@string/degistir"
         android:textSize="10dp"
         android:textColor="@color/backgroundcolor"
         app:layout_constraintBottom_toTopOf="@+id/view7"
@@ -145,7 +131,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:gravity="center"
-        android:text="Üyelik"
+        android:text="@string/uyelik"
         android:fontFamily="@font/titan_one"
         app:layout_constraintBottom_toTopOf="@+id/view8"
         app:layout_constraintStart_toStartOf="parent"
@@ -155,10 +141,9 @@
         android:id="@+id/uyelik"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
-        android:text="Fakir"
         android:fontFamily="@font/autour_one1"
+        android:text="@string/fakir"
         app:layout_constraintBottom_toTopOf="@+id/view8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view7" />
@@ -174,7 +159,7 @@
         android:background="@drawable/hayir_buton"
         android:fontFamily="@font/titan_one"
         android:onClick="cikis_yap_hesap"
-        android:text="Çıkış"
+        android:text="@string/cikis"
         android:textColor="@color/backgroundcolor"
         android:textSize="15dp"
         android:textStyle="bold"
@@ -182,6 +167,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="OnClick" />
+
 
     <ImageView
         android:id="@+id/savasci_image"
@@ -258,6 +244,38 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view7" />
+
+    <ImageView
+        android:id="@+id/rutbe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/rutbe1"
+        app:layout_constraintBottom_toTopOf="@+id/view6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view5" />
+
+    <View
+        android:id="@+id/view10"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        app:layout_constraintEnd_toEndOf="@+id/savasci_image"
+        app:layout_constraintStart_toStartOf="@+id/savasci_image"
+        app:layout_constraintTop_toBottomOf="@+id/savasci_image" />
+
+    <TextView
+        android:id="@+id/karakter_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        android:fontFamily="@font/titan_one"
+        android:textColor="@color/yesil"
+        app:layout_constraintBottom_toBottomOf="@+id/view10"
+        app:layout_constraintEnd_toEndOf="@+id/view10"
+        app:layout_constraintStart_toStartOf="@+id/view10"
+        app:layout_constraintTop_toTopOf="@+id/view10" />
 
 
 </android.support.constraint.ConstraintLayout>

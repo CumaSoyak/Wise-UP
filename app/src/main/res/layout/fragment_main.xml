@@ -15,9 +15,7 @@
         android:layout_height="30dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
-        android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:onClick="moneyclick"
         app:layout_constraintEnd_toStartOf="@+id/elmas"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_weight="0.33"
@@ -59,9 +57,7 @@
         android:layout_marginEnd="4dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
-        android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:onClick="moneyclick"
         app:layout_constraintEnd_toStartOf="@+id/para"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_weight="0.33"
@@ -100,9 +96,7 @@
         android:layout_height="30dp"
         android:layout_marginEnd="4dp"
         android:layout_marginTop="8dp"
-        android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:onClick="moneyclick"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_weight="0.33"
@@ -139,10 +133,12 @@
         android:id="@+id/card1"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
         android:layout_marginTop="45dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/isaret_oku"
         app:layout_constraintEnd_toStartOf="@+id/card2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -166,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/titan_one"
-                android:text="Tarih" />
+                android:text="@string/savas_baslik_tarih" />
 
             <View
                 android:layout_width="match_parent"
@@ -190,10 +186,11 @@
         android:id="@+id/card2"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/isaret_oku"
         app:layout_constraintEnd_toStartOf="@+id/card3"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/card1"
@@ -217,7 +214,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/titan_one"
-                android:text="Bilim" />
+                android:text="@string/savas_baslik_bilim" />
 
             <View
                 android:layout_width="match_parent"
@@ -243,10 +240,12 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
 
+        android:layout_marginBottom="32dp"
         android:layout_marginTop="45dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/isaret_oku"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/card2"
@@ -270,7 +269,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/titan_one"
-                android:text="Eğlence" />
+                android:text="@string/savas_baslik_eglence" />
 
             <View
                 android:layout_width="match_parent"
@@ -294,14 +293,16 @@
         android:id="@+id/card4"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="45dp"
         android:layout_marginTop="32dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/card5"
         app:layout_constraintEnd_toStartOf="@+id/card5"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card1">
+        app:layout_constraintTop_toTopOf="@+id/isaret_oku">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -321,7 +322,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/titan_one"
-                android:text="Coğrafya" />
+                android:text="@string/savas_baslik_cografya" />
 
             <View
                 android:layout_width="match_parent"
@@ -345,15 +346,14 @@
         android:id="@+id/card5"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginBottom="8dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toStartOf="@+id/card6"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/card4"
-        app:layout_constraintTop_toTopOf="@+id/card4"
+        app:layout_constraintTop_toBottomOf="@+id/isaret_oku"
         card_view:cardCornerRadius="10dp">
 
         <LinearLayout
@@ -374,7 +374,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/titan_one"
-                android:text="Sanat" />
+                android:text="@string/savas_baslik_sanat" />
 
             <View
                 android:layout_width="match_parent"
@@ -398,13 +398,15 @@
         android:id="@+id/card6"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="45dp"
         android:layout_marginTop="32dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/card5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/card5"
-        app:layout_constraintTop_toBottomOf="@+id/card3"
+        app:layout_constraintTop_toTopOf="@+id/isaret_oku"
         card_view:cardCornerRadius="10dp">
 
         <LinearLayout
@@ -425,7 +427,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/titan_one"
-                android:text="Spor" />
+                android:text="@string/savas_baslik_spor" />
 
             <View
                 android:layout_width="match_parent"
@@ -461,6 +463,7 @@
         android:layout_marginBottom="40dp"
         android:layout_marginTop="40dp"
         app:layout_constraintBottom_toTopOf="@+id/card5"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintTop_toBottomOf="@+id/card2"
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintStart_toStartOf="parent"
@@ -490,19 +493,19 @@
         android:text="Klasik"
         app:layout_constraintBottom_toTopOf="@+id/textView13"
         app:layout_constraintEnd_toEndOf="@+id/textView13"
-        app:layout_constraintStart_toStartOf="@+id/textView13"
-          />
+        app:layout_constraintStart_toStartOf="@+id/textView13" />
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="32dp"
         android:fontFamily="@font/titan_one"
-        android:text="Klasik"
+        android:text="@string/klasik"
         android:textColor="@color/backgroundcolor"
         android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintStart_toStartOf="parent"
         card_view:layout_constraintBottom_toBottomOf="parent" />
 
@@ -510,14 +513,27 @@
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/titan_one"
-        android:text="Meydan Oku"
+        android:text="@string/meydan_oku"
         android:textColor="@color/backgroundcolor"
         android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintBottom_toBottomOf="parent" />
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-7740710689946524/2795757067"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
 
 
 </android.support.constraint.ConstraintLayout>

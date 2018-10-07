@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/titan_one"
         android:gravity="center"
-        android:text="Teşekkür Ederiz"
+        android:text="@string/tesekur"
         android:textColor="@color/backgroundcolor"
         android:textSize="18dp"
         app:layout_constraintBottom_toTopOf="@+id/onerildi_soru_thanks"

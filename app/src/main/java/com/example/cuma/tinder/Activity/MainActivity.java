@@ -1,6 +1,11 @@
 package com.example.cuma.tinder.Activity;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
@@ -10,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageButton;
 
 import com.example.cuma.tinder.Adapter.MainAdapter;
 import com.example.cuma.tinder.Fragment.AdminFragment;
@@ -31,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private String user_id;
     private String uuid_String;
+    private Dialog kontrol;;
 
 
     private ViewPager viewPager;
@@ -62,26 +69,12 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs_main);
         tabLayout.setupWithViewPager(viewPager);
         setupTabıcons();
+        if (networkConnection()) {//TODO burayı normal hale getir
 
+        } else {
+            internet_dialog();
+        }
 
-      /*  viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (position == 0) {
-
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });*/
     }
 
     private void setupTabıcons() {
@@ -109,10 +102,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
-    public void moneyclick(View view) {
-        Intent ıntent = new Intent(getApplicationContext(), MoneyActivity.class);
-        startActivity(ıntent);
-    }
+
 
     @Override
     public void onBackPressed() {
@@ -120,6 +110,31 @@ public class MainActivity extends AppCompatActivity {
         a.addCategory(Intent.CATEGORY_HOME);
         a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(a);
+
+    }
+    public boolean networkConnection() {
+        ConnectivityManager conMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (conMgr.getActiveNetworkInfo() != null && conMgr.getActiveNetworkInfo().isAvailable() && conMgr.getActiveNetworkInfo().isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public void internet_dialog() {
+        kontrol = new Dialog(this, R.style.DialogNotitle);
+        kontrol.setContentView(R.layout.dialog_internet);
+        kontrol.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        kontrol.getWindow().getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
+        kontrol.setCancelable(false);
+        ImageButton yenile_buton = (ImageButton) kontrol.findViewById(R.id.yenile_buton);
+        kontrol.show();
+        yenile_buton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(getIntent());
+            }
+        });
 
     }
 }

@@ -1,13 +1,12 @@
 <resources>
     <string name="app_name">Tinder</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_login">Sign in</string>
     <string name="facebook_app_id">211572389715215</string>
     <string name="fb_login_protocol_scheme">fb211572389715215</string>
-    <string name="kategori_default">kategori seç</string>
+    <string name="kategori_default">Select Category</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
+    <string name="prompt_email">E-mail</string>
     <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
@@ -18,5 +17,97 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    
+    <string name="hayir">No</string>
+    <string name="evet">Yes</string>
+    <string name="guc_baslik">Power loading to start the game</string>
+    <string name="nickname_baslik">What is  your nickname ?</string>
+    <string name="nickname">Nickname</string>
+    <string name="gecis_tamam">Ok</string>
+    <string name="kayit_login">Sign up</string>
+    <string name="giris_login">Sign in</string>
+    <string name="login_ediitext">E-mail</string>
+    <string name="login_parola">Password</string>
+    <string name="savas_baslik_tarih">History</string>
+    <string name="savas_baslik_bilim">Science</string>
+    <string name="savas_baslik_eglence">Fun</string>
+    <string name="savas_baslik_cografya">Geography</string>
+    <string name="savas_baslik_sanat">Art</string>
+    <string name="savas_baslik_spor">Sport</string>
+
+    <string name="savas_aciklama_tarih">Are you ready to conquer ?</string>
+    <string name="savas_aciklama_bilim">Let\'s do some experiments.</string>
+    <string name="savas_aciklama_eglence">Fun questions are waiting for you</string>
+    <string name="savas_aciklama_cografya">Want to travel around the world ?</string>
+    <string name="savas_aciklama_sanat">Do you have art skills ?</string>
+    <string name="savas_aciklama_spor">Will be exhausting category</string>
+    <string name="internet_text">Check the internet connection</string>
+    <string name="savas_baslik">Are you ready to meet</string>
+    <string name="odul_baslik">The big prize is waiting for you</string>
+    <string name="karsilasma">For meet</string>
+    <string name="saniye_kaldi">seconds left</string>
+    <string name="tesekur">Thank you</string>
+    <string name="devam">Go on</string>
+    <string name="tamam">Ok</string>
+    <string name="yeni_parola">New password</string>
+    <string name="karakter_sayisi">Minimum 6 characters</string>
+    <string name="cikis_soru">Do you want exit ?</string>
+    <string name="kullanici_adi">Username</string>
+    <string name="e_mail">E-mail</string>
+    <string name="rutbe">Rank</string>
+    <string name="parola">Password</string>
+    <string name="degistir">Change</string>
+    <string name="uyelik">Membership</string>
+    <string name="fakir">Normal</string>
+    <string name="cikis">Exit</string>
+    <string name="rutbeler">Ranks</string>
+    <string name="savascılar">Warriors</string>
+    <string name="puanlar">Ratings</string>
+    <string name="klasik">Classical</string>
+    <string name="meydan_oku">Challenge</string>
+    <string name="soru_oneri">Waiting for your questions</string>
+    <string name="soruyu_gonder">Send Question</string>
+    <string name="tamamla">Complete</string>
+    <string name="ikinci_sans">DO  YOU  WANT  MORE CHANCES ?</string>
+    <string name="video_izle">Watch video</string>
+    <string name="fiyat_1">9 $</string>
+    <string name="fiyat_2">19 $</string>
+    <string name="fiyat_3">54 $</string>
+    <string name="fiyat_4">79 $</string>
+
+    <string name="can_text1">9 lives</string>
+    <string name="can_text2">19 lives</string>
+    <string name="can_text3">54 lives</string>
+    <string name="can_text4">200 lives</string>
+
+    <string name="para_text1">10 coins</string>
+    <string name="para_text2">20 coins</string>
+    <string name="para_text3">30 coins</string>
+    <string name="para_text4">40 coins</string>
+
+    <string name="elmas_text1">5 diamonds</string>
+    <string name="elmas_text2">10 diamonds</string>
+    <string name="elmas_text3">20 diamonds</string>
+    <string name="elmas_text4">30 diamonds</string>
+
+    <string name="onay">Accept</string>
+    <string name="savasci_tarih">Historian</string>
+    <string name="savasci_bilim">Scientist</string>
+    <string name="savasci_eglence">Enjoyable</string>
+    <string name="savasci_cografya">Traveler</string>
+    <string name="savasci_sanat">Artist</string>
+    <string name="savasci_spor">Sportsman</string>
+    <string name="parola_belirle">Set password</string>
+    <string name="parola_tamam">Password changed</string>
+    <string name="kullanici_adi_gir">Enter username</string>
+    <string name="karakter_sec">Choose a character</string>
+    <string name="bilgileri_kontrol">Check entries</string>
+    <string name="e_mailveparolayanlis">E-mail or Password is incorrect</string>
+    <string name="alanlari_bos_gecme">Please do not leave fields empty</string>
+    <string name="donusum_text">It is time to break the gold and the diamonds</string>
+    <string name="oyun_kacis">Are you avoiding the game?</string>
+    <string name="gec">Next</string>
+    <string name="ogretici_text">Click here to start the game</string>
+
+
+
 </resources>

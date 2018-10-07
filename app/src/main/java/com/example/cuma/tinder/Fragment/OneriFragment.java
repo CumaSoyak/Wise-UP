@@ -2,8 +2,10 @@ package com.example.cuma.tinder.Fragment;
 
 
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,6 +32,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Locale;
 import java.util.UUID;
 
 /**
@@ -85,7 +88,12 @@ public class OneriFragment extends Fragment implements View.OnClickListener {
         oneri_gonder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Firebase_kaydet_soru();
+                if (Locale.getDefault().getLanguage().equals("tr")) {
+                    Firebase_kaydet_soru_turkce();
+
+                } else {
+                    Firebase_kaydet_soru_ingilizce();
+                }
 
             }
         });
@@ -177,26 +185,57 @@ public class OneriFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    private void Firebase_kaydet_soru() {
+    private void Firebase_kaydet_soru_turkce() {
         UUID uuıd = UUID.randomUUID();
         uuid_String = uuıd.toString();
         user = firebaseAuth.getCurrentUser();
-        if (oneri_soru.getText().toString().matches("") || kategori_deger == 0) {
-            Toast.makeText(getActivity(), "Lütfen Alanları boş geçmeyiniz", Toast.LENGTH_LONG).show();
-            return;
-        }
-        else if (evet.isChecked()) {
-            databaseReference.child("Sorular_Onay").child(String.valueOf(kategori_deger)).child(uuid_String).child("soru").setValue(oneri_soru.getText().toString());
-            databaseReference.child("Sorular_Onay").child(String.valueOf(kategori_deger)).child(uuid_String).child("cevap").setValue("Yes");
-            tesekur_dialog_goster();
-            oneri_soru.getText().clear();
-        } else if (hayir.isChecked()) {
-            databaseReference.child("Sorular_Onay").child(String.valueOf(kategori_deger)).child(uuid_String).child("soru").setValue(oneri_soru.getText().toString());
-            databaseReference.child("Sorular_Onay").child(String.valueOf(kategori_deger)).child(uuid_String).child("cevap").setValue("No");
-            tesekur_dialog_goster();
-            oneri_soru.getText().clear();
+        if (networkConnection()) {
+            if (oneri_soru.getText().toString().matches("") || kategori_deger == 0) {
+                Toast.makeText(getActivity(), getResources().getString(R.string.alanlari_bos_gecme), Toast.LENGTH_LONG).show();
+                return;
+            } else if (evet.isChecked()) {
+                databaseReference.child("Sorular_turkce").child(String.valueOf(kategori_deger)).child(uuid_String).child("soru").setValue(oneri_soru.getText().toString());
+                databaseReference.child("Sorular_turkce").child(String.valueOf(kategori_deger)).child(uuid_String).child("cevap").setValue("Yes");
+                tesekur_dialog_goster();
+                oneri_soru.getText().clear();
+            } else if (hayir.isChecked()) {
+                databaseReference.child("Sorular_turkce").child(String.valueOf(kategori_deger)).child(uuid_String).child("soru").setValue(oneri_soru.getText().toString());
+                databaseReference.child("Sorular_turkce").child(String.valueOf(kategori_deger)).child(uuid_String).child("cevap").setValue("No");
+                tesekur_dialog_goster();
+                oneri_soru.getText().clear();
+            } else {
+                Toast.makeText(getActivity(), getResources().getString(R.string.alanlari_bos_gecme), Toast.LENGTH_LONG).show();
+            }
         } else {
-            Toast.makeText(getActivity(), "Lütfen Alanları boş geçmeyiniz", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), getResources().getString(R.string.internet_text), Toast.LENGTH_LONG).show();
+
+        }
+    }
+
+    private void Firebase_kaydet_soru_ingilizce() {
+        UUID uuıd = UUID.randomUUID();
+        uuid_String = uuıd.toString();
+        user = firebaseAuth.getCurrentUser();
+        if (networkConnection()) {
+            if (oneri_soru.getText().toString().matches("") || kategori_deger == 0) {
+                Toast.makeText(getActivity(), getResources().getString(R.string.alanlari_bos_gecme), Toast.LENGTH_LONG).show();
+                return;
+            } else if (evet.isChecked()) {
+                databaseReference.child("Sorular_ingilizce").child(String.valueOf(kategori_deger)).child(uuid_String).child("soru").setValue(oneri_soru.getText().toString());
+                databaseReference.child("Sorular_ingilizce").child(String.valueOf(kategori_deger)).child(uuid_String).child("cevap").setValue("Yes");
+                tesekur_dialog_goster();
+                oneri_soru.getText().clear();
+            } else if (hayir.isChecked()) {
+                databaseReference.child("Sorular_ingilizce").child(String.valueOf(kategori_deger)).child(uuid_String).child("soru").setValue(oneri_soru.getText().toString());
+                databaseReference.child("Sorular_ingilizce").child(String.valueOf(kategori_deger)).child(uuid_String).child("cevap").setValue("No");
+                tesekur_dialog_goster();
+                oneri_soru.getText().clear();
+            } else {
+                Toast.makeText(getActivity(), getResources().getString(R.string.alanlari_bos_gecme), Toast.LENGTH_LONG).show();
+            }
+        } else {
+            Toast.makeText(getActivity(), getResources().getString(R.string.internet_text), Toast.LENGTH_LONG).show();
+
         }
     }
 
@@ -225,6 +264,15 @@ public class OneriFragment extends Fragment implements View.OnClickListener {
             }
         };
 
+    }
+
+    public boolean networkConnection() {
+        ConnectivityManager conMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (conMgr.getActiveNetworkInfo() != null && conMgr.getActiveNetworkInfo().isAvailable() && conMgr.getActiveNetworkInfo().isConnected()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

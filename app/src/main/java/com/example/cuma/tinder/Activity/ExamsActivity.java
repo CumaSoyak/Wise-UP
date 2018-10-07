@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -30,6 +29,9 @@ import com.example.cuma.tinder.Fragment.MainFragment;
 import com.example.cuma.tinder.R;
 import com.example.cuma.tinder.TinderCard;
 import com.example.cuma.tinder.Utils;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -42,6 +44,7 @@ import com.mindorks.placeholderview.SwipePlaceHolderView;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.UUID;
 
 public class ExamsActivity extends AppCompatActivity {
@@ -59,8 +62,6 @@ public class ExamsActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private String user_id;
     private String useremail;
-
-
     private SwipePlaceHolderView mSwipeView;
     private Context mContext;
     private Profile mProfile;
@@ -140,6 +141,8 @@ public class ExamsActivity extends AppCompatActivity {
         return cevaplistesi.get(cevapsira);
     }
 
+    private AdView mAdView;
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +155,11 @@ public class ExamsActivity extends AppCompatActivity {
         user = firebaseAuth.getCurrentUser();
         user_id = user.getUid();
 
+
+        MobileAds.initialize(this, "ca-app-pub-7740710689946524~4712663337");
+        mAdView =findViewById(R.id.adView_exams);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -192,15 +200,21 @@ public class ExamsActivity extends AppCompatActivity {
             mSwipeView.addView(new TinderCard(mContext, deger, mSwipeView, quiz));
             cevaplistesi.add(deger.getAnswer());
         }*/
+        Log.i("Dil", ":" + Locale.getDefault().getDisplayLanguage());
 
+        if (Locale.getDefault().getLanguage().equals("tr")) {
+            soru_ve_cevapları_getir_turkce();
 
-        soru_ve_cevapları_getir();
+        } else {
+            soru_ve_cevapları_getir_ingilizce();
+
+        }
         puanlargetir();
         evet_buton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mSwipeView.doSwipe(true);
-                 String evet = "Yes";
+                String evet = "Yes";
                 if (getCurrentAnswer().equalsIgnoreCase(evet)) {
                     incEvetsayisi();
 
@@ -240,7 +254,34 @@ public class ExamsActivity extends AppCompatActivity {
     }
 
 
-    public void soru_ve_cevapları_getir() {
+    public void soru_ve_cevapları_getir_ingilizce() {
+        databaseReference.child("Sorular_ingilizce").child(String.valueOf(quiz)).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    mSorular = ds.getValue(Sorular.class);
+                    sorularList.add(mSorular);
+                }
+                Log.i("Sorular_listesi", ":" + mSorular.getCevap());
+                Collections.shuffle(sorularList);
+                for (Sorular sorular : sorularList) {
+                    mSwipeView.addView(new TinderCard(mContext, sorular, mSwipeView, quiz));
+                    cevaplistesi.add(sorular.getCevap());
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
+    public void soru_ve_cevapları_getir_turkce() {
         databaseReference.child("Sorular").child(String.valueOf(quiz)).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -266,6 +307,7 @@ public class ExamsActivity extends AppCompatActivity {
 
 
     }
+
 
     public void kalp_patlat() {
         Log.i("Kalp_Sayısı", ":" + getKirik_kalp());
@@ -318,27 +360,27 @@ public class ExamsActivity extends AppCompatActivity {
     public void ShowPop() {    //Zaman bittiğinde kazanılan altın ve elmasları gösteriyoruz
         countDownTimer.cancel();
         TextView textclose, kategori_text, popup_para, popup_can, popup_elmas;
-        ImageButton home, again, devam;
+        ImageButton home, again;
         ImageView kategori_image;
         dialog.setContentView(R.layout.win_popup);
         dialog.setCancelable(false);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         home = (ImageButton) dialog.findViewById(R.id.popup_home);
         again = (ImageButton) dialog.findViewById(R.id.popoup_restart);
-        devam = (ImageButton) dialog.findViewById(R.id.popup_play);
         kategori_image = (ImageView) dialog.findViewById(R.id.kategori_image);
-        kategori_text = (TextView) dialog.findViewById(R.id.kullanıcı_bir_popup);
+        kategori_text = (TextView) dialog.findViewById(R.id.kategori_text);
 
-        popup_can = (TextView) dialog.findViewById(R.id.pop_para_kullanıcıiki);
-        popup_para = (TextView) dialog.findViewById(R.id.pop_para_kullanıcıbir);
-        popup_elmas = (TextView) dialog.findViewById(R.id.pop_elmas_kullanıcıbir);
+        popup_can = (TextView) dialog.findViewById(R.id.pop_can);
+        popup_para = (TextView) dialog.findViewById(R.id.pop_para);
+        popup_elmas = (TextView) dialog.findViewById(R.id.pop_elmas);
         Log.i("Dogru", ":" + String.valueOf(getEvetsayisi()));
         if (puanHesapla.puanarti() <= 0) {
             popup_para.setText(String.valueOf(getEvetsayisi() + getHayirsayisi()));
             popup_elmas.setText(String.valueOf(getEvetsayisi() + getHayirsayisi()));
         }
+        int cevir = (getEvetsayisi() + getHayirsayisi()) / 10;
         popup_para.setText(String.valueOf(getEvetsayisi() + getHayirsayisi()));
-        popup_elmas.setText(String.valueOf(getEvetsayisi() + getHayirsayisi()));
+        popup_elmas.setText(String.valueOf(cevir));
         Log.i("Kalpp", ":" + kirik_kalp);
         if (kirik_kalp == 0) {
             popup_can.setText("3");
@@ -355,27 +397,27 @@ public class ExamsActivity extends AppCompatActivity {
         switch (quiz) {
             case 1:
                 kategori_image.setImageResource(R.drawable.tarih);
-                kategori_text.setText("Tarih");
+                kategori_text.setText(getResources().getString(R.string.savas_baslik_tarih));
                 break;
             case 2:
                 kategori_image.setImageResource(R.drawable.bilim_pop);
-                kategori_text.setText("Bilim");
+                kategori_text.setText(getResources().getString(R.string.savas_baslik_bilim));
                 break;
             case 3:
                 kategori_image.setImageResource(R.drawable.eglence_pop);
-                kategori_text.setText("Eğlence");
+                kategori_text.setText(getResources().getString(R.string.savas_baslik_eglence));
                 break;
             case 4:
                 kategori_image.setImageResource(R.drawable.cografya_pop);
-                kategori_text.setText("Dünya");
+                kategori_text.setText(getResources().getString(R.string.savas_baslik_cografya));
                 break;
             case 5:
                 kategori_image.setImageResource(R.drawable.sanat_pop);
-                kategori_text.setText("Sanat");
+                kategori_text.setText(getResources().getString(R.string.savas_baslik_sanat));
                 break;
             case 6:
                 kategori_image.setImageResource(R.drawable.spor_pop);
-                kategori_text.setText("Spor");
+                kategori_text.setText(getResources().getString(R.string.savas_baslik_spor));
                 break;
 
         }
@@ -398,13 +440,7 @@ public class ExamsActivity extends AppCompatActivity {
 
             }
         });
-        devam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss(); //Burası düzelecek
-                //TODO devam yapamaması lazım çunku süre bitince veya yanınca popup açılıyor
-            }
-        });
+
         if (!isFinishing()) {
             dialog.show();
         }
@@ -460,6 +496,7 @@ public class ExamsActivity extends AppCompatActivity {
                 gelen_elmas = dataSnapshot.child("elmas").getValue(Integer.class);
                 gelen_kalp = dataSnapshot.child("kalp").getValue(Integer.class);
                 cagir();
+
             }
 
             @Override
@@ -482,14 +519,16 @@ public class ExamsActivity extends AppCompatActivity {
         UUID uuıd = UUID.randomUUID();
         String uuidString = uuıd.toString();
 
-         if (kalp != 0) {
+        if (kalp != 0) {
             if (kirik_kalp == 3) {
                 databaseReference.child("Puanlar").child(user_id).child("kalp").setValue(kalp - 1);
             }
         }
         databaseReference.child("Puanlar").child(user_id).child("useremail").setValue(useremail);
         databaseReference.child("Puanlar").child(user_id).child("para").setValue(getEvetsayisi() + getHayirsayisi() + para);//todo para değeri buraya gelmesi lazım
-        databaseReference.child("Puanlar").child(user_id).child("elmas").setValue(getEvetsayisi() + getHayirsayisi() + elmas);
+        int cevir = (getEvetsayisi() + getHayirsayisi()) / 10;
+        Log.i("Cevir", ":" + cevir);
+        databaseReference.child("Puanlar").child(user_id).child("elmas").setValue(cevir + elmas);
         databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(100 - (elmas + para + getEvetsayisi() + getHayirsayisi()));//Todo burda sadece göstermelik için 10 ile çarptım
         databaseReference.child("Yarisma").child(user_id).child("puan").setValue(elmas + para + getEvetsayisi() + getHayirsayisi());//Todo burda sadece göstermelik için 10 ile çarptım
 

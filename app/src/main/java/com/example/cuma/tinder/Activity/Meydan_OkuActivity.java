@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -41,18 +41,12 @@ import com.mindorks.placeholderview.SwipePlaceHolderView;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.Random;
 import java.util.UUID;
 
 public class Meydan_OkuActivity extends AppCompatActivity {
-    //todo win dialogta kaldım
-    //Eğer popupta son ana kadar beklersem puan ve can değişiyor
-    //TODO dogru cevap sayısı fazladan değer geliyor
-    // TODO //home // Restart // Devam et  Decam et kısmı düzelecek fakat çıkıç yapmak isterse görünecek
-    //TODO uygulama açılacağı zaman status bar önce sarı sonra siyah oluyor
-    //TODO doğru sayısımı ve yanlış sayısını farklı tutmak lazım
-    //todo multıplayer olacak
-    //todo ses felanda olabilir
+    //todo kaybedince can eksilmiyor
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
     private FirebaseUser user;
@@ -75,6 +69,7 @@ public class Meydan_OkuActivity extends AppCompatActivity {
     private Button evet_buton, hayir_buton;
     public PuanHesapla puanHesapla;
     public Dialog dialog;
+    private MediaPlayer mediaPlayer;
 
     public int evetsayisi, hayirsayisi;
     public int cevapsira, kirik_kalp = 0;
@@ -204,9 +199,14 @@ public class Meydan_OkuActivity extends AppCompatActivity {
         Random random_karsı = new Random();
         karsı_taraf_kaybetme = random_karsı.nextInt(10 - 4) + 4;
         Log.i("Karsı_taraf_kaybetme", ":" + karsı_taraf_kaybetme);
-
         kullanıcılarıyazdır();
-        soru_ve_cevapları_getir();
+         if (Locale.getDefault().getLanguage().equals("tr")) {
+            soru_ve_cevapları_getir_turkce();
+
+        } else {
+            soru_ve_cevapları_getir_ingilizce();
+
+        }
         puanlargetir();
         evet_buton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -285,7 +285,8 @@ public class Meydan_OkuActivity extends AppCompatActivity {
         kullanici_iki_getir = kullanici_iki_for;
     }
 
-    public void soru_ve_cevapları_getir() {
+    public void soru_ve_cevapları_getir_turkce() {
+        //todo sorular onay Sorular_turkce diye değişecek
         databaseReference.child("Sorular_Onay").child(String.valueOf(meydanoku_quiz)).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -310,6 +311,32 @@ public class Meydan_OkuActivity extends AppCompatActivity {
 
 
     }
+    public void soru_ve_cevapları_getir_ingilizce() {
+        databaseReference.child("Sorular_ingilizce").child(String.valueOf(meydanoku_quiz)).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    mSorular = ds.getValue(Sorular.class);
+                    sorularList.add(mSorular);
+                }
+                Collections.shuffle(sorularList);
+                for (Sorular sorular : sorularList) {
+                    mSwipeView.addView(new MeydanOku_TinderCard(mContext, sorular, mSwipeView, meydanoku_quiz));
+                    cevaplistesi.add(sorular.getCevap());
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
 
     public void kalp_patlat() {
         Log.i("Kalp_Sayısı", ":" + getKirik_kalp());
@@ -369,7 +396,7 @@ public class Meydan_OkuActivity extends AppCompatActivity {
         Button hayir = (Button) cikis_dialog.findViewById(R.id.dialog_cikis_hayir);
         TextView kaybettin = (TextView) cikis_dialog.findViewById(R.id.textview_normal);
         ImageView savas_image_cikis = (ImageView) cikis_dialog.findViewById(R.id.savas_image_cikis);
-        kaybettin.setText("Kaçarsan Oyunu Kaybedersin");
+        kaybettin.setText(getResources().getString(R.string.oyun_kacis));
         savas_image_cikis.setImageResource(R.drawable.savas_cikis);
 
         evet.setOnClickListener(new View.OnClickListener() {
@@ -413,15 +440,18 @@ public class Meydan_OkuActivity extends AppCompatActivity {
     }
 
     public void ShowPop() {    //Zaman bittiğinde kazanılan altın ve elmasları gösteriyoruz
-       countDownTimer.cancel();
+        countDownTimer.cancel();
         TextView pop_can_kullanici_bir, pop_para_kullanici_bir, pop_elmas_kullanici_bir, pop_can_kullanici_iki, pop_para_kullanici_iki, pop_elmas_kullanici_iki;
         Button meydan_buton_tamam;
-        dialog.setContentView(R.layout.meydan_win_popup);
+        ImageView kategori_image;
+
+        dialog.setContentView(R.layout.meydan_win_pop);
         dialog.setCancelable(false);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         meydan_buton_tamam = (Button) dialog.findViewById(R.id.meydan_buton_tamam);
-        kullanıcı_bir_popup = (TextView) dialog.findViewById(R.id.kullanıcı_bir_popup);
+        kullanıcı_bir_popup = (TextView) dialog.findViewById(R.id.kullanıcı_bir_eleman);
         kullanıcı_iki_popup = (TextView) dialog.findViewById(R.id.kullanıcı_iki_popup);
+        kategori_image = dialog.findViewById(R.id.kategori_image);
 
         pop_can_kullanici_bir = (TextView) dialog.findViewById(R.id.pop_can_kullanicibir);
         pop_para_kullanici_bir = (TextView) dialog.findViewById(R.id.pop_para_kullanıcıbir);
@@ -436,49 +466,87 @@ public class Meydan_OkuActivity extends AppCompatActivity {
 
 
         pop_para_kullanici_bir.setText(String.valueOf(getEvetsayisi() + getHayirsayisi()));
-        pop_elmas_kullanici_bir.setText(String.valueOf(getEvetsayisi() + getHayirsayisi()));
+        pop_elmas_kullanici_bir.setText(String.valueOf((getEvetsayisi() + getHayirsayisi()) / 10));
 
         Random random = new Random();
-        Log.i("Kartsayisi",":"+kartsayısı);
+        Log.i("Kartsayisi", ":" + kartsayısı);
         int max_kart_sayisi = kartsayısı + 2;
         int min_kart_sayisi = kartsayısı - 1;
         random_sayi_kaybetmek = random.nextInt(max_kart_sayisi - min_kart_sayisi) + min_kart_sayisi;
         if (kirik_kalp == 0) {
             pop_can_kullanici_bir.setText("3");
             pop_can_kullanici_iki.setText("0");
-            pop_para_kullanici_iki.setText(String.valueOf(karsı_taraf_kaybetme-3));
-            pop_elmas_kullanici_iki.setText(String.valueOf(karsı_taraf_kaybetme-3));
-            databaseReference.child("Puanlar").child(user_id).child("para").setValue(100+ para);//todo para değeri buraya gelmesi lazım
+            pop_para_kullanici_iki.setText(String.valueOf(karsı_taraf_kaybetme - 3));
+            pop_elmas_kullanici_iki.setText(String.valueOf((karsı_taraf_kaybetme - 3) / 10));
+            databaseReference.child("Puanlar").child(user_id).child("para").setValue(100 + para);//todo para değeri buraya gelmesi lazım
+            if ((karsı_taraf_kaybetme - 3) > getEvetsayisi() + getHayirsayisi()) {
+                mediaPlayer = MediaPlayer.create(Meydan_OkuActivity.this, R.raw.kaybetmek);
+                mediaPlayer.start();
+                kategori_image.setImageResource(R.drawable.sad);
+            } else {
+                kategori_image.setImageResource(R.drawable.winner);
+                ekleveritabani();
+                mediaPlayer = MediaPlayer.create(Meydan_OkuActivity.this, R.raw.kazanan);
+                mediaPlayer.start();
+
+            }
 
         } else if (kirik_kalp == 1) {
             pop_can_kullanici_bir.setText("2");
             pop_can_kullanici_iki.setText("0");
-            pop_para_kullanici_iki.setText(String.valueOf(karsı_taraf_kaybetme-3));
-            pop_elmas_kullanici_iki.setText(String.valueOf(karsı_taraf_kaybetme-3));
+            pop_para_kullanici_iki.setText(String.valueOf(karsı_taraf_kaybetme - 3));
+            pop_elmas_kullanici_iki.setText(String.valueOf((karsı_taraf_kaybetme - 3) / 10));
+            kategori_image.setImageResource(R.drawable.winner);
+            if ((karsı_taraf_kaybetme - 3) > getEvetsayisi() + getHayirsayisi()) {
+                mediaPlayer = MediaPlayer.create(Meydan_OkuActivity.this, R.raw.kaybetmek);
+                mediaPlayer.start();
+                kategori_image.setImageResource(R.drawable.sad);
+            } else {
+                kategori_image.setImageResource(R.drawable.winner);
+                ekleveritabani();
+                mediaPlayer = MediaPlayer.create(Meydan_OkuActivity.this, R.raw.kazanan);
+                mediaPlayer.start();
+
+            }
+
         } else if (kirik_kalp == 2) {
             pop_can_kullanici_bir.setText("1");
             pop_can_kullanici_iki.setText("0");
-            pop_para_kullanici_iki.setText(String.valueOf(karsı_taraf_kaybetme-3));
-            pop_elmas_kullanici_iki.setText(String.valueOf(karsı_taraf_kaybetme-3));
-        } else if (kirik_kalp == 3) {
+            pop_para_kullanici_iki.setText(String.valueOf(karsı_taraf_kaybetme - 3));
+            pop_elmas_kullanici_iki.setText(String.valueOf((karsı_taraf_kaybetme - 3) / 10));
+            kategori_image.setImageResource(R.drawable.winner);
+            if ((karsı_taraf_kaybetme - 3) > getEvetsayisi() + getHayirsayisi()) {
+                mediaPlayer = MediaPlayer.create(Meydan_OkuActivity.this, R.raw.kaybetmek);
+                mediaPlayer.start();
+                kategori_image.setImageResource(R.drawable.sad);
+            } else {
+                kategori_image.setImageResource(R.drawable.winner);
+                ekleveritabani();
+                mediaPlayer = MediaPlayer.create(Meydan_OkuActivity.this, R.raw.kazanan);
+                mediaPlayer.start();
 
+            }
+
+        } else if (kirik_kalp == 3) {
+            kategori_image.setImageResource(R.drawable.sad);
+            mediaPlayer = MediaPlayer.create(Meydan_OkuActivity.this, R.raw.kaybetmek);
+            mediaPlayer.start();
             pop_can_kullanici_bir.setText("0");
             Log.i("Random_sayi:", ":kart_sayisi" + random_sayi_kaybetmek + ":::" + kartsayısı);
-
             if (random_sayi_kaybetmek == (kartsayısı - 1)) {
                 pop_can_kullanici_iki.setText(String.valueOf(1));
                 pop_para_kullanici_iki.setText(String.valueOf(random_sayi_kaybetmek));
-                pop_elmas_kullanici_iki.setText(String.valueOf(random_sayi_kaybetmek));
+                pop_elmas_kullanici_iki.setText(String.valueOf(random_sayi_kaybetmek / 10));
             } else if (random_sayi_kaybetmek == (kartsayısı)) {
                 pop_can_kullanici_iki.setText(String.valueOf(2));
                 pop_para_kullanici_iki.setText(String.valueOf(random_sayi_kaybetmek));
-                pop_elmas_kullanici_iki.setText(String.valueOf(random_sayi_kaybetmek));
+                pop_elmas_kullanici_iki.setText(String.valueOf(random_sayi_kaybetmek / 10));
 
 
             } else if (random_sayi_kaybetmek == (kartsayısı + 1)) {
                 pop_can_kullanici_iki.setText(String.valueOf(3));
                 pop_para_kullanici_iki.setText(String.valueOf(random_sayi_kaybetmek));
-                pop_elmas_kullanici_iki.setText(String.valueOf(random_sayi_kaybetmek));
+                pop_elmas_kullanici_iki.setText(String.valueOf(random_sayi_kaybetmek / 10));
 
 
             }
@@ -486,7 +554,6 @@ public class Meydan_OkuActivity extends AppCompatActivity {
 
         }
 
-        ekleveritabani();
         meydan_buton_tamam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -538,7 +605,7 @@ public class Meydan_OkuActivity extends AppCompatActivity {
         }
         databaseReference.child("Puanlar").child(user_id).child("useremail").setValue(useremail);
         databaseReference.child("Puanlar").child(user_id).child("para").setValue(getEvetsayisi() + getHayirsayisi() + para);//todo para değeri buraya gelmesi lazım
-        databaseReference.child("Puanlar").child(user_id).child("elmas").setValue(getEvetsayisi() + getHayirsayisi() + elmas);
+        databaseReference.child("Puanlar").child(user_id).child("elmas").setValue(((getEvetsayisi() + getHayirsayisi()) / 10) + elmas);
         databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(100 - (elmas + para + getEvetsayisi() + getHayirsayisi()));//Todo burda sadece göstermelik için 10 ile çarptım
         databaseReference.child("Yarisma").child(user_id).child("puan").setValue(elmas + para + getEvetsayisi() + getHayirsayisi());//Todo burda sadece göstermelik için 10 ile çarptım
 

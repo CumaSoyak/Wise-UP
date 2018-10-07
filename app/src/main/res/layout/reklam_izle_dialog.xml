@@ -6,86 +6,75 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:background="#00000000"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:layout_editor_absoluteY="25dp">
     <!--#80000000 bu renk hafif siyah yapılabiri -->
 
     <ImageView
         android:id="@+id/savas_icon"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="24dp"
         android:src="@drawable/play_video"
         app:layout_constraintBottom_toTopOf="@+id/reklam_izle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_alt_baslik" />
+        app:layout_constraintTop_toBottomOf="@+id/text_baslikkk" />
 
     <TextView
         android:id="@+id/text_baslikkk"
-        android:layout_width="500dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/bungee1"
         android:gravity="center"
-        android:text="İKİNCİ BİR ŞANS İSTER MİSİN ?"
+        android:text="@string/ikinci_sans"
         android:textColor="@color/backgroundcolor"
         android:textSize="20dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/text_alt_baslik"
+        app:layout_constraintBottom_toTopOf="@+id/savas_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exit_reklam" />
 
 
-    <TextView
-        android:id="@+id/text_alt_baslik"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/titan_one"
-        android:gravity="center"
-        android:text="Sıra kabetmeden bir video izle ve oynamya devam  et"
-        android:textColor="@color/backgroundcolor"
-        app:layout_constraintBottom_toTopOf="@+id/savas_icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_baslikkk" />
-
     <Button
         android:id="@+id/exit_reklam"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/hayir_buton"
         android:text="X"
         android:textColor="@color/backgroundcolor"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/savas_icon"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/reklam_izle"
-        android:layout_width="0dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/replay_button"
         android:drawableLeft="@mipmap/video"
         android:fontFamily="@font/bungee1"
-        android:text="Video İzle"
+        android:text="@string/video_izle"
         android:textColor="@color/backgroundcolor"
         android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/savas_icon"
         app:srcCompat="@mipmap/video" />

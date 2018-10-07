@@ -113,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                 }).addOnFailureListener(this, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.bilgileri_kontrol), Toast.LENGTH_LONG).show();
                 Log.i("Hata", ":" + e.getLocalizedMessage());
                 progressBar.setVisibility(View.GONE);
             }
@@ -142,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.d("Login", "Error" + e.getLocalizedMessage());
-                Toast.makeText(getApplicationContext(), "E-mail veya Parola Yanlış", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.e_mailveparolayanlis), Toast.LENGTH_LONG).show();
                 progressBar.setVisibility(View.GONE);
 
             }

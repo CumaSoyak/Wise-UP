@@ -33,8 +33,8 @@ public class TinderCard {
     @View(R.id.kategori_image)
     ImageView kategori_circle_image;
 
-    @View(R.id.kategori_title)
-    TextView kategori_title;
+    @View(R.id.kategori_baslik)
+    TextView kategori_baslik;
 
     @View(R.id.like_img)
     ImageButton like;
@@ -131,27 +131,27 @@ public class TinderCard {
         switch (mQuiz) {
             case 1:
                 kategori_circle_image.setImageResource(R.drawable.tarihim);
-                kategori_title.setText("Tarih");
+                kategori_baslik.setText(R.string.savas_baslik_tarih);
                 break;
             case 2:
                 kategori_circle_image.setImageResource(R.drawable.bilim);
-                kategori_title.setText("Bilim");
+                kategori_baslik.setText(R.string.savas_baslik_bilim);
                 break;
             case 3:
                 kategori_circle_image.setImageResource(R.drawable.eglence);
-                kategori_title.setText("Eğlence");
+                kategori_baslik.setText(R.string.savas_baslik_eglence);
                 break;
             case 4:
                 kategori_circle_image.setImageResource(R.drawable.cografya);
-                kategori_title.setText("Coğrafya");
+                kategori_baslik.setText(R.string.savas_baslik_cografya);
                 break;
             case 5:
                 kategori_circle_image.setImageResource(R.drawable.sanat);
-                kategori_title.setText("Sanat");
+                kategori_baslik.setText(R.string.savas_baslik_sanat);
                 break;
             case 6:
                 kategori_circle_image.setImageResource(R.drawable.spor);
-                kategori_title.setText("Spor");
+                kategori_baslik.setText(R.string.savas_baslik_spor);
                 break;
         }
 
