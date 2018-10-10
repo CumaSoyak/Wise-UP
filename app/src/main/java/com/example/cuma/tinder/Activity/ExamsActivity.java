@@ -8,6 +8,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
@@ -29,8 +31,10 @@ import com.example.cuma.tinder.Fragment.MainFragment;
 import com.example.cuma.tinder.R;
 import com.example.cuma.tinder.TinderCard;
 import com.example.cuma.tinder.Utils;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -142,6 +146,8 @@ public class ExamsActivity extends AppCompatActivity {
     }
 
     private AdView mAdView;
+    private InterstitialAd mInterstitialAd;
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -157,7 +163,7 @@ public class ExamsActivity extends AppCompatActivity {
 
 
         MobileAds.initialize(this, "ca-app-pub-7740710689946524~4712663337");
-        mAdView =findViewById(R.id.adView_exams);
+        mAdView = findViewById(R.id.adView_exams);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
@@ -185,7 +191,7 @@ public class ExamsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         quiz = getIntent().getIntExtra(MainFragment.sorukey, MainFragment.tarih);
         dialog = new Dialog(this, R.style.DialogNotitle);
-
+        gecis_reklam();
 
         mSwipeView.getBuilder()
                 .setDisplayViewCount(3)
@@ -219,6 +225,9 @@ public class ExamsActivity extends AppCompatActivity {
                     incEvetsayisi();
 
                 } else {
+                    Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    vibrator.vibrate(250);
+
                     Log.i("Kalp_Sayısı", ":" + getKirik_kalp());
                     descEvetsayisi();
                     artir_kalp_sayisi();//todo sadece kalbi bir kez kırıyor
@@ -240,6 +249,8 @@ public class ExamsActivity extends AppCompatActivity {
                     incHayirsayisi();
 
                 } else {
+                    Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    vibrator.vibrate(250);
                     descHayirsayisi();
                     artir_kalp_sayisi();
                     kalp_patlat();
@@ -282,7 +293,7 @@ public class ExamsActivity extends AppCompatActivity {
     }
 
     public void soru_ve_cevapları_getir_turkce() {
-        databaseReference.child("Sorular").child(String.valueOf(quiz)).addValueEventListener(new ValueEventListener() {
+        databaseReference.child("Sorular_turkce").child(String.valueOf(quiz)).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -424,8 +435,11 @@ public class ExamsActivity extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent ıntent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(ıntent);
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                } else {
+                    Log.d("TAG", "The interstitial wasn't loaded yet.");
+                }
 
             }
         });
@@ -466,6 +480,11 @@ public class ExamsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cikis_dialog.dismiss();//Anasayfaya dönmeden önce dialogu kapatmak lazım
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                } else {
+                    Log.d("TAG", "The interstitial wasn't loaded yet.");
+                }
                 finish();
             }
         });
@@ -529,9 +548,27 @@ public class ExamsActivity extends AppCompatActivity {
         int cevir = (getEvetsayisi() + getHayirsayisi()) / 10;
         Log.i("Cevir", ":" + cevir);
         databaseReference.child("Puanlar").child(user_id).child("elmas").setValue(cevir + elmas);
-        databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(100 - (elmas + para + getEvetsayisi() + getHayirsayisi()));//Todo burda sadece göstermelik için 10 ile çarptım
+        databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(100000 - (elmas + para + getEvetsayisi() + getHayirsayisi()));//Todo burda sadece göstermelik için 10 ile çarptım
         databaseReference.child("Yarisma").child(user_id).child("puan").setValue(elmas + para + getEvetsayisi() + getHayirsayisi());//Todo burda sadece göstermelik için 10 ile çarptım
 
+
+    }
+
+    public void gecis_reklam() {
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-7740710689946524/1206061969");
+        AdRequest request = new AdRequest.Builder().build();
+        mInterstitialAd.loadAd(request);
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                // Load the next interstitial.
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                Intent ıntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(ıntent);
+            }
+
+        });
 
     }
 

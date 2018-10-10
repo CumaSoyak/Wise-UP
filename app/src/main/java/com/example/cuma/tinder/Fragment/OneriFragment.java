@@ -194,13 +194,13 @@ public class OneriFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getActivity(), getResources().getString(R.string.alanlari_bos_gecme), Toast.LENGTH_LONG).show();
                 return;
             } else if (evet.isChecked()) {
-                databaseReference.child("Sorular_turkce").child(String.valueOf(kategori_deger)).child(uuid_String).child("soru").setValue(oneri_soru.getText().toString());
-                databaseReference.child("Sorular_turkce").child(String.valueOf(kategori_deger)).child(uuid_String).child("cevap").setValue("Yes");
+                databaseReference.child("Sorular_turkce_onay").child(String.valueOf(kategori_deger)).child(uuid_String).child("soru").setValue(oneri_soru.getText().toString());
+                databaseReference.child("Sorular_turkce_onay").child(String.valueOf(kategori_deger)).child(uuid_String).child("cevap").setValue("Yes");
                 tesekur_dialog_goster();
                 oneri_soru.getText().clear();
             } else if (hayir.isChecked()) {
-                databaseReference.child("Sorular_turkce").child(String.valueOf(kategori_deger)).child(uuid_String).child("soru").setValue(oneri_soru.getText().toString());
-                databaseReference.child("Sorular_turkce").child(String.valueOf(kategori_deger)).child(uuid_String).child("cevap").setValue("No");
+                databaseReference.child("Sorular_turkce_onay").child(String.valueOf(kategori_deger)).child(uuid_String).child("soru").setValue(oneri_soru.getText().toString());
+                databaseReference.child("Sorular_turkce_onay").child(String.valueOf(kategori_deger)).child(uuid_String).child("cevap").setValue("No");
                 tesekur_dialog_goster();
                 oneri_soru.getText().clear();
             } else {
@@ -221,13 +221,13 @@ public class OneriFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getActivity(), getResources().getString(R.string.alanlari_bos_gecme), Toast.LENGTH_LONG).show();
                 return;
             } else if (evet.isChecked()) {
-                databaseReference.child("Sorular_ingilizce").child(String.valueOf(kategori_deger)).child(uuid_String).child("soru").setValue(oneri_soru.getText().toString());
-                databaseReference.child("Sorular_ingilizce").child(String.valueOf(kategori_deger)).child(uuid_String).child("cevap").setValue("Yes");
+                databaseReference.child("Sorular_ingilizce_onay").child(String.valueOf(kategori_deger)).child(uuid_String).child("soru").setValue(oneri_soru.getText().toString());
+                databaseReference.child("Sorular_ingilizce_onay").child(String.valueOf(kategori_deger)).child(uuid_String).child("cevap").setValue("Yes");
                 tesekur_dialog_goster();
                 oneri_soru.getText().clear();
             } else if (hayir.isChecked()) {
-                databaseReference.child("Sorular_ingilizce").child(String.valueOf(kategori_deger)).child(uuid_String).child("soru").setValue(oneri_soru.getText().toString());
-                databaseReference.child("Sorular_ingilizce").child(String.valueOf(kategori_deger)).child(uuid_String).child("cevap").setValue("No");
+                databaseReference.child("Sorular_ingilizce_onay").child(String.valueOf(kategori_deger)).child(uuid_String).child("soru").setValue(oneri_soru.getText().toString());
+                databaseReference.child("Sorular_ingilizce_onay").child(String.valueOf(kategori_deger)).child(uuid_String).child("cevap").setValue("No");
                 tesekur_dialog_goster();
                 oneri_soru.getText().clear();
             } else {

@@ -39,36 +39,38 @@
         android:id="@+id/rejectBtn"
         android:layout_width="150dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/hayir_buton"
         android:fontFamily="@font/titan_one"
         android:text="@string/hayir"
         android:textColor="@color/backgroundcolor"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/adView_meydanoku"
         app:layout_constraintEnd_toStartOf="@+id/acceptBtn"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/swipeView" />
 
     <Button
         android:id="@+id/acceptBtn"
         android:layout_width="150dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/evet_buton"
         android:fontFamily="@font/titan_one"
         android:text="@string/evet"
         android:textColor="@color/backgroundcolor"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/adView_meydanoku"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/rejectBtn" />
+        app:layout_constraintStart_toEndOf="@+id/rejectBtn"
+        app:layout_constraintTop_toTopOf="@+id/rejectBtn" />
 
     <TextView
         android:id="@+id/kullanici_bir"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
         android:fontFamily="@font/titan_one"
         android:gravity="center"
         android:text="afsarturgay"
@@ -77,15 +79,13 @@
         app:layout_constraintBottom_toTopOf="@+id/swipeView"
         app:layout_constraintEnd_toStartOf="@+id/imageView8"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include4" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/kullanici_iki"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
         android:fontFamily="@font/titan_one"
         android:gravity="center"
         android:text="afsarturgay"
@@ -94,8 +94,7 @@
         app:layout_constraintBottom_toTopOf="@+id/swipeView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageView8"
-        app:layout_constraintTop_toBottomOf="@+id/include4" />
+        app:layout_constraintStart_toEndOf="@+id/imageView8" />
 
     <ImageView
         android:id="@+id/imageView8"
@@ -111,5 +110,21 @@
         app:layout_constraintStart_toEndOf="@+id/kullanici_bir"
         app:layout_constraintTop_toBottomOf="@+id/include4"
         app:srcCompat="@drawable/kilic" />
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView_meydanoku"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-7740710689946524/2795757067"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent">
+
+    </com.google.android.gms.ads.AdView>
+
 
 </android.support.constraint.ConstraintLayout>

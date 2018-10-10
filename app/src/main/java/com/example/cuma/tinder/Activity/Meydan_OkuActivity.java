@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,11 @@ import com.example.cuma.tinder.Fragment.MainFragment;
 import com.example.cuma.tinder.MeydanOku_TinderCard;
 import com.example.cuma.tinder.R;
 import com.example.cuma.tinder.Utils;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -145,6 +151,10 @@ public class Meydan_OkuActivity extends AppCompatActivity {
         return cevaplistesi.get(cevapsira);
     }
 
+    private AdView mAdView;
+    private InterstitialAd mInterstitialAd;
+
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,6 +166,12 @@ public class Meydan_OkuActivity extends AppCompatActivity {
         databaseReference = database.getReference();
         user = firebaseAuth.getCurrentUser();
         user_id = user.getUid();
+
+
+        MobileAds.initialize(this, "ca-app-pub-7740710689946524~4712663337");
+        mAdView = findViewById(R.id.adView_meydanoku);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
 
         MeydanOku_TinderCard tinderCard = new MeydanOku_TinderCard();
@@ -182,6 +198,7 @@ public class Meydan_OkuActivity extends AppCompatActivity {
 
         meydanoku_quiz = getIntent().getIntExtra(MainFragment.sorukey, MainFragment.tarih);
         dialog = new Dialog(this, R.style.DialogNotitle);
+        gecis_reklam();
 
         mSwipeView.getBuilder()
                 .setDisplayViewCount(3)
@@ -200,7 +217,7 @@ public class Meydan_OkuActivity extends AppCompatActivity {
         karsı_taraf_kaybetme = random_karsı.nextInt(10 - 4) + 4;
         Log.i("Karsı_taraf_kaybetme", ":" + karsı_taraf_kaybetme);
         kullanıcılarıyazdır();
-         if (Locale.getDefault().getLanguage().equals("tr")) {
+        if (Locale.getDefault().getLanguage().equals("tr")) {
             soru_ve_cevapları_getir_turkce();
 
         } else {
@@ -217,6 +234,8 @@ public class Meydan_OkuActivity extends AppCompatActivity {
                     incEvetsayisi();
 
                 } else {
+                    Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    vibrator.vibrate(250);
                     Log.i("Kalp_Sayısı", ":" + getKirik_kalp());
                     //descEvetsayisi();
                     artir_kalp_sayisi();//todo sadece kalbi bir kez kırıyor
@@ -237,6 +256,8 @@ public class Meydan_OkuActivity extends AppCompatActivity {
                     incHayirsayisi();
 
                 } else {
+                    Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    vibrator.vibrate(250);
                     //descHayirsayisi();
                     artir_kalp_sayisi();
                     kalp_patlat();
@@ -287,7 +308,7 @@ public class Meydan_OkuActivity extends AppCompatActivity {
 
     public void soru_ve_cevapları_getir_turkce() {
         //todo sorular onay Sorular_turkce diye değişecek
-        databaseReference.child("Sorular_Onay").child(String.valueOf(meydanoku_quiz)).addValueEventListener(new ValueEventListener() {
+        databaseReference.child("Sorular_turkce").child(String.valueOf(meydanoku_quiz)).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -311,6 +332,7 @@ public class Meydan_OkuActivity extends AppCompatActivity {
 
 
     }
+
     public void soru_ve_cevapları_getir_ingilizce() {
         databaseReference.child("Sorular_ingilizce").child(String.valueOf(meydanoku_quiz)).addValueEventListener(new ValueEventListener() {
             @Override
@@ -403,9 +425,13 @@ public class Meydan_OkuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cikis_dialog.dismiss();
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                } else {
+                    Log.d("TAG", "The interstitial wasn't loaded yet.");
+                }
                 databaseReference.child("Etkin").child(user_id).child("nickname").removeValue();
-                Intent ıntent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(ıntent);
+                finish();
             }
         });
         hayir.setOnClickListener(new View.OnClickListener() {
@@ -478,7 +504,7 @@ public class Meydan_OkuActivity extends AppCompatActivity {
             pop_can_kullanici_iki.setText("0");
             pop_para_kullanici_iki.setText(String.valueOf(karsı_taraf_kaybetme - 3));
             pop_elmas_kullanici_iki.setText(String.valueOf((karsı_taraf_kaybetme - 3) / 10));
-            databaseReference.child("Puanlar").child(user_id).child("para").setValue(100 + para);//todo para değeri buraya gelmesi lazım
+            databaseReference.child("Puanlar").child(user_id).child("para").setValue(12 + para);//todo para değeri buraya gelmesi lazım
             if ((karsı_taraf_kaybetme - 3) > getEvetsayisi() + getHayirsayisi()) {
                 mediaPlayer = MediaPlayer.create(Meydan_OkuActivity.this, R.raw.kaybetmek);
                 mediaPlayer.start();
@@ -558,9 +584,12 @@ public class Meydan_OkuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 kirik_kalp = 0;
-                Intent ıntent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(ıntent);
-
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                } else {
+                    Log.d("TAG", "The interstitial wasn't loaded yet.");
+                }
+                finish();
             }
         });
         if (!isFinishing()) {
@@ -609,6 +638,31 @@ public class Meydan_OkuActivity extends AppCompatActivity {
         databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(100 - (elmas + para + getEvetsayisi() + getHayirsayisi()));//Todo burda sadece göstermelik için 10 ile çarptım
         databaseReference.child("Yarisma").child(user_id).child("puan").setValue(elmas + para + getEvetsayisi() + getHayirsayisi());//Todo burda sadece göstermelik için 10 ile çarptım
 
+
+    }
+
+    public void gecis_reklam() {
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-7740710689946524/1206061969");
+        AdRequest request = new AdRequest.Builder().build();
+        mInterstitialAd.loadAd(request);
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                // Load the next interstitial.
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                Intent ıntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(ıntent);
+
+            }
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+
+            }
+
+        });
 
     }
 

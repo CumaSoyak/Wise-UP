@@ -39,6 +39,9 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -52,6 +55,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 import java.util.UUID;
+
 import com.google.android.gms.ads.MobileAds;
 
 
@@ -66,7 +70,7 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
 
     public ArrayList<String> keylistesi = new ArrayList<>();
     public ArrayList<Iterable<DataSnapshot>> randomlistesi = new ArrayList<Iterable<DataSnapshot>>();
-    public Dialog dialog;
+    public Dialog dialog, dialog_reklam;
 
     public static final String sorukey = "key";
     public static final String odakey = "odakey";
@@ -113,8 +117,10 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
     MediaPlayer mediaPlayer;
     int kalp_deger, gelen_kalp_deger;
     Button onay_donusum;
+    int reklam_kalp;
 
     private AdView mAdView;
+    private RewardedVideoAd mRewardedVideoAd;
 
 
     @Nullable
@@ -137,12 +143,12 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
             settings.edit().putBoolean("my_first_time", false).commit();
         }
 
-        MobileAds.initialize(getActivity(),"ca-app-pub-7740710689946524~4712663337");
+        MobileAds.initialize(getActivity(), "ca-app-pub-7740710689946524~4712663337");
         mAdView = view.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-
+        //todo oooooooooooooooooooooooo
 
 
         dialog = new Dialog(getActivity());
@@ -177,6 +183,7 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
         Firebase_get_data();
         Firebase_get_kalp_deger();
         cagir_kalp();
+        odullu_reklam();
         klasik.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,6 +207,7 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
             public void onClick(View v) {
                 if (networkConnection()) {
                     if (cagir_kalp() == 0) {
+                        odullu_reklam();
                         reklam_izle();
                     } else {
                         mediaPlayer = MediaPlayer.create(getActivity(), R.raw.play_game);
@@ -475,7 +483,7 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
                 elmas = dataSnapshot.child("Puanlar").child(user_id).child("elmas").getValue(Integer.class);
                 main_elmas_toplam.setText(String.valueOf(elmas));
                 //cagir();
-                if (para >= 30 || elmas > 5) {
+                if (para >= 50 || elmas > 5) {
                     donusum();
                 }
 
@@ -546,30 +554,85 @@ public class MainFragment extends Fragment implements Animation.AnimationListene
 
     public void reklam_izle() {
         Button exit_dialog, izle_button;
-        final Dialog dialog = new Dialog(getActivity());
-        Window window = dialog.getWindow();
-        //dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        dialog_reklam = new Dialog(getActivity());
+        Window window = dialog_reklam.getWindow();
+        dialog_reklam.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         window.setContentView(R.layout.reklam_izle_dialog);
-        dialog.setCancelable(false);
+        dialog_reklam.setCancelable(false);
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         window.getAttributes().windowAnimations = R.style.Anasayfa_dilog_animasyonu;
-        izle_button = (Button) dialog.findViewById(R.id.reklam_izle);
-        exit_dialog = (Button) dialog.findViewById(R.id.exit_reklam);
+        izle_button = (Button) dialog_reklam.findViewById(R.id.reklam_izle);
+        exit_dialog = (Button) dialog_reklam.findViewById(R.id.exit_reklam);
         izle_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Rekla İzleyebilirsiniz", Toast.LENGTH_LONG).show();
+                if (mRewardedVideoAd.isLoaded()) {
+                    mRewardedVideoAd.show();
+                } else {
+                    Toast.makeText(getActivity(), "Lütfen biraz bekleyin", Toast.LENGTH_LONG).show();
+                }
             }
         });
         exit_dialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                dialog_reklam.dismiss();
             }
         });
-        dialog.show();
+        dialog_reklam.show();
 
+    }
+
+    public void odullu_reklam() {
+        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(getActivity());
+        mRewardedVideoAd.loadAd("ca-app-pub-7740710689946524/6704363861", new AdRequest.Builder().build());
+        mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
+            @Override
+            public void onRewardedVideoAdLoaded() {
+
+            }
+
+            @Override
+            public void onRewardedVideoAdOpened() {
+
+            }
+
+            @Override
+            public void onRewardedVideoStarted() {
+
+            }
+
+            @Override
+            public void onRewardedVideoAdClosed() {
+                odullu_reklam();
+
+            }
+
+            @Override
+            public void onRewarded(RewardItem rewardItem) {
+                reklam_kalp = rewardItem.getAmount();
+                Log.i("Reklamcan", ":" + reklam_kalp);
+
+            }
+
+            @Override
+            public void onRewardedVideoAdLeftApplication() {
+
+            }
+
+            @Override
+            public void onRewardedVideoAdFailedToLoad(int i) {
+
+            }
+
+            @Override
+            public void onRewardedVideoCompleted() {
+                databaseReference.child("Puanlar").child(user_id).child("kalp").setValue(2);
+                dialog_reklam.dismiss();
+                odullu_reklam();
+            }
+        });
     }
 
     public void ogretici() {

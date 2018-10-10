@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Tinder</string>
+    <string name="app_name">Wise Up</string>
     <string name="hayir">Hayır</string>
     <string name="giris_login">Login</string>
     <string name="title_activity_login">Oturum Aç</string>
@@ -87,4 +87,25 @@
     <string name="oyun_kacis">Oyundan mı kaçıyorsun?</string>
     <string name="donusum_text">Altınları ve Elmasları bozdurmanın zamanı geldi</string>
     <string name="gec">Geç</string>
+    <string name="can_text1">9 tane can</string>
+    <string name="can_text2">19 tane can</string>
+    <string name="can_text3">54 tane can</string>
+    <string name="can_text4">200  tane can</string>
+    <string name="para_text1">10  tane para</string>
+    <string name="para_text2">20  tane para</string>
+    <string name="para_text3">30  tane para</string>
+    <string name="para_text4">40  tane para</string>
+    <string name="elmas_text1">5 tane elmas</string>
+    <string name="elmas_text2">10  tane elmas</string>
+    <string name="elmas_text3">20  tane elmas</string>
+    <string name="elmas_text4">30  tane elmas</string>
+    <string name="ogretici_text">Oyuna başlamak için buraya tıklayın</string>
+    <string name="fiyat_5">15 ₺</string>
+    <string name="fiyat_6">19 ₺</string>
+    <string name="fiyat_7">24 ₺</string>
+    <string name="fiyat_8">30 ₺</string>
+    <string name="fiyat_9">3 ₺</string>
+    <string name="fiyat_10">6 ₺</string>
+    <string name="fiyat_11">8 ₺</string>
+    <string name="fiyat_12">10 ₺</string>
 </resources>

@@ -229,7 +229,7 @@ public class GecisActivity extends AppCompatActivity {
         databaseReference.child("Puanlar").child(user_id).child("kalp").setValue(5);
         databaseReference.child("Puanlar").child(user_id).child("para").setValue(0);
         databaseReference.child("Puanlar").child(user_id).child("elmas").setValue(0);
-        databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(100);
+        databaseReference.child("Yarisma").child(user_id).child("siralama").setValue(100000);
 
     }
 

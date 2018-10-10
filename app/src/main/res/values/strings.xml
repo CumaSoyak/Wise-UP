@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Tinder</string>
+    <string name="app_name">Wise Up</string>
     <string name="title_activity_login">Sign in</string>
     <string name="facebook_app_id">211572389715215</string>
     <string name="fb_login_protocol_scheme">fb211572389715215</string>
@@ -69,25 +69,35 @@
     <string name="tamamla">Complete</string>
     <string name="ikinci_sans">DO  YOU  WANT  MORE CHANCES ?</string>
     <string name="video_izle">Watch video</string>
-    <string name="fiyat_1">9 $</string>
-    <string name="fiyat_2">19 $</string>
-    <string name="fiyat_3">54 $</string>
-    <string name="fiyat_4">79 $</string>
+    <string name="fiyat_1">1 $</string>
+    <string name="fiyat_2">3 $</string>
+    <string name="fiyat_3">6 $</string>
+    <string name="fiyat_4">10 $</string>
 
-    <string name="can_text1">9 lives</string>
-    <string name="can_text2">19 lives</string>
-    <string name="can_text3">54 lives</string>
+    <string name="fiyat_5">2 $</string>
+    <string name="fiyat_6">4 $</string>
+    <string name="fiyat_7">5 $</string>
+    <string name="fiyat_8">8 $</string>
+
+    <string name="fiyat_9">3 $</string>
+    <string name="fiyat_10">6 $</string>
+    <string name="fiyat_11">8 $</string>
+    <string name="fiyat_12">10 $</string>
+
+    <string name="can_text1">10 lives</string>
+    <string name="can_text2">25 lives</string>
+    <string name="can_text3">50 lives</string>
     <string name="can_text4">200 lives</string>
 
-    <string name="para_text1">10 coins</string>
-    <string name="para_text2">20 coins</string>
-    <string name="para_text3">30 coins</string>
-    <string name="para_text4">40 coins</string>
+    <string name="para_text1">1000 coins</string>
+    <string name="para_text2">3500 coins</string>
+    <string name="para_text3">5000 coins</string>
+    <string name="para_text4">9000 coins</string>
 
-    <string name="elmas_text1">5 diamonds</string>
-    <string name="elmas_text2">10 diamonds</string>
-    <string name="elmas_text3">20 diamonds</string>
-    <string name="elmas_text4">30 diamonds</string>
+    <string name="elmas_text1">25 diamonds</string>
+    <string name="elmas_text2">60 diamonds</string>
+    <string name="elmas_text3">100 diamonds</string>
+    <string name="elmas_text4">250 diamonds</string>
 
     <string name="onay">Accept</string>
     <string name="savasci_tarih">Historian</string>
@@ -107,7 +117,9 @@
     <string name="oyun_kacis">Are you avoiding the game?</string>
     <string name="gec">Next</string>
     <string name="ogretici_text">Click here to start the game</string>
-
+    <string name="para_text">money</string>
+    <string name="can_text">heart</string>
+    <string name="elmas_text">diamond</string>
 
 
 </resources>

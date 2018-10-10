@@ -11,7 +11,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-   /* signingConfigs{
+    /* signingConfigs{
         key{
             keyAlias 'cuma'
             keyPassword '5386399039'
@@ -19,7 +19,7 @@ android {
             storePassword '5386399039'
         }
     }*/
-    buildTypes {
+     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -31,7 +31,7 @@ android {
             res.srcDirs = ['src/main/res', 'src/main/res/drawable']
         }
     }
-}
+ }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -58,5 +58,7 @@ dependencies {
     // implementation 'com.facebook.android:facebook-login:4.35.0'
     implementation 'com.google.android.gms:play-services-ads:17.0.0'
     implementation 'com.google.firebase:firebase-ads:17.0.0'
+    implementation 'com.android.billingclient:billing:1.1'
+
 }
 apply plugin: 'com.google.gms.google-services'
